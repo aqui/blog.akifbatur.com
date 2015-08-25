@@ -260,6 +260,23 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.2</version>
 		</dependency>
+		<!-- JSR-330 -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<!-- JSF -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.1.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.1.13</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -276,6 +293,18 @@
 			<artifactId>jsp-api</artifactId>
 			<version>${jsp.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- EL -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<!-- Tomcat need this -->
+		<dependency>
+			<groupId>com.sun.el</groupId>
+			<artifactId>el-ri</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
