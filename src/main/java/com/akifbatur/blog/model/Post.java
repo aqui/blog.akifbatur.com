@@ -1,4 +1,4 @@
-package com.akifbatur.model;
+package com.akifbatur.blog.model;
 /**
  * @author Akif Batur
  * 

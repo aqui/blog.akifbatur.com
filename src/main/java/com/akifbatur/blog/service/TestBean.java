@@ -1,4 +1,4 @@
-package com.akifbatur.service;
+package com.akifbatur.blog.service;
 
 import java.io.Serializable;
 

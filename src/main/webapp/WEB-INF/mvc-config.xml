@@ -23,6 +23,6 @@
 	
 	<!-- Controllers -->
 	<!-- Redirecting requests on "/" to the index.xhtml -->
-	<bean id="indexController" class="com.akifbatur.controller.IndexController"></bean>
+	<bean id="indexController" class="com.akifbatur.blog.controller.IndexController"></bean>
 	
 </beans>

@@ -1,4 +1,4 @@
-package com.akifbatur.controller;
+package com.akifbatur.blog.controller;
 /**
  * @author Akif Batur
  * 
