@@ -10,8 +10,32 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
-	<!-- <context:component-scan base-package="com.akifbatur.*"/> -->
-	<!-- <context:annotation-config/> -->
+	<context:component-scan base-package="com.akifbatur.*"/>
+	<context:annotation-config/>
 	<!-- <aop:aspectj-autoproxy/> -->
+	
+	<!-- Basic MySQL DataSource settings-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/TEST" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	
+	<bean id="authorDao" class="com.akifbatur.blog.dao.AuthorDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="categoryDao" class="com.akifbatur.blog.dao.CategoryDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="commentDao" class="com.akifbatur.blog.dao.CommentDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="postDao" class="com.akifbatur.blog.dao.PostDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="tagDao" class="com.akifbatur.blog.dao.TagDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 	
 </beans>
