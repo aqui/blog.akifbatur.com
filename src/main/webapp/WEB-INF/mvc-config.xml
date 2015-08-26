@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -14,15 +13,23 @@
 	<!-- <mvc:annotation-driven /> -->
 	<!-- <context:annotation-config/> -->
 	<!-- <aop:aspectj-autoproxy/> -->
-	
+
 	<!-- Requests will be redirected to the views like the index.xhtml -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	        <property name="prefix" value="/WEB-INF/view/"/>
-	        <property name="suffix" value=".xhtml"/>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".xhtml" />
 	</bean>
-	
+
 	<!-- Controllers -->
 	<!-- Redirecting requests on "/" to the index.xhtml -->
 	<bean id="indexController" class="com.akifbatur.blog.controller.IndexController"></bean>
-	
+
+	<!-- Basic MySQL DataSource settings-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/BLOG" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
 </beans>

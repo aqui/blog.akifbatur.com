@@ -3,6 +3,6 @@ package com.akifbatur.blog.aspect;
  * @author Akif Batur
  * 
  */
-public class Logging {
+public class LoggingAspect {
 
 }

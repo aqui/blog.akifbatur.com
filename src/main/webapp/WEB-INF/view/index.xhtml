@@ -14,7 +14,11 @@
 	</h:head>
 	
 	<h:body>
-		<center><h1>#{testBean.printMsg()}</h1></center>
+		<center>
+			<h1>#{testBean.printMsg()}</h1>
+			<h1>${testController}</h1>
+			<h1><h:outputText value="#{msg['1_welcome.message']}"></h:outputText></h1>
+		</center>
 	</h:body>
 
 </html>
