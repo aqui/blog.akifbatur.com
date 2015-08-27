@@ -22,20 +22,33 @@
 		<property name="password" value="root" />
 	</bean>
 	
-	<bean id="authorDao" class="com.akifbatur.blog.dao.AuthorDao">
+	<!-- Basic Hibernate settings -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<bean id="categoryDao" class="com.akifbatur.blog.dao.CategoryDao">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<bean id="commentDao" class="com.akifbatur.blog.dao.CommentDao">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<bean id="postDao" class="com.akifbatur.blog.dao.PostDao">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<bean id="tagDao" class="com.akifbatur.blog.dao.TagDao">
-		<property name="dataSource" ref="dataSource"></property>
+		<!-- Scan model classes in this package -->
+		<property name="packagesToScan" value="com.akifbatur.blog.model"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
 	</bean>
 	
+	<!-- DAO beans -->
+	<bean id="authorDao" class="com.akifbatur.blog.dao.AuthorDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="categoryDao" class="com.akifbatur.blog.dao.CategoryDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="commentDao" class="com.akifbatur.blog.dao.CommentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="postDao" class="com.akifbatur.blog.dao.PostDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="tagDao" class="com.akifbatur.blog.dao.TagDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		
 </beans>
