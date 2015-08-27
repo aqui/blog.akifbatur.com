@@ -23,7 +23,7 @@ public class TestBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	//An example method
-	public String printName()
+	public int printName()
 	{
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		AuthorDao authorDao = (AuthorDao) context.getBean("authorDao");
