@@ -1,9 +1,11 @@
 package com.akifbatur.blog;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,7 +23,7 @@ public class TestBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	//An example method
-	public String printMsg()
+	public String printName()
 	{
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		AuthorDao authorDao = (AuthorDao) context.getBean("authorDao");

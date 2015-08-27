@@ -11,9 +11,10 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<locale-config>
 			<default-locale>tr</default-locale>
+			<supported-locale>en</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>messages</base-name>
+			<base-name>com.akifbatur.blog.internationalization.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
 	</application>

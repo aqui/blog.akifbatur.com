@@ -19,7 +19,7 @@ public class IndexController
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView showIndex(ModelMap model)
 	{
-		model.addAttribute("testController", "This is a value from controller");
+		model.addAttribute("testController", "index controller");
 		return new ModelAndView("index");
 	}
 }
