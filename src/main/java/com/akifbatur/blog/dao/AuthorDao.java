@@ -1,18 +1,31 @@
 package com.akifbatur.blog.dao;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
-import org.springframework.stereotype.Component;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 
 /**
  * @author Akif Batur
  * 
  */
-public class AuthorDao extends NamedParameterJdbcDaoSupport
+public class AuthorDao
 {
+	private SessionFactory sessionFactory;
+
 	//An example method
-	public String getAuthorName(int id)
+	public int getAuthorName(int id)
 	{
-		String sql = "select name from Student where id = ?";
-		return this.getJdbcTemplate().queryForObject(sql, new Object[] {id}, String.class);
+		String hql = "select id from Author where id = "+id;
+		Query query = getSessionFactory().openSession().createQuery(hql);
+		return (int)query.uniqueResult();
+	}
+
+	public SessionFactory getSessionFactory() 
+	{
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) 
+	{
+		this.sessionFactory = sessionFactory;
 	}
 }
