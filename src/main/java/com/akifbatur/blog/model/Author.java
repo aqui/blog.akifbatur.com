@@ -1,9 +1,25 @@
 package com.akifbatur.blog.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * @author Akif Batur
  * 
  */
-public class Author {
+@Entity
+public class Author 
+{
+	@Id
+	private int id;
+	
+	public int getId() 
+	{
+		return id;
+	}
 
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
 }
