@@ -33,22 +33,5 @@
 			</props>
 		</property>
 	</bean>
-	
-	<!-- DAO beans -->
-	<bean id="authorDao" class="com.akifbatur.blog.dao.AuthorDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="categoryDao" class="com.akifbatur.blog.dao.CategoryDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="commentDao" class="com.akifbatur.blog.dao.CommentDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="postDao" class="com.akifbatur.blog.dao.PostDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="tagDao" class="com.akifbatur.blog.dao.TagDao">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
 		
 </beans>

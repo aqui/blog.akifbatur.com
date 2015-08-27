@@ -1,13 +1,17 @@
 package com.akifbatur.blog.dao;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Akif Batur
  * 
  */
+@Repository
 public class PostDao
 {
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() 

@@ -2,13 +2,17 @@ package com.akifbatur.blog.dao;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Akif Batur
  * 
  */
+@Repository
 public class AuthorDao
 {
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	//An example method
