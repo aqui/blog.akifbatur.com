@@ -1,9 +1,11 @@
 package com.akifbatur.blog.dao;
 
-import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.akifbatur.blog.model.Author;
 
 /**
  * @author Akif Batur
@@ -16,11 +18,22 @@ public class AuthorDao
 	private SessionFactory sessionFactory;
 
 	//An example method
-	public int getAuthorName(int id)
+	public Author getAuthorName(int authorId)
 	{
-		String hql = "select id from Author where id = "+id;
-		Query query = getSessionFactory().openSession().createQuery(hql);
-		return (int)query.uniqueResult();
+		Session session = getSessionFactory().openSession();
+		Author author = null;
+		try 
+		{			
+			session.beginTransaction();
+			author = (Author) session.get(Author.class, authorId);
+			session.getTransaction().commit();
+		}
+		catch(Exception ex)
+		{
+			session.getTransaction().rollback();
+		}
+		
+		return author;
 	}
 
 	public SessionFactory getSessionFactory() 
