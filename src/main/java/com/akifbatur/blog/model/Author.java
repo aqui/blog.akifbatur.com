@@ -2,6 +2,8 @@ package com.akifbatur.blog.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +17,7 @@ public class Author
 {
 	@Id
 	@Column(name="AUTHOR_ID") //Column name is AUTHOR_ID
+	@GeneratedValue(strategy=GenerationType.AUTO) //Value will be generated automatically
 	private int id;
 	
 	@Column(name="AUTHOR_NAME") //Column name is AUTHOR_NAME 
