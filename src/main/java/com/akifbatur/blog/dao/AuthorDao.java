@@ -22,7 +22,7 @@ public class AuthorDao
 	{
 		Session session = getSessionFactory().openSession();
 		Author author = null;
-		try 
+		try
 		{			
 			session.beginTransaction();
 			author = (Author) session.get(Author.class, authorId);
@@ -32,7 +32,10 @@ public class AuthorDao
 		{
 			session.getTransaction().rollback();
 		}
-		
+		finally
+		{
+			session.close();
+		}
 		return author;
 	}
 

@@ -22,9 +22,8 @@ public class TestBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	//An example method
-	public String printName()
+	public String printName(int authorId)
 	{
-		int authorId = 19;
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		AuthorDao authorDao = (AuthorDao) context.getBean("authorDao");
 		Author author = authorDao.getAuthorName(authorId);
@@ -34,7 +33,7 @@ public class TestBean implements Serializable
 		}
 		else
 		{
-			return "Author is not found";
+			return "Not found.";
 		}
 	}
 }

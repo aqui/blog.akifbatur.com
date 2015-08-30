@@ -15,8 +15,9 @@
 	</h:head>
 	
 	<h:body>
+		<c:set var="authorId" value="#{param['authorId']}" scope="request" />
 		<center>
-			<h1>#{msg['2_value.from.database']}: #{testBean.printName()}</h1>
+			<h1>#{msg['2_value.from.database']}: #{testBean.printName(authorId)}</h1>
 			<h1>#{msg['3_value.from.controller']}: ${testController}</h1>
 			<h1><h:outputText value="#{msg['1_welcome.message']}"></h:outputText></h1>
 			<p:panelGrid columns="2">  
