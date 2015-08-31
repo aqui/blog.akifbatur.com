@@ -1,6 +1,6 @@
 @font-face {
 	font-family: atari;
-	src: url('#{resource['fonts/atari.ttf']}');
+	src: url('../fonts/atari.ttf');
 	font-size: x-small;
 }
 
