@@ -8,8 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Akif Batur
  * 
+ * @author Akif Batur
+ *
  */
 @Entity
 @Table(name="AUTHOR") //Table name is AUTHOR
@@ -18,19 +19,19 @@ public class Author
 	@Id
 	@Column(name="AUTHOR_ID") //Column name is AUTHOR_ID
 	@GeneratedValue(strategy=GenerationType.AUTO) //Value will be generated automatically
-	private int id;
+	private int authorId;
 	
 	@Column(name="AUTHOR_NAME") //Column name is AUTHOR_NAME 
 	private String authorName;
-	
-	public int getId() 
+
+	public int getAuthorId() 
 	{
-		return id;
+		return authorId;
 	}
 
-	public void setId(int id) 
+	public void setAuthorId(int authorId) 
 	{
-		this.id = id;
+		this.authorId = authorId;
 	}
 
 	public String getAuthorName() 
@@ -41,5 +42,11 @@ public class Author
 	public void setAuthorName(String authorName) 
 	{
 		this.authorName = authorName;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ID = "+authorId+", Name = "+authorName;
 	}
 }
