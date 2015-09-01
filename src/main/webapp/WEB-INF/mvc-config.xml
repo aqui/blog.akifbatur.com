@@ -7,6 +7,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+	<beans:import resource="datasource-config.xml"/>
+	<beans:import resource="hibernate-config.xml"/>
+	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 		
@@ -25,38 +28,9 @@
 		<beans:property name="prefix" value="/WEB-INF/view/" />
 		<beans:property name="suffix" value=".xhtml" />
 	</beans:bean>
-
-	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/BLOG" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="root" />
-	</beans:bean>
-	
-	<!-- Hibernate 4 SessionFactory Bean definition -->
-	<beans:bean id="hibernate4AnnotatedSessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="packagesToScan" value="com.akifbatur.blog.model"/>
-		<beans:property name="hibernateProperties">
-			<beans:props>
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
-				<beans:prop key="hibernate.show_sql">true</beans:prop>
-				<beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>
-			</beans:props>
-		</beans:property>
-	</beans:bean>
 	
 	<beans:bean id="authorDAO" class="com.akifbatur.blog.dao.AuthorDAOImpl"/>
 	
 	<beans:bean id="authorService" class="com.akifbatur.blog.service.AuthorServiceImpl"/>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-	</beans:bean>
 	
 </beans:beans>

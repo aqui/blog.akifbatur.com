@@ -16,41 +16,28 @@ import com.akifbatur.blog.model.Author;
  */
 @Repository
 public class AuthorDAOImpl implements AuthorDAO 
-{	
+{
 	private static final Logger logger = LoggerFactory.getLogger(AuthorDAOImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sessionFactory)
+
+	public void setSessionFactory(SessionFactory sessionFactory) 
 	{
 		this.sessionFactory = sessionFactory;
 	}
-	
-	public SessionFactory getSessionFactory() {
+
+	public SessionFactory getSessionFactory() 
+	{
 		return sessionFactory;
 	}
 
 	@Override
 	public Author getAuthorById(int authorId) 
 	{
-		Session session = getSessionFactory().openSession();
-		Author author = null;
-		try
-		{			
-			session.beginTransaction();
-			author = (Author) session.get(Author.class, authorId);
-			session.getTransaction().commit();
-		}
-		catch(Exception ex)
-		{
-			session.getTransaction().rollback();
-		}
-		finally
-		{
-			session.close();
-		}
-		logger.info("Author loaded successfully. Author details = "+author);
+		Session session = this.sessionFactory.getCurrentSession();
+		Author author = (Author) session.load(Author.class, new Integer(authorId));
+		logger.info("Author loaded successfully. Author details=" + author);
 		return author;
 	}
 }

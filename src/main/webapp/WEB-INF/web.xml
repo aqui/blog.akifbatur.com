@@ -1,82 +1,103 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  
-  <display-name>akif batur - blog</display-name>  
-  
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>dispatcherServlet</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/mvc-config.xml</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>facesServlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>facesServlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>facesServlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Servlet context initialization parameters -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/application-config.xml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Development</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-    <param-value>.xhtml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>facelets.DEVELOPMENT</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
-    <param-value>1</param-value>
-  </context-param>
-  
-  <!-- Filters -->
-  <filter>
-    <filter-name>charEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>charEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <mime-mapping>
-    <extension>xhtml</extension>
-    <mime-type>application/xml</mime-type>
-  </mime-mapping>
-  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>akif batur - blog</display-name>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/mvc-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>facesServlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>facesServlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>facesServlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<!-- Servlet context initialization parameters -->
+
+	<!-- Main Spring Framework configuration file -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/application-config.xml</param-value>
+	</context-param>
+
+	<!-- Allow the web application to define an alternate suffix for JSP pages 
+		containing JSF content. -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<!-- A human readable string describing where this particular JSF application 
+		is in the software development lifecycle. Valid values are "Development", 
+		"UnitTest", "SystemTest", or "Production", corresponding to the enum constants 
+		of the class javax.faces.application.ProjectStage. It is also possible to 
+		set this value via JNDI. See the javadocs for Application.getProjectStage(). -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<!-- When a page is requested, what interval in seconds should the compiler 
+		check for changes. If you don't want the compiler to check for changes once 
+		the page is compiled, then use a value of -1. Setting a low refresh period 
+		helps during development to be able to edit pages in a running application.The 
+		runtime must also consider the facelets.REFRESH_PERIOD param name as an alias 
+		to this param name for backwards compatibility with existing facelets tag 
+		libraries. -->
+	<context-param>
+		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+		<param-value>1</param-value>
+	</context-param>
+
+	<!-- Filters -->
+	<filter>
+		<filter-name>charEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>charEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Responsible for context loading -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Spring security filters will be added here -->
+
 </web-app>
