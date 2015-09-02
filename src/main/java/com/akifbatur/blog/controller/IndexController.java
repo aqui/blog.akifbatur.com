@@ -1,4 +1,4 @@
-package com.akifbatur.blog;
+package com.akifbatur.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,33 +10,40 @@ import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.service.AuthorService;
 
 /**
- * @author Akif Batur
- * When there is a request to the "/" it will be
- * redirected to the /WEB-INF/view/index.xhtml 
- * by the DispatcherServlet
+ * When there is a request to the "/" it will be redirected
+ * to the /WEB-INF/view/index.xhtml by the DispatcherServlet
+ * 
+ * @author Akif Batur 
+ *
  */
 @Controller
-public class IndexController
+@RequestMapping("/")
+public class IndexController 
 {
 	@Autowired
 	private AuthorService authorService;
-	
-	public void setPersonService(AuthorService authorService)
+
+	public void setAuthorService(AuthorService authorService)
 	{
 		this.authorService = authorService;
 	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+
+	public AuthorService getAuthorService() 
+	{
+		return authorService;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
 	public String getAuthor(Model model) 
 	{
 		Author author = null;
-		try
+		try 
 		{
 			author = this.authorService.getAuthorById(1);
 		} 
-		catch (Exception e)
+		catch (Exception e) 
 		{
-			
+
 		}
 		model.addAttribute("author", author);
 		return "index";

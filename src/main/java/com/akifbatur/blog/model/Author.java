@@ -13,17 +13,26 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="AUTHOR") //Table name is AUTHOR
+@Table(name="AUTHOR")
 public class Author 
 {
 	@Id
-	@Column(name="AUTHOR_ID") //Column name is AUTHOR_ID
-	@GeneratedValue(strategy=GenerationType.AUTO) //Value will be generated automatically
+	@Column(name="AUTHOR_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int authorId;
 	
-	@Column(name="AUTHOR_NAME") //Column name is AUTHOR_NAME 
+	@Column(name="AUTHOR_NAME")
 	private String authorName;
-
+	
+	@Column(name="AUTHOR_PASSWD")
+	private String authorPassword;
+	
+	@Column(name="AUTHOR_EMAIL")
+	private String authorEmail;
+	
+	@Column(name="AUTHOR_STATUS")
+	private boolean authorStatus; // Account enabled or disabled
+	
 	public int getAuthorId() 
 	{
 		return authorId;
@@ -48,5 +57,29 @@ public class Author
 	public String toString()
 	{
 		return "ID = "+authorId+", Name = "+authorName;
+	}
+
+	public String getAuthorPassword() {
+		return authorPassword;
+	}
+
+	public String getAuthorEmail() {
+		return authorEmail;
+	}
+
+	public boolean isAuthorStatus() {
+		return authorStatus;
+	}
+
+	public void setAuthorPassword(String authorPassword) {
+		this.authorPassword = authorPassword;
+	}
+
+	public void setAuthorEmail(String authorEmail) {
+		this.authorEmail = authorEmail;
+	}
+
+	public void setAuthorStatus(boolean authorStatus) {
+		this.authorStatus = authorStatus;
 	}
 }

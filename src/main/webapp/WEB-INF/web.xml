@@ -12,16 +12,14 @@
 <!-- 		<param-value>/WEB-INF/spring-security.xml</param-value> -->
 <!-- 	</context-param> -->
 
-	   <listener>
-  <listener-class>
-   org.springframework.web.context.ContextLoaderListener
-  </listener-class>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+   	<listener>
+  		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
    </listener>
-   <listener>
-  <listener-class>
-   org.springframework.web.context.request.RequestContextListener
-  </listener-class>
-   </listener>
+   
 	<!-- Listener to publish session created/destroyed events to the Spring 
 		Root WebApplicationContext -->
 <!-- 	<listener> -->

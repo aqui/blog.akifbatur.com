@@ -10,27 +10,28 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-<h:head>
-	<title>akif batur - blog</title>
-	<link rel="icon"
-		href="${request.contextPath}/resources/images/terminal.ico" />
-	<link rel="stylesheet" type="text/css"
-		href="${request.contextPath}/resources/css/style.css" />
-</h:head>
-
-<h:body>
-	<center>
-		<c:set var="authorName" value="${author.authorName}" scope="request" />
-		<h1>#{indexBean.printPrompt(authorName)}</h1>
-		<c:if test="${!empty author.authorId}">
-			<p:panelGrid columns="2">
-				<h:outputText value="${author.authorId}"/>
-				<h:outputText value="${author.authorName}"/>
-				<pe:gravatar value="akifbatur@protonmail.com"/>
-				<pe:gravatar value="akifbatur@protonmail.com" qrCode="true"/>
-			</p:panelGrid>
-		</c:if>
-	</center>
-</h:body>
+	<h:head>
+		<title>akif batur - blog</title>
+		<link rel="icon"
+			href="${request.contextPath}/resources/images/terminal.ico" />
+		<link rel="stylesheet" type="text/css"
+			href="${request.contextPath}/resources/css/style.css" />
+	</h:head>
+	
+	<c:if test="${!empty author.authorId}">
+		#{indexBean.setAuthor(author)}
+	</c:if>
+	
+	<h:body>
+		<center>
+			<h1></h1>
+				<p:panelGrid columns="2">
+					<h:outputText value="#{indexBean.author.authorId}"/>
+					<h:outputText value="#{indexBean.author.authorName}"/>
+					<pe:gravatar value="akifbatur@protonmail.com"/>
+					<pe:gravatar value="akifbatur@protonmail.com" qrCode="true"/>
+				</p:panelGrid>
+		</center>
+	</h:body>
 
 </html>
