@@ -11,7 +11,7 @@ import com.akifbatur.blog.service.AuthorService;
 
 /**
  * When there is a request to the "/" it will be redirected
- * to the /WEB-INF/view/index.xhtml by the DispatcherServlet
+ * to the /WEB-INF/view/index.jsp by the DispatcherServlet
  * 
  * @author Akif Batur 
  *

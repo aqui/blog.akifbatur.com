@@ -11,6 +11,8 @@
 			<id>aqui</id>
 			<name>Akif Batur</name>
 			<email>akifbatur@protonmail.com</email>
+			<organization>aqui@aqui~$</organization>
+			<url>http://www.akifbatur.com</url>
 		</developer>
 	</developers>
 	
@@ -18,12 +20,6 @@
 		<repository>
 			<id>JBoss repository</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
 		</repository>
 	</repositories>
 
@@ -50,13 +46,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring-framework.version}</version>
-			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		 <dependency>
             <groupId>org.springframework.security</groupId>
@@ -67,11 +56,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>3.2.3.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -164,7 +148,6 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>1.8.6</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjlib</artifactId>
@@ -237,9 +220,6 @@
 			<version>1.7.12</version>
 			<scope>runtime</scope>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -277,22 +257,10 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<!-- JSR-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
-		</dependency>
-		<!-- JSF -->
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>2.1.13</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>2.1.13</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -317,21 +285,10 @@
 			<artifactId>el-impl</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<!-- Tomcat need this -->
 		<dependency>
 			<groupId>com.sun.el</groupId>
 			<artifactId>el-ri</artifactId>
 			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>primefaces-extensions</artifactId>
-			<version>3.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -352,7 +309,6 @@
 	</dependencies>
 
 	<profiles>
-
 		<!-- for localhost deployments -->
 		<profile>
 			<id>localhost</id>
@@ -368,43 +324,5 @@
 			</build>
 		</profile>
 	</profiles>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-		<finalName>blog</finalName>
-	</build>
+	
 </project>
