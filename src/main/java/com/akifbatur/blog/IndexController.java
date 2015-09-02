@@ -16,7 +16,7 @@ import com.akifbatur.blog.service.AuthorService;
  * by the DispatcherServlet
  */
 @Controller
-public class IndexController 
+public class IndexController
 {
 	@Autowired
 	private AuthorService authorService;
@@ -34,7 +34,7 @@ public class IndexController
 		{
 			author = this.authorService.getAuthorById(1);
 		} 
-		catch (Exception e) 
+		catch (Exception e)
 		{
 			
 		}
