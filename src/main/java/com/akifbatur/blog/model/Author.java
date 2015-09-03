@@ -1,11 +1,20 @@
 package com.akifbatur.blog.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * 
@@ -13,73 +22,94 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="AUTHOR")
+@Table(name="AUTHOR", catalog="BLOG")
 public class Author 
 {
+	private static final Logger logger = LoggerFactory.getLogger(Author.class);
+	
 	@Id
-	@Column(name="AUTHOR_ID")
+	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int authorId;
+	private int id;
 	
-	@Column(name="AUTHOR_NAME")
-	private String authorName;
+	@Column(name="NICK", unique = true, nullable = false, length = 45)
+	private String nick;
 	
-	@Column(name="AUTHOR_PASSWD")
-	private String authorPassword;
+	@Column(name="PASSWORD", nullable = false, length = 45)
+	private String password;
 	
-	@Column(name="AUTHOR_EMAIL")
-	private String authorEmail;
+	@Column(name="NAME", nullable = false, length = 45)
+	private String name;
 	
-	@Column(name="AUTHOR_STATUS")
-	private boolean authorStatus; // Account enabled or disabled
+	@Column(name="EMAIL", nullable = false)
+	private String email;
 	
-	public int getAuthorId() 
-	{
-		return authorId;
+	@Column(name="STATUS", nullable = false)
+	private boolean status = false; // Account disabled default
+	
+	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	@Column(name="ROLE", nullable = false)
+	private Set<Role> role = new HashSet<Role>(0);
+
+	public int getId() {
+		return id;
 	}
 
-	public void setAuthorId(int authorId) 
-	{
-		this.authorId = authorId;
+	public String getNick() {
+		return nick;
 	}
 
-	public String getAuthorName() 
-	{
-		return authorName;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setAuthorName(String authorName) 
-	{
-		this.authorName = authorName;
+	public String getName() {
+		return name;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public Set<Role> getRole() {
+		return role;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public void setRole(Set<Role> role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "ID = "+authorId+", Name = "+authorName;
-	}
-
-	public String getAuthorPassword() {
-		return authorPassword;
-	}
-
-	public String getAuthorEmail() {
-		return authorEmail;
-	}
-
-	public boolean isAuthorStatus() {
-		return authorStatus;
-	}
-
-	public void setAuthorPassword(String authorPassword) {
-		this.authorPassword = authorPassword;
-	}
-
-	public void setAuthorEmail(String authorEmail) {
-		this.authorEmail = authorEmail;
-	}
-
-	public void setAuthorStatus(boolean authorStatus) {
-		this.authorStatus = authorStatus;
+		return "Author ID = "+id+" NICK = "+nick+" NAME = "+name+" STATUS = "+status;
 	}
 }
