@@ -1,5 +1,6 @@
 package com.akifbatur.blog.service;
 
+
 import com.akifbatur.blog.model.Author;
 
 /**
@@ -9,5 +10,5 @@ import com.akifbatur.blog.model.Author;
  */
 public interface AuthorService 
 {
-	public Author getAuthorById(int id);
+	public Author getAuthorById(int authorId);
 }

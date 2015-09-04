@@ -32,10 +32,10 @@ public class Author
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="NICK", unique = true, nullable = false, length = 45)
-	private String nick;
+	@Column(name="USERNAME", unique = true, nullable = false, length = 45)
+	private String userName;
 	
-	@Column(name="PASSWORD", nullable = false, length = 45)
+	@Column(name="PASSWORD", nullable = false, length = 60)
 	private String password;
 	
 	@Column(name="NAME", nullable = false, length = 45)
@@ -44,8 +44,8 @@ public class Author
 	@Column(name="EMAIL", nullable = false)
 	private String email;
 	
-	@Column(name="STATUS", nullable = false)
-	private boolean status = false; // Account disabled default
+	@Column(name="ENABLED", nullable = false)
+	private boolean enabled = false; // Account disabled by default
 	
 	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
 	@Column(name="ROLE", nullable = false)
@@ -55,8 +55,8 @@ public class Author
 		return id;
 	}
 
-	public String getNick() {
-		return nick;
+	public String getUserName() {
+		return userName;
 	}
 
 	public String getPassword() {
@@ -71,8 +71,8 @@ public class Author
 		return email;
 	}
 
-	public boolean isStatus() {
-		return status;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	public Set<Role> getRole() {
@@ -83,8 +83,8 @@ public class Author
 		this.id = id;
 	}
 
-	public void setNick(String nick) {
-		this.nick = nick;
+	public void setNick(String userName) {
+		this.userName = userName;
 	}
 
 	public void setPassword(String password) {
@@ -99,8 +99,8 @@ public class Author
 		this.email = email;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public void setRole(Set<Role> role) {
@@ -110,6 +110,6 @@ public class Author
 	@Override
 	public String toString()
 	{
-		return "Author ID = "+id+" NICK = "+nick+" NAME = "+name+" STATUS = "+status;
+		return "Author ID = "+id+", USERNAME = "+userName+", NAME = "+name+", ENABLED = "+enabled;
 	}
 }

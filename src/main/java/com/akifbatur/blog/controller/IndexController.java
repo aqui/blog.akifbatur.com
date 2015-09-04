@@ -1,10 +1,17 @@
 package com.akifbatur.blog.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.service.AuthorService;
@@ -16,36 +23,24 @@ import com.akifbatur.blog.service.AuthorService;
  * @author Akif Batur 
  *
  */
-@Controller
-@RequestMapping("/")
+@Controller("indexController")
 public class IndexController 
 {
+	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
 	@Autowired
 	private AuthorService authorService;
 
-	public void setAuthorService(AuthorService authorService)
+	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
+	public ModelAndView getAuthor(Model model)
 	{
-		this.authorService = authorService;
-	}
-
-	public AuthorService getAuthorService() 
-	{
-		return authorService;
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String getAuthor(Model model) 
-	{
-		Author author = null;
-		try 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = "";
+		if (!(auth instanceof AnonymousAuthenticationToken)) 
 		{
-			author = this.authorService.getAuthorById(1);
-		} 
-		catch (Exception e) 
-		{
-
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			username = userDetail.getUsername();
 		}
-		model.addAttribute("author", author);
-		return "index";
+		return new ModelAndView("index", "username", username);
 	}
 }

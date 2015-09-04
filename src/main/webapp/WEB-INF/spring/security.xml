@@ -7,29 +7,39 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
+	<!-- Base package to scan beans -->
 	<context:component-scan base-package="com.akifbatur.*" />
 	
-	<!-- enable use-expressions -->
+	<!-- Enable use-expressions -->
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-
+		<intercept-url pattern="/author**" access="hasRole('ROLE_USER')" />
+		
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 		<form-login 
-		    login-page="/login" 
-		    default-target-url="/welcome"
+		    login-page="/login"
+		    login-processing-url="/j_spring_security_check"
+		    default-target-url="/"
 			authentication-failure-url="/login?error" 
 			username-parameter="username"
 			password-parameter="password" />
-		<logout logout-success-url="/login?logout" />
+		<logout logout-success-url="/" 
+		invalidate-session="true"
+		logout-url="/j_spring_security_logout"/>
 		<!-- enable csrf protection -->
 		<csrf />
 	</http>
 
 	<authentication-manager>
-		<authentication-provider user-service-ref="authorServiceImpl" >
-			<password-encoder hash="bcrypt" />    
+		<authentication-provider user-service-ref="loginService" >
+			<password-encoder hash="bcrypt" />
+			<password-encoder ref="encoder"/>  
 		</authentication-provider>
 	</authentication-manager>
 
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11"/>
+	</beans:bean>
+  
 </beans:beans>
