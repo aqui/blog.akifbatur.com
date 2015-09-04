@@ -18,7 +18,7 @@ import com.akifbatur.blog.model.Author;
  *
  */
 @Service("authorService")
-public class AuthorServiceImpl implements AuthorService, UserDetailsService
+public class AuthorServiceImpl implements AuthorService
 {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorServiceImpl.class);
 	
@@ -39,12 +39,5 @@ public class AuthorServiceImpl implements AuthorService, UserDetailsService
 			logger.error(e.toString());
 		}
 		return author;
-	}
-	
-	@Override
-	public UserDetails loadUserByUsername(String authorNick) throws UsernameNotFoundException 
-	{
-
-		return null;
 	}
 }
