@@ -5,6 +5,10 @@
 	<artifactId>blog</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
+	<inceptionYear>2015</inceptionYear>
+	<url>http://www.github.com/aqui/blog.akifbatur.com</url>
+	<name>blog.akifbatur.com</name>
+	<description>blog facility for my website akifbatur.com</description>
 	
 	<licenses>
 		<license>
@@ -23,7 +27,7 @@
 			<url>http://www.akifbatur.com</url>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
