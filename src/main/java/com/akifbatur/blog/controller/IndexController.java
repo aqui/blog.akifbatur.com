@@ -32,15 +32,8 @@ public class IndexController
 	private AuthorService authorService;
 
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
-	public ModelAndView getAuthor(Model model)
+	public String getAuthor(Model model)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = "";
-		if (!(auth instanceof AnonymousAuthenticationToken)) 
-		{
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			username = userDetail.getUsername();
-		}
-		return new ModelAndView("index", "username", username);
+		return "index";
 	}
 }

@@ -17,14 +17,14 @@
 		
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
-		<form-login 
+		<form-login
 		    login-page="/login"
 		    login-processing-url="/j_spring_security_check"
 		    default-target-url="/"
 			authentication-failure-url="/login?error" 
 			username-parameter="username"
-			password-parameter="password" />
-		<logout logout-success-url="/" 
+			password-parameter="password"/>
+		<logout logout-success-url="/"
 		invalidate-session="true"
 		logout-url="/j_spring_security_logout"/>
 		<!-- enable csrf protection -->
@@ -34,7 +34,7 @@
 	<authentication-manager>
 		<authentication-provider user-service-ref="loginService" >
 			<password-encoder hash="bcrypt" />
-			<password-encoder ref="encoder"/>  
+			<password-encoder ref="encoder"/>
 		</authentication-provider>
 	</authentication-manager>
 

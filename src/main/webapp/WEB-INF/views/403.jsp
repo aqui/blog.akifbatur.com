@@ -12,8 +12,10 @@
 			<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon" >
 			<title>akif batur - blog</title>
 	</head>
-	<body onload='document.loginForm.username.focus();'>
+	<body>
 		<div align="center">
+			not authorized!
+			<br><br>
 			<a href="${pageContext.request.contextPath}/">home</a>
 		</div>
 	</body>

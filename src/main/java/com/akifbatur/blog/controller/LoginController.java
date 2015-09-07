@@ -1,5 +1,7 @@
 package com.akifbatur.blog.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,8 @@ import com.akifbatur.blog.model.Author;
 @Controller("loginController")
 public class LoginController 
 {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@RequestMapping("/login")
 	public ModelAndView getLoginForm(@ModelAttribute Author author, @RequestParam(value = "error", required = false) String error)
 	{
@@ -32,41 +36,20 @@ public class LoginController
 	}
 
 	@RequestMapping("/admin**")
-	public ModelAndView getAdminProfile() 
+	public String getAdminProfile() 
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = "";
-		if (!(auth instanceof AnonymousAuthenticationToken)) 
-		{
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			username = userDetail.getUsername();
-		}
-		return new ModelAndView("admin", "username", username);
+		return "admin";
 	}
 
 	@RequestMapping("/author**")
-	public ModelAndView getAuthorProfile() 
+	public String getAuthorProfile() 
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = "";
-		if (!(auth instanceof AnonymousAuthenticationToken)) 
-		{
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			username = userDetail.getUsername();
-		}
-		return new ModelAndView("author", "username", username);
+		return "author";
 	}
 
 	@RequestMapping("/403")
-	public ModelAndView getAccessDenied() 
+	public String getAccessDenied() 
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = "";
-		if (!(auth instanceof AnonymousAuthenticationToken)) 
-		{
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			username = userDetail.getUsername();
-		}
-		return new ModelAndView("403", "username", username);
+		return "403";
 	}
 }

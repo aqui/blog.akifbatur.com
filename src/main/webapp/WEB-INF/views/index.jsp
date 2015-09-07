@@ -1,39 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
 <html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-			<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
-			<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon" >
-			<title>akif batur - blog</title>
-	</head>
-	<body onload='document.loginForm.username.focus();'>
-		<div align="center">
-			<c:if test="${not empty username}">
-				<div>Welcome ${username}</div>
-				<br>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a href="${pageContext.request.contextPath}/admin">admin</a>
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
-					<a href="${pageContext.request.contextPath}/author">author</a>
-				</sec:authorize>
-				<br><br>
+<head>
+<meta charset="utf-8" />
+<link href="${pageContext.request.contextPath}/resources/css/style.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/images/terminal.ico"
+	rel="icon">
+<title>akif batur - blog</title>
+</head>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.username" var="userName" />
+</sec:authorize>
+<body>
+	<div align="center">
+		<c:if test="${not empty userName}">
+			<div>welcome ${userName}</div>
+			<br>
+			<br>
+			<div align="right">
 				<c:url var="logoutUrl" value="/j_spring_security_logout" />
 				<form action="${logoutUrl}" method="post">
-					<input type="submit" value="logout" /> 
-					<sec:csrfInput/>
+					<input type="submit" value="logout" />
+					<sec:csrfInput />
 				</form>
-			</c:if>
-			<c:if test="${empty username}">
-				<c:url var="loginUrl" value="/login" />
-				<a href="${loginUrl}">login</a>
-			</c:if>
-		</div>
-	</body>
+			</div>
+		</c:if>
+	</div>
+	<br>
+	<br>
+	<div align="center">
+		<c:if test="${empty userName}">
+			<c:url var="loginUrl" value="/login" />
+			<a href="${loginUrl}">login</a>
+		</c:if>
+	</div>
+</body>
 </html>
