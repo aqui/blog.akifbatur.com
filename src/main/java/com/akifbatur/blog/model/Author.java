@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * 
  * @author Akif Batur
@@ -45,12 +44,20 @@ public class Author
 	private String email;
 	
 	@Column(name="ENABLED", nullable = false)
-	private boolean enabled = false; // Account disabled by default
+	private boolean enabled;
 	
+	//Each author has many roles
 	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
-	@Column(name="ROLE", nullable = false)
 	private Set<Role> role = new HashSet<Role>(0);
-
+	
+	//Each author has many posts
+	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	private Set<Post> post = new HashSet<Post>(0);
+	
+	//Each author has many categories
+	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	private Set<Category> category = new HashSet<Category>(0);
+	
 	public int getId() {
 		return id;
 	}
@@ -107,6 +114,26 @@ public class Author
 		this.role = role;
 	}
 	
+	public Set<Post> getPost() {
+		return post;
+	}
+
+	public Set<Category> getCategory() {
+		return category;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setPost(Set<Post> post) {
+		this.post = post;
+	}
+
+	public void setCategory(Set<Category> category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString()
 	{

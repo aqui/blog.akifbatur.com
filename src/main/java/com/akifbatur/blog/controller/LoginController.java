@@ -25,7 +25,7 @@ public class LoginController
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@RequestMapping("/login")
-	public ModelAndView getLoginForm(@ModelAttribute Author author, @RequestParam(value = "error", required = false) String error)
+	public ModelAndView getLoginForm(@RequestParam(value = "error", required = false) String error)
 	{
 		String message = "";
 		if (error != null)
