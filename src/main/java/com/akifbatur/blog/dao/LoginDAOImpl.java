@@ -20,6 +20,7 @@ import com.akifbatur.blog.model.Author;
 @Repository("loginDAO")
 public class LoginDAOImpl implements LoginDAO 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(AuthorDAOImpl.class);
 	
 	@Autowired

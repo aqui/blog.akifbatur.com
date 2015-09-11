@@ -5,15 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.slf4j.Logger;
@@ -28,6 +25,7 @@ import org.slf4j.LoggerFactory;
 @Table(name="TAG", catalog="BLOG")
 public class Tag 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Tag.class);
 	
 	@Id

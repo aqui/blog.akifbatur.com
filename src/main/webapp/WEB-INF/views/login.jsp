@@ -27,15 +27,15 @@
 				<div class="collapse navbar-collapse" id="mainNavBar">
 					<ul class="nav navbar-nav">
 						<li>
-							<a href="${pageContext.request.contextPath}/">home</a>
+							<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="${pageContext.request.contextPath}/signup">signup</a>
+							<a href="${pageContext.request.contextPath}/signup"><spring:message code="signup"/></a>
 						</li>
 						<li class="active">
-							<a href="">login</a>
+							<a href=""><spring:message code="login"/></a>
 						</li>
 					</ul>
 				</div>
@@ -52,21 +52,23 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">login</h4>
+							<h4 class="modal-title"><spring:message code="login"/></h4>
 						</div>
 						<div class="modal-body">
 							<form action="<c:url value='/login'/>" role="form" method="POST" name="loginForm">
 								<sec:csrfInput />
 								<div class="form-group">
-									<input type="text" placeholder="Username" name="username" required="required">
+									<input type="text" placeholder="<spring:message code="Username"/>" name="username" required="required">
 								</div>
 								<div class="form-group">
-									<input type="password" placeholder="Password" name="password" required="required">
+									<input type="password" placeholder="<spring:message code="Password"/>" name="password" required="required">
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer ">
-							<button class="btn btn-primary btn-block" type="submit" name="submit" onclick='document.loginForm.submit();'>login</button>
+							<button class="btn btn-primary btn-block" type="submit" name="submit" onclick='document.loginForm.submit();'>
+								<spring:message code="login"/>
+							</button>
 						</div>
 					</div>
 				</div>

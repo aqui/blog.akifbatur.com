@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("loginController")
 public class LoginController 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@RequestMapping("/login")

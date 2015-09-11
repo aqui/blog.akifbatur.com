@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 @Table(name="AUTHOR", catalog="BLOG")
 public class Author 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Author.class);
 	
 	@Id

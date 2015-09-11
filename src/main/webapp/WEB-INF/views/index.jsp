@@ -32,16 +32,16 @@
 				<div class="collapse navbar-collapse" id="mainNavBar">
 					<ul class="nav navbar-nav">
 						<li class="active">
-							<a href="">home</a>
+							<a href=""><spring:message code="home"/></a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:if test="${empty userName}">
 							<li>
-								<a href="${pageContext.request.contextPath}/signup">signup</a>
+								<a href="${pageContext.request.contextPath}/signup"><spring:message code="signup"/></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/login">login</a>
+								<a href="${pageContext.request.contextPath}/login"><spring:message code="login"/></a>
 							</li>
 						</c:if>
 						<c:if test="${not empty userName}">
@@ -53,7 +53,7 @@
 								<form action="${logoutUrl}" method="post" name="logoutForm">
 									<sec:csrfInput />
 								</form> 
-								<a href="#" onclick='document.logoutForm.submit();'>logout</a>
+								<a href="#" onclick='document.logoutForm.submit();'><spring:message code="logout"/></a>
 							</li>
 						</c:if>
 					</ul>

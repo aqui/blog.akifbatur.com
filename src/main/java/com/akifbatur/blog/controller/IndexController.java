@@ -20,6 +20,7 @@ import com.akifbatur.blog.service.AuthorService;
 @Controller("indexController")
 public class IndexController 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@Autowired

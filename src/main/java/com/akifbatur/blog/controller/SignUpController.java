@@ -22,6 +22,7 @@ import com.akifbatur.blog.service.AuthorService;
 @RequestMapping("/signup")
 public class SignUpController 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(SignUpController.class);
 	
 	@Autowired

@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.slf4j.Logger;
@@ -27,6 +26,7 @@ import org.slf4j.LoggerFactory;
 @Table(name="POST", catalog="BLOG")
 public class Post 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Post.class);
 	
 	@Id

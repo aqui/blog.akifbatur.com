@@ -2,7 +2,6 @@ package com.akifbatur.blog.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +21,7 @@ import org.slf4j.LoggerFactory;
 @Table(name="ROLE", catalog="BLOG")
 public class Role 
 {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Author.class);
 	
 	@Id

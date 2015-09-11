@@ -46,7 +46,31 @@
 	</properties>
 
 	<dependencies>
-
+		
+		<!-- 
+			spring-security-taglibs
+			spring-security-web
+			spring-security-config
+			spring-context
+			spring-webmvc
+			spring-tx
+			spring-aop
+			spring-aspects
+			spring-beans
+			spring-context-support
+			spring-core
+			spring-expression
+			spring-instrument
+			spring-instrument-tomcat
+			spring-jdbc
+			spring-jms
+			spring-orm
+			spring-oxm
+			spring-web
+			spring-webmvc-portlet
+			spring-test
+		 -->
+		 
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
