@@ -2,21 +2,67 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-			<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" >
-			<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon" >
-			<title>akif batur - blog</title>
+		<meta charset="utf-8" />
+		<title>akif batur - blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon">
+		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 	</head>
+	
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.username" var="userName" />
+	</sec:authorize>
+	
 	<body>
-		<div align="center">
-			not authorized!
-			<br><br>
-			<a href="${pageContext.request.contextPath}/">home</a>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">aqui@aqui~$</a>
+				</div>
+				<div class="collapse navbar-collapse" id="mainNavBar">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="${pageContext.request.contextPath}/">home</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<c:if test="${empty userName}">
+							<li>
+								<a href="${pageContext.request.contextPath}/signup">signup</a>
+							</li>
+							<li>
+								<a href="${pageContext.request.contextPath}/login">login</a>
+							</li>
+						</c:if>
+						<c:if test="${not empty userName}">
+							<li>
+								<a href="${pageContext.request.contextPath}/author">${userName}</a>
+							</li>
+							<li>
+								<c:url var="logoutUrl" value="/logout" />
+								<form action="${logoutUrl}" method="post" name="logoutForm">
+									<sec:csrfInput />
+								</form> 
+								<a href="#" onclick='document.logoutForm.submit();'>logout</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="alert alert-danger fade in" align="center">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			you are not authorized to see this page
 		</div>
 	</body>
 </html>

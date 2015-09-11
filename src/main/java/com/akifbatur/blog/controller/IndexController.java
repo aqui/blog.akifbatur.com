@@ -25,8 +25,8 @@ public class IndexController
 	@Autowired
 	private AuthorService authorService;
 
-	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
-	public String getAuthor(Model model)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String getAuthor(Model indexModel)
 	{
 		return "index";
 	}

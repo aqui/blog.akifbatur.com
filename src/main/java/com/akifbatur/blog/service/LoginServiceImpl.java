@@ -1,6 +1,7 @@
 package com.akifbatur.blog.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +47,7 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 		catch (Exception e) 
 		{
 			logger.error(e.toString());
+			return null;
 		}
 		List<GrantedAuthority> authorities = buildUserAuthority(author.getRole());
 		return buildUserForAuthentication(author, authorities);
