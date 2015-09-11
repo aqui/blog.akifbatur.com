@@ -11,12 +11,13 @@
 	
 	<context:component-scan base-package="com.akifbatur.*" />
 	
-	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/BLOG" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="root" />
+	<context:property-placeholder location="classpath:database.properties"/>
+	
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName" value="${database.driverClassName}" />
+		<beans:property name="url" value="${database.url}" />
+		<beans:property name="username" value="${database.username}" />
+		<beans:property name="password" value="${database.password}" />
 	</beans:bean>
 	
 	<!-- Hibernate 4 SessionFactory Bean definition -->

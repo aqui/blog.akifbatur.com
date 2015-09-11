@@ -1,8 +1,10 @@
 package com.akifbatur.blog.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
+import org.hibernate.annotations.Cascade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,10 +48,16 @@ public class Author
 	private String email;
 	
 	@Column(name="ENABLED", nullable = false)
-	private boolean enabled;
+	private boolean enabled = true;
+	
+	@Column(name="JOIN_DATE", nullable = false)
+	private Date joinDate;
+	
+	@Column(name="LOGIN_DATE", nullable = false)
+	private Date loginDate;
 	
 	//Each author has many roles
-	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private Set<Role> role = new HashSet<Role>(0);
 	
 	//Each author has many posts
@@ -134,9 +144,26 @@ public class Author
 		this.category = category;
 	}
 
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public Date getLoginDate() {
+		return loginDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "Author ID = "+id+", USERNAME = "+userName+", NAME = "+name+", ENABLED = "+enabled;
+		return String.format("ID = %s, NAME = %s, USERNAME = %s, EMAIL = %s, ENABLED = %s, "
+				+ "JOIN_DATE = %s, LOGIN_DATE = %s", id, name, userName, email, enabled, joinDate, loginDate);
 	}
 }

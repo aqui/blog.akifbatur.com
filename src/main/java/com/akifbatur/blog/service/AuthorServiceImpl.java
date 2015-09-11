@@ -40,4 +40,18 @@ public class AuthorServiceImpl implements AuthorService
 		}
 		return author;
 	}
+
+	@Override
+	@Transactional
+	public void saveAuthor(Author author)
+	{
+		try 
+		{
+			this.authorDAO.saveAuthor(author);
+		} 
+		catch (Exception e) 
+		{
+			logger.error(e.toString());
+		}
+	}
 }

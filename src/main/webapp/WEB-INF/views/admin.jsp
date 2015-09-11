@@ -27,7 +27,7 @@
 			<br>
 			<br>
 			<div align="right">
-				<c:url var="logoutUrl" value="/j_spring_security_logout" />
+				<c:url var="logoutUrl" value="/logout" />
 				<form action="${logoutUrl}" method="post">
 					<input type="submit" value="logout" />
 					<sec:csrfInput />

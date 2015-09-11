@@ -10,4 +10,6 @@ import com.akifbatur.blog.model.Author;
 public interface AuthorDAO 
 {
 	public Author getAuthorById(int authorId);
+
+	public void saveAuthor(Author author);
 }
