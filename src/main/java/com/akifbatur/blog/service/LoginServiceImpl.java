@@ -42,7 +42,7 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 		try
 		{
 			author = loginDAO.findByUserName(userName);
-		} 
+		}
 		catch (Exception e) 
 		{
 			logger.error(e.toString());

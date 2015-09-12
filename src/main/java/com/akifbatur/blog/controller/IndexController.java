@@ -22,9 +22,6 @@ public class IndexController
 {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-	
-	@Autowired
-	private AuthorService authorService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getAuthor(Model indexModel)

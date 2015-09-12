@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * When there is a request on /login, login.jsp page
+ * will be displayed. Form on login page is will be
+ * posted to the spring security. That's why userName
+ * and password field names on login form must be
+ * matching with the spring security fields defined in
+ * spring-security.xml
  * 
  * @author Akif Batur
  *
@@ -25,7 +31,7 @@ public class LoginController
 		String message = "";
 		if (error != null)
 		{
-			message = "incorrect username or password";
+			message = "incorrectCredentials";
 		}
 		loginModel.addAttribute("message",message);
 		return new ModelAndView("login", "loginModel", loginModel);

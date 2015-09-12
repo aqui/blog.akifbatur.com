@@ -44,7 +44,6 @@ public class AuthorDAOImpl implements AuthorDAO
 		author.setPassword(encoder.encode(author.getPassword()));
 		//Set author role as ROLE_USER by default
 		Role role = new Role();
-		role.setRole("ROLE_USER");
 		role.setAuthorId(author);
 		author.getRole().add(role);
 		author.setJoinDate(new Date());

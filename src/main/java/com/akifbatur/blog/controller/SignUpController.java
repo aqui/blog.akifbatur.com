@@ -1,19 +1,25 @@
 package com.akifbatur.blog.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.service.AuthorService;
 
 /**
+ * When there is a request on /signup, signup.jsp page
+ * will be displayed. POST and GET requests will be
+ * handled in this controller.
  * 
  * @author Akif Batur 
  *
@@ -29,68 +35,44 @@ public class SignUpController
 	private AuthorService authorService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView signup(Model signupModel, @RequestParam(value = "error", required = false) String error)
+	public ModelAndView signup(Model signupModel)
 	{
-		String message = "";
-		if(error!=null)
-		{
-			if (error.equals("name"))
-			{
-				message = "incorrect name";
-			}
-			else if(error.equals("userName"))
-			{
-				message = "incorrect username";
-			}
-			else if(error.equals("email"))
-			{
-				message = "incorrect email";
-			}
-			else if(error.equals("password"))
-			{
-				message = "incorrect password";
-			}
-			else if(error.equals("exist"))
-			{
-				message = "this username is exist";
-			}
-		}
-		signupModel.addAttribute("message", message);
+		/**
+		 * If it's first time that user open the signup page
+		 * then there should be no errors displayed. That's why we create
+		 * a new Author object.
+		 * */
+		signupModel.addAttribute("author",new Author());
 		return new ModelAndView("signup", "signupModel", signupModel);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String saveAuthor(Author author)
+	public ModelAndView saveAuthor(Model saveAuthorModel, @ModelAttribute("author") @Valid Author author, BindingResult result)
 	{
-		//Author fields and form fields must be matching
+		/**
+		 * Author fields and form fields must be matching.
+		 * Errors on posted data or persisting
+		 * exceptions will be handled in here.
+		 * */
 		
-		//One last check before persist the user
-		if(author.getName().equals(""))
+		if(result.hasErrors())
 		{
-			return "redirect:/signup?error=name";
+			//If there is an error on any form field return to signup page
+			return new ModelAndView("signup", "signupModel", saveAuthorModel);
 		}
-		else if(author.getUserName().equals(""))
-		{
-			return "redirect:/signup?error=userName";
-		}
-		else if(author.getEmail().equals(""))
-		{
-			return "redirect:/signup?error=email";
-		}
-		else if(author.getPassword().equals(""))
-		{
-			return "redirect:/signup?error=password";
-		}
-
+		
 		try 
 		{
+			//Try to save the author
 			this.authorService.saveAuthor(author);
 		}
 		catch(Exception ex)
 		{
-			return "redirect:/signup?error=exist";
+			//If there is an error return to signup page
+			return new ModelAndView("signup", "signupModel", saveAuthorModel);
 		}
 		
-		return "/login";
+		//If there is no error return to login page
+		return new ModelAndView("login", "signupModel", saveAuthorModel);
 	}
 }

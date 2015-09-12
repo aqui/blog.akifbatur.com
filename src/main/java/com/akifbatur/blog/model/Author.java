@@ -13,7 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,15 +37,28 @@ public class Author
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="USERNAME", unique = true, nullable = false, length = 45)
+	//Provided by the user at signup
+	@NotNull
+	@Size(max=20,min=3)
+	@Column(name="USERNAME", unique = true, nullable = false)
 	private String userName;
 	
-	@Column(name="PASSWORD", nullable = false, length = 60)
+	//Provided by the user at signup
+	@NotNull
+	@Size(max=240,min=8)
+	@Column(name="PASSWORD", nullable = false)
 	private String password;
 	
-	@Column(name="NAME", nullable = false, length = 45)
+	//Provided by the user at signup
+	@NotNull
+	@Size(max=20,min=3)
+	@Column(name="NAME", nullable = false)
 	private String name;
 	
+	//Provided by the user at signup
+	@NotNull
+	@Size(max=240,min=5)
+	@Email
 	@Column(name="EMAIL", nullable = false)
 	private String email;
 	

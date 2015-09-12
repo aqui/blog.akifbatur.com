@@ -24,7 +24,7 @@
 		    login-processing-url="/login"
 		    default-target-url="/"
 			authentication-failure-url="/login?error=incorrect" 
-			username-parameter="username"
+			username-parameter="userName"
 			password-parameter="password"/>
 		
 		<logout logout-success-url="/"

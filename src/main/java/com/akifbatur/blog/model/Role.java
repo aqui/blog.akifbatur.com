@@ -30,7 +30,7 @@ public class Role
 	private int id;
 	
 	@Column(name="ROLE", nullable = false, length=45)
-	private String role;
+	private String role = "ROLE_USER"; //New user role by default
 	
 	//Each role has an author
 	@ManyToOne
