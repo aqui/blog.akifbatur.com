@@ -12,6 +12,7 @@
 		<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon">
 		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/1.11.3.js"></script>
 	</head>
 	
 	<sec:authorize access="isAuthenticated()">

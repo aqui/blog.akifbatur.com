@@ -9,7 +9,7 @@
 	<url>http://www.github.com/aqui/blog.akifbatur.com</url>
 	<name>blog.akifbatur.com</name>
 	<description>blog facility for my website akifbatur.com</description>
-	
+
 	<licenses>
 		<license>
 			<name>GNU General Public License v3.0 or later</name>
@@ -17,7 +17,7 @@
 			<distribution>repository</distribution>
 		</license>
 	</licenses>
-	
+
 	<developers>
 		<developer>
 			<id>aqui</id>
@@ -46,31 +46,13 @@
 	</properties>
 
 	<dependencies>
-		
-		<!-- 
-			spring-security-taglibs
-			spring-security-web
-			spring-security-config
-			spring-context
-			spring-webmvc
-			spring-tx
-			spring-aop
-			spring-aspects
-			spring-beans
-			spring-context-support
-			spring-core
-			spring-expression
-			spring-instrument
-			spring-instrument-tomcat
-			spring-jdbc
-			spring-jms
-			spring-orm
-			spring-oxm
-			spring-web
-			spring-webmvc-portlet
-			spring-test
-		 -->
-		 
+
+		<!-- spring-security-taglibs spring-security-web spring-security-config 
+			spring-context spring-webmvc spring-tx spring-aop spring-aspects spring-beans 
+			spring-context-support spring-core spring-expression spring-instrument spring-instrument-tomcat 
+			spring-jdbc spring-jms spring-orm spring-oxm spring-web spring-webmvc-portlet 
+			spring-test -->
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -215,7 +197,12 @@
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+		
 		<!-- Other -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -276,11 +263,6 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.2.0.Final</version>
 		</dependency>
 	</dependencies>
 
