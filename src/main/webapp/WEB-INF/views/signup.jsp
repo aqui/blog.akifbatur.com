@@ -42,7 +42,11 @@
 		</nav>
 
 		<div align="center">
-			<div>
+			<c:if test="${not empty saveAuthorModel.message}">
+				<div class="alert alert-danger fade in">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><spring:message code="${saveAuthorModel.message}"/>
+				</div>
+			</c:if>
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -85,6 +89,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</body>
 </html>

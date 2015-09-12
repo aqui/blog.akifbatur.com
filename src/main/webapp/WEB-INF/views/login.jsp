@@ -48,7 +48,6 @@
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><spring:message code="${loginModel.message}"/>
 				</div>
 			</c:if>
-			<div>
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -58,10 +57,10 @@
 							<form action="<c:url value='/login'/>" role="form" method="POST" name="loginForm">
 								<sec:csrfInput />
 								<div class="form-group">
-									<input type="text" placeholder="<spring:message code="Username"/>" name="userName" required="required">
+									<input type="text" placeholder="<spring:message code="Username"/>" name="userName" required="required" maxlength="20">
 								</div>
 								<div class="form-group">
-									<input type="password" placeholder="<spring:message code="Password"/>" name="password" required="required">
+									<input type="password" placeholder="<spring:message code="Password"/>" name="password" required="required" maxlength="20">
 								</div>
 							</form>
 						</div>
@@ -72,7 +71,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</body>
 </html>

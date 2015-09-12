@@ -58,7 +58,8 @@ public class SignUpController
 		if(result.hasErrors())
 		{
 			//If there is an error on any form field return to signup page
-			return new ModelAndView("signup", "signupModel", saveAuthorModel);
+			author.setPassword("");
+			return new ModelAndView("signup", "saveAuthorModel", saveAuthorModel);
 		}
 		
 		try 
@@ -69,10 +70,13 @@ public class SignUpController
 		catch(Exception ex)
 		{
 			//If there is an error return to signup page
-			return new ModelAndView("signup", "signupModel", saveAuthorModel);
+			String message = "userExist";
+			saveAuthorModel.addAttribute("message", message);
+			author.setPassword("");
+			return new ModelAndView("signup", "saveAuthorModel", saveAuthorModel);
 		}
 		
 		//If there is no error return to login page
-		return new ModelAndView("login", "signupModel", saveAuthorModel);
+		return new ModelAndView("login", "saveAuthorModel", saveAuthorModel);
 	}
 }
