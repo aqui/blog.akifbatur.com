@@ -1,5 +1,6 @@
 package com.akifbatur.blog.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +38,34 @@ public class Post
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	//Provided by the user
+	@NotNull
+	@Size(min=1,max=255)
+	@Column(name="POST_TITLE", unique = true, nullable = false)
+	private String postTitle;
+	
+	//Provided by the user
+	@Lob
+	@NotNull
+	@Size(min=1)
+	@Column(name="POST_BODY", nullable = false)
+	private String postBody;
+	
+	@Column(name="POST_DATE", nullable = false)
+	private Date postDate;
+	
+	@Column(name="POST_EDIT_DATE", nullable = false)
+	private Date postEditDate;
+	
 	//Each post has an author
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
 	private Author authorId;
 	
 	//Each post has a category
+	//Choosen by the user
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
 	private Category categoryId;
 	
@@ -78,5 +103,37 @@ public class Post
 
 	public void setTagId(Set<Tag> tagId) {
 		this.tagId = tagId;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public String getPostBody() {
+		return postBody;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public Date getPostEditDate() {
+		return postEditDate;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+
+	public void setPostBody(String postBody) {
+		this.postBody = postBody;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
+	public void setPostEditDate(Date postEditDate) {
+		this.postEditDate = postEditDate;
 	}
 }

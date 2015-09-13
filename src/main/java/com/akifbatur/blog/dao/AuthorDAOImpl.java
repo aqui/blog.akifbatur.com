@@ -2,6 +2,7 @@ package com.akifbatur.blog.dao;
 
 import java.util.Date;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -50,5 +51,15 @@ public class AuthorDAOImpl implements AuthorDAO
 		author.setLoginDate(new Date());
 		session.persist(author);
 		logger.info("Author saved successfully. Author details: " + author);
+	}
+	
+	@Override
+	public Author getAuthorByUserName(String userName) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Author where USERNAME = :userName");
+		query.setString("userName", userName);
+		Author author = (Author) query.list().get(0);
+		return author;
 	}
 }

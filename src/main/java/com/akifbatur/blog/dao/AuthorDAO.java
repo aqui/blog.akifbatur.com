@@ -12,4 +12,6 @@ public interface AuthorDAO
 	public Author getAuthorById(int authorId);
 
 	public void saveAuthor(Author author);
+
+	public Author getAuthorByUserName(String userName);
 }

@@ -51,4 +51,20 @@ public class AuthorServiceImpl implements AuthorService
 			logger.error(e.toString());
 		}
 	}
+
+	@Override
+	@Transactional
+	public Author getAuthorByUserName(String userName) 
+	{	
+		Author author = null;
+		try 
+		{
+			author = this.authorDAO.getAuthorByUserName(userName);
+		} 
+		catch (Exception e) 
+		{
+			logger.error(e.toString());
+		}
+		return author;
+	}
 }

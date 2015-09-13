@@ -35,6 +35,11 @@
 						<li class="active">
 							<a href=""><spring:message code="home"/></a>
 						</li>
+						<c:if test="${not empty userName}">
+							<li>
+								<a href="${pageContext.request.contextPath}/post"><spring:message code="post"/></a>
+							</li>
+						</c:if>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:if test="${empty userName}">
