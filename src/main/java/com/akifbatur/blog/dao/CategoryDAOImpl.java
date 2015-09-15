@@ -44,4 +44,12 @@ public class CategoryDAOImpl implements CategoryDAO
 		Query query = session.createQuery("from Category");
 		return query.list();
 	}
+
+	@Override
+	public void saveCategory(Category category) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(category);
+		logger.info("Category saved");
+	}
 }

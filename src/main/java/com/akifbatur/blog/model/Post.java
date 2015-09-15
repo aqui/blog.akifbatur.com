@@ -40,14 +40,14 @@ public class Post
 	
 	//Provided by the user
 	@NotNull
-	@Size(min=1,max=255)
+	@Size(min=1, max=255, message="can not be empty")
 	@Column(name="POST_TITLE", unique = true, nullable = false)
 	private String postTitle;
 	
 	//Provided by the user
 	@Lob
 	@NotNull
-	@Size(min=1)
+	@Size(min=1, message="can not be empty")
 	@Column(name="POST_BODY", nullable = false)
 	private String postBody;
 	
@@ -65,7 +65,7 @@ public class Post
 	//Each post has a category
 	//Choosen by the user
 	@ManyToOne(fetch = FetchType.LAZY)
-	@NotNull
+	@NotNull(message="can not be empty")
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
 	private Category categoryId;
 	

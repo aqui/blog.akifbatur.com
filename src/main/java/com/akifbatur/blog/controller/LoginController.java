@@ -28,6 +28,11 @@ public class LoginController
 	@RequestMapping("/login")
 	public ModelAndView getLoginForm(Model loginModel, @RequestParam(value = "error", required = false) String error)
 	{
+		/**
+		 * If userName is not exist or userName and password does not matches
+		 * then Spring Security will redirect to index.jsp with "error" named
+		 * request parameter. That parameter is defined in the spring-securit.xml
+		 * */
 		String message = "";
 		if (error != null)
 		{

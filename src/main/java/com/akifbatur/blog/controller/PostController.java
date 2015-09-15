@@ -50,10 +50,10 @@ public class PostController
 	AuthorService authorService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String post(Model postModel)
+	public ModelAndView post(Model postModel)
 	{		
 		postModel.addAttribute("post",new Post());
-		return "post";
+		return new ModelAndView("post", "postModel", postModel);
 	}
 	
 	//Some data binding
@@ -72,6 +72,7 @@ public class PostController
 		}
 		try 
 		{
+			post.setPostTitle(post.getPostTitle().trim());
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 			String userName = userDetails.getUsername();

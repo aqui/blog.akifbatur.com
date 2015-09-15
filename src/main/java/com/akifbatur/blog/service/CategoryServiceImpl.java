@@ -27,5 +27,12 @@ public class CategoryServiceImpl implements CategoryService
 	public List<Category> getCategories() 
 	{
 		return categoryDAO.getCategories();
+	}
+
+	@Override
+	@Transactional
+	public void saveCategory(Category category) 
+	{
+		this.categoryDAO.saveCategory(category);
 	}	
 }

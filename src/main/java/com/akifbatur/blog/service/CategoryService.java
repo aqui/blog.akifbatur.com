@@ -9,4 +9,6 @@ public interface CategoryService
 	public int countCategories();
 
 	public List<Category> getCategories();
+
+	public void saveCategory(Category category);
 }

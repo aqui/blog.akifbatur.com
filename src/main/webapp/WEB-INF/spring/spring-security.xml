@@ -15,6 +15,7 @@
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/author**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/post**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/category**" access="hasRole('ROLE_USER')" />
 		<!-- <intercept-url pattern="/**" access="authenticated" /> -->
 		
 		<!-- access denied page -->
@@ -34,7 +35,6 @@
 		
 		<!-- enable csrf protection -->
 		<csrf />
-		
 	</http>
 
 	<authentication-manager>

@@ -15,4 +15,6 @@ public interface CategoryDAO
 	public int countCategories();
 
 	public List<Category> getCategories();
+
+	public void saveCategory(Category category);
 }
