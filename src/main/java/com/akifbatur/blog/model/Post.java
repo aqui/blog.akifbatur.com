@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -70,7 +71,8 @@ public class Post
 	private Category categoryId;
 	
 	//Each post has many tags
-	@ManyToMany(mappedBy="postId", fetch = FetchType.LAZY)
+	@ManyToMany
+	@JoinTable(name="TAG_POST", joinColumns=@JoinColumn(name="POST_ID"),inverseJoinColumns=@JoinColumn(name="TAG_ID"))
 	private Set<Tag> tagId = new HashSet<Tag>(0);
 
 	public int getId() {

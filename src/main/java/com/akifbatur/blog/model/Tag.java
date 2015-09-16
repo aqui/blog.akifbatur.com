@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,9 +34,11 @@ public class Tag
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	@Column(name="TAG_TEXT")
+	private String tagText;
+	
 	//Each tag has many posts
-	@ManyToMany
-	@JoinTable(name="TAG_POST", joinColumns=@JoinColumn(name="TAG_ID"),inverseJoinColumns=@JoinColumn(name="POST_ID"))
+	@ManyToMany(mappedBy="tagId")
 	private Set<Post> postId = new HashSet<Post>(0);
 
 	public int getId() {
@@ -52,5 +55,13 @@ public class Tag
 
 	public void setPostId(Set<Post> postId) {
 		this.postId = postId;
+	}
+
+	public String getTagText() {
+		return tagText;
+	}
+
+	public void setTagText(String tagText) {
+		this.tagText = tagText;
 	}
 }

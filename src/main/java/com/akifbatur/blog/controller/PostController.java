@@ -1,5 +1,6 @@
 package com.akifbatur.blog.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,9 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.model.Category;
 import com.akifbatur.blog.model.Post;
+import com.akifbatur.blog.model.Tag;
 import com.akifbatur.blog.service.AuthorService;
 import com.akifbatur.blog.service.CategoryService;
 import com.akifbatur.blog.service.PostService;
+import com.akifbatur.blog.service.TagService;
 
 /**
  * 
@@ -49,6 +52,9 @@ public class PostController
 	@Autowired
 	AuthorService authorService;
 	
+	@Autowired
+	TagService tagService;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView post(Model postModel)
 	{		
@@ -64,8 +70,12 @@ public class PostController
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, BindingResult result)
+	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
+			BindingResult result, @RequestParam("tags") String tags)
 	{
+		Tag tag = new Tag();
+		tag.setTagText(tags);
+		
 		if(result.hasErrors())
 		{
 			return new ModelAndView("post", "savePostModel", savePostModel);
@@ -80,10 +90,14 @@ public class PostController
 			post.setAuthorId(author);
 			post.setPostDate(new Date());
 			post.setPostEditDate(new Date());
+			this.tagService.saveTag(tag);
+			post.getTagId().add(tag);
+			tag.getPostId().add(post);
 			this.postService.savePost(post);
 		}
 		catch(Exception e)
 		{
+			System.out.println(e.toString());
 			savePostModel.addAttribute("message",new String("this post title is exist"));
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}

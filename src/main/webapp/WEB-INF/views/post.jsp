@@ -9,10 +9,10 @@
 <html lang="en">
 
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8">
 		<title>akif batur - blog</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet">
+		<meta name="viewport" content="width-device-width, initial-scale=1">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 		<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon">
 		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.js"></script>
@@ -115,6 +115,11 @@
 					<label for="postTitle">Title <form:errors path="postTitle"/></label>
 					<br/>
 					<form:input type="text" path="postTitle" maxlength="20" title="Title"/>
+				</div>
+				<div class="form-group">
+					<label for="tags">Tags </label>
+					<br/>
+					<input type="text" name="tags" maxlength="20" title="Tags"/>
 				</div>
 				<div class="form-group">
 					<label for="postBody">Post <form:errors path="postBody"/></label>
