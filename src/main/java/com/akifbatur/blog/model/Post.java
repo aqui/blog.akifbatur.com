@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -66,7 +67,8 @@ public class Post
 	
 	//Each post has a category
 	//Choosen by the user
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
+	@ElementCollection(fetch = FetchType.LAZY)
 	@NotNull(message="can not be empty")
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
 	private Category categoryId;

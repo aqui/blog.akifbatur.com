@@ -1,7 +1,10 @@
 package com.akifbatur.blog.controller;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -81,12 +84,12 @@ public class PostController
 			if(!tags.equals(""))
 			{
 				//Split tags
-				String tagArray[] = tags.split(",");
+				Set<String> tagSet = new HashSet<String>(Arrays.asList(tags.split(",")));
 				//For every given tag:
-				for (String tagArrayElement : tagArray) 
+				for(String tagSetElement : tagSet)
 				{
 					//Check if tag in the database
-					Tag tag = this.tagService.checkTag(tagArrayElement);
+					Tag tag = this.tagService.checkTag(tagSetElement);
 					if(tag!=null)
 					{
 						//If the tag is exist then use it
@@ -97,12 +100,12 @@ public class PostController
 					{
 						//If tag is not exist then create a new tag
 						Tag tag2 = new Tag();
-						tag2.setTagText(tagArrayElement);
+						tag2.setTagText(tagSetElement);
 						this.tagService.saveTag(tag2);
 						post.getTagId().add(tag2);
 						tag2.getPostId().add(post);
 					}
-				}				
+				}
 			}
 			//Trim post title
 			post.setPostTitle(post.getPostTitle().trim());
@@ -120,7 +123,6 @@ public class PostController
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
 			savePostModel.addAttribute("message",new String("there was an error"));
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}

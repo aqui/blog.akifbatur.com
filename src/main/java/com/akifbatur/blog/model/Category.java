@@ -55,7 +55,7 @@ public class Category
 	private Author authorId;
 	
 	//Each category has many posts
-	@OneToMany(mappedBy="categoryId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="categoryId")
 	private Set<Post> post = new HashSet<Post>(0);
 
 	public int getId() {
