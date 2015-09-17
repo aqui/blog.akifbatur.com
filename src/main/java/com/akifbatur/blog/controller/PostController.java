@@ -73,32 +73,57 @@ public class PostController
 	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
 			BindingResult result, @RequestParam("tags") String tags)
 	{
-		Tag tag = new Tag();
-		tag.setTagText(tags);
-		
-		if(result.hasErrors())
+		if(result.hasErrors()) //If Post attributes are not validated
 		{
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
 		try 
-		{
+		{			
+			//If tags are given
+			if(!tags.equals(""))
+			{
+				//Split tags
+				String tagArray[] = tags.split(",");
+				//For every given tag:
+				for (String tagArrayElement : tagArray) 
+				{
+					//Check if tag in the database
+					Tag tag = this.tagService.checkTag(tagArrayElement);
+					if(tag!=null)
+					{
+						//If the tag is exist then use it
+						post.getTagId().add(tag);
+						tag.getPostId().add(post);
+					}
+					else
+					{
+						//If tag is not exist then create a new tag
+						Tag tag2 = new Tag();
+						tag2.setTagText(tagArrayElement);
+						this.tagService.saveTag(tag2);
+						post.getTagId().add(tag2);
+						tag2.getPostId().add(post);
+					}
+				}				
+			}
+			//Trim post title
 			post.setPostTitle(post.getPostTitle().trim());
+			//Get userName
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 			String userName = userDetails.getUsername();
+			//Get author by userName
 			Author author = authorService.getAuthorByUserName(userName);
+			//Save post
 			post.setAuthorId(author);
 			post.setPostDate(new Date());
 			post.setPostEditDate(new Date());
-			this.tagService.saveTag(tag);
-			post.getTagId().add(tag);
-			tag.getPostId().add(post);
 			this.postService.savePost(post);
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.toString());
-			savePostModel.addAttribute("message",new String("this post title is exist"));
+			System.out.println(e.getMessage());
+			savePostModel.addAttribute("message",new String("there was an error"));
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
 		return new ModelAndView("index", "savePostModel", savePostModel);

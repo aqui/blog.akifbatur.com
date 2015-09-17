@@ -2,6 +2,7 @@ package com.akifbatur.blog.dao;
 
 import java.util.Date;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -34,5 +35,22 @@ public class TagDAOImpl implements TagDAO
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(tag);
 		logger.info("Tag saved");
+	}
+
+	@Override
+	public Tag checkTag(String tagText) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Tag where TAG_TEXT = :tagText");
+		query.setString("tagText", tagText);
+		if(!query.list().isEmpty())
+		{
+			Tag tag = (Tag) query.list().get(0);
+			return tag;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

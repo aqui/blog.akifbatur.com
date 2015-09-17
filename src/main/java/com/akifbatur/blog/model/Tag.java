@@ -3,6 +3,7 @@ package com.akifbatur.blog.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,11 +35,11 @@ public class Tag
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="TAG_TEXT")
+	@Column(name="TAG_TEXT", unique=true, nullable=true)
 	private String tagText;
 	
 	//Each tag has many posts
-	@ManyToMany(mappedBy="tagId")
+	@ManyToMany(mappedBy="tagId", fetch=FetchType.EAGER)
 	private Set<Post> postId = new HashSet<Post>(0);
 
 	public int getId() {

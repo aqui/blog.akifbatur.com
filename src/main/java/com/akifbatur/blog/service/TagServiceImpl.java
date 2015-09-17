@@ -20,5 +20,12 @@ public class TagServiceImpl implements TagService
 	public void saveTag(Tag tag) 
 	{
 		this.tagDAO.saveTag(tag);
+	}
+
+	@Override
+	@Transactional
+	public Tag checkTag(String tagText) 
+	{
+		return this.tagDAO.checkTag(tagText);	
 	}	
 }

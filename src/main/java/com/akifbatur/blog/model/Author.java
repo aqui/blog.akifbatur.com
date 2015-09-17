@@ -72,7 +72,7 @@ public class Author
 	private Date loginDate;
 	
 	//Each author has many roles
-	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Set<Role> role = new HashSet<Role>(0);
 	
 	//Each author has many posts

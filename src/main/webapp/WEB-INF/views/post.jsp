@@ -120,6 +120,7 @@
 					<label for="tags">Tags </label>
 					<br/>
 					<input type="text" name="tags" maxlength="20" title="Tags"/>
+					<br>(use comma to separate tags)
 				</div>
 				<div class="form-group">
 					<label for="postBody">Post <form:errors path="postBody"/></label>
