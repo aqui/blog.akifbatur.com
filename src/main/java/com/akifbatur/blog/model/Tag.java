@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Tag
 	private String tagText;
 	
 	//Each tag has many posts
-	@ManyToMany(mappedBy="tagId", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="tagId", fetch = FetchType.EAGER)
 	private Set<Post> postId = new HashSet<Post>(0);
 
 	public int getId() {

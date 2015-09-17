@@ -67,8 +67,7 @@ public class Post
 	
 	//Each post has a category
 	//Choosen by the user
-	@ManyToOne
-	@ElementCollection(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@NotNull(message="can not be empty")
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
 	private Category categoryId;

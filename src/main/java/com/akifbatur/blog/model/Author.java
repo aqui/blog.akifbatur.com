@@ -72,15 +72,15 @@ public class Author
 	private Date loginDate;
 	
 	//Each author has many roles
-	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="authorId", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	private Set<Role> role = new HashSet<Role>(0);
 	
 	//Each author has many posts
-	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="authorId", fetch = FetchType.EAGER)
 	private Set<Post> post = new HashSet<Post>(0);
 	
 	//Each author has many categories
-	@OneToMany(mappedBy="authorId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="authorId", fetch = FetchType.EAGER)
 	private Set<Category> category = new HashSet<Category>(0);
 	
 	public int getId() {

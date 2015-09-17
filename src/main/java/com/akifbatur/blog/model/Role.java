@@ -2,6 +2,7 @@ package com.akifbatur.blog.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Role
 	private String role = "ROLE_USER"; //New user role by default
 	
 	//Each role has an author
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
 	private Author authorId;
 
