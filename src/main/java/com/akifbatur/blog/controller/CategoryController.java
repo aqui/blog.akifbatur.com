@@ -21,10 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.model.Category;
-import com.akifbatur.blog.model.Post;
 import com.akifbatur.blog.service.AuthorService;
 import com.akifbatur.blog.service.CategoryService;
-import com.akifbatur.blog.service.PostService;
 
 /**
  * 
