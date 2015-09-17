@@ -1,5 +1,7 @@
 package com.akifbatur.blog.dao;
 
+import java.util.List;
+
 import com.akifbatur.blog.model.Post;
 
 /**
@@ -10,4 +12,6 @@ import com.akifbatur.blog.model.Post;
 public interface PostDAO 
 {
 	public void savePost(Post post);
+	
+	public List<Post> fetchAllPost();
 }

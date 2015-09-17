@@ -1,5 +1,7 @@
 package com.akifbatur.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,5 +20,12 @@ public class PostServiceImpl implements PostService
 	public void savePost(Post post)
 	{
 		this.postDAO.savePost(post);
+	}
+
+	@Override
+	@Transactional
+	public List<Post> fetchAllPost() 
+	{
+		return this.postDAO.fetchAllPost();
 	}	
 }

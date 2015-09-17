@@ -1,5 +1,9 @@
 package com.akifbatur.blog.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -28,5 +32,14 @@ public class PostDAOImpl implements PostDAO
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(post);
 		logger.info("Posted");
+	}
+
+	@Override
+	public List<Post> fetchAllPost() 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Post");
+		List<Post> posts = query.list();
+		return posts;
 	}
 }

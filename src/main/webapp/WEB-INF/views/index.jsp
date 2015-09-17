@@ -92,5 +92,28 @@
 			</div>
 		</nav>
 		<%-- Navigation Bar End --%>
+		<div align="center">
+			<c:forEach items="${posts}" var="posts">
+				Title: ${posts.postTitle}
+				<br>
+				Body: ${posts.postBody}
+				<br>
+				Post Date: ${posts.postDate}
+				<br>
+				Post Edit Date: ${posts.postEditDate}
+				<br>
+				Author: ${posts.authorId.userName}
+				<br>
+				Category: ${posts.categoryId.categoryTitle}
+				<br>
+				Tags: 
+				<c:forEach items="${posts.tagId}" var="tags">
+					${tags.tagText},
+				</c:forEach>
+				<br>
+				------------------------------
+				<br>
+			</c:forEach>
+		</div>
 	</body>
 </html>
