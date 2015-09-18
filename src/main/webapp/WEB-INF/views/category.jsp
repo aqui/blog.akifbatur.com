@@ -91,26 +91,41 @@
 				</div>
 			</div>
 		</nav>
-		<%-- Navigation Bar End --%>
-		<c:if test="${not empty saveCategoryModel.message}">
-			<div class="alert alert-danger fade in" align="center">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				${saveCategoryModel.message}
+		<%-- Navigation Bar End --%>		
+		
+		<%-- Body Start --%>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title"><spring:message code="CategoryFacility"/></h3>
+						</div>
+						<div class="panel-body">
+							<c:if test="${not empty saveCategoryModel.message}">
+								<div class="alert alert-danger fade in" align="center">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									${saveCategoryModel.message}
+								</div>
+							</c:if>
+							<form:form action="${pageContext.request.contextPath}/category" role="form" method="POST" name="categoryForm" modelAttribute="category">
+								<div class="form-group">
+									<label for="categoryTitle"><spring:message code="CategoryTitle"/> <form:errors path="categoryTitle"/></label>
+									<br>
+									<form:input type="text" path="categoryTitle" maxlength="20" title="Category Title"/>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-success btn-block" type="submit" name="submit" onclick='document.categoryForm.submit();'>
+										<spring:message code="send"/>
+									</button>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
 			</div>
-		</c:if>
-		<div align="center">
-			<form:form action="${pageContext.request.contextPath}/category" role="form" method="POST" name="categoryForm" modelAttribute="category">
-				<div class="form-group">
-					<label for="categoryTitle">Category Title <form:errors path="categoryTitle"/></label>
-					<form:input type="text" path="categoryTitle" maxlength="20" title="Category Title"/>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-success btn-block" type="submit" name="submit" onclick='document.categoryForm.submit();'>
-						<spring:message code="send"/>
-					</button>
-				</div>
-			</form:form>
 		</div>
+		<%-- Body End --%>
 		
 	</body>
 </html>

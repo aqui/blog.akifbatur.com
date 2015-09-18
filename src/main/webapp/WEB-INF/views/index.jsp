@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +13,10 @@
 		<meta charset="utf-8" />
 		<title>akif batur - blog</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/resources/images/terminal.ico" rel="icon">
-		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.js"></script>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+		<link rel="icon" href="${pageContext.request.contextPath}/resources/images/terminal.ico">
+		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.js" type="text/javascript"></script>
 	</head>
 	
 	<sec:authorize access="isAuthenticated()">
@@ -67,7 +68,7 @@
 					<c:if test="${not empty userName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="${pageContext.request.contextPath}/author">${userName}</a>
+								<a href="${pageContext.request.contextPath}/author"><span class="glyphicon glyphicon-user"></span> ${userName}</a>
 							</li>
 							<li>
 								<form action="${pageContext.request.contextPath}/logout" method="post" name="logoutForm">
@@ -92,28 +93,44 @@
 			</div>
 		</nav>
 		<%-- Navigation Bar End --%>
-		<div align="center">
-			<c:forEach items="${posts}" var="posts">
-				Title: ${posts.postTitle}
-				<br>
-				Body: ${posts.postBody}
-				<br>
-				Post Date: ${posts.postDate}
-				<br>
-				Post Edit Date: ${posts.postEditDate}
-				<br>
-				Author: ${posts.authorId.userName}
-				<br>
-				Category: ${posts.categoryId.categoryTitle}
-				<br>
-				Tags: 
-				<c:forEach items="${posts.tagId}" var="tags">
-					${tags.tagText},
-				</c:forEach>
-				<br>
-				------------------------------
-				<br>
-			</c:forEach>
+		
+		<%-- Body Start --%>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+						<c:forEach items="${posts}" var="posts">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">${posts.categoryId.categoryTitle}: ${posts.postTitle}</h3>
+								</div>
+								<div class="panel-body">
+									${posts.postBody}
+								</div>
+								<div class="panel-footer panel-info">										
+									<div class="row">
+										<div class="col-md-4" align="left">
+											<span class="glyphicon glyphicon-user"></span> ${posts.authorId.userName}
+										</div>
+										<div class="col-md-4" align="center">
+											<spring:message code="Tags"/>:
+											<c:forEach items="${posts.tagId}" var="tags">
+												${tags.tagText}
+											</c:forEach>
+										</div>
+										<div class="col-md-4" align="right">
+											<fmt:formatDate value="${posts.postDate}" pattern="dd:MM:YYYY/hh:mm"/>
+											<c:if test="${posts.postDate != posts.postEditDate}">
+												 - (<fmt:formatDate value="${posts.postEditDate}" pattern="dd:MM:YYYY/hh:mm"/>)
+											</c:if>											
+										</div>
+									</div>			
+								</div>
+							</div>
+					</c:forEach>
+				</div>
+			</div>
 		</div>
+		<%-- Body End --%>
+		
 	</body>
 </html>
