@@ -50,12 +50,12 @@ public class Category
 	private Date categoryEditDate;
 	
 	//Each category has an author
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
 	private Author authorId;
 	
 	//Each category has many posts
-	@OneToMany(mappedBy="categoryId", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="categoryId")
 	private Set<Post> post = new HashSet<Post>(0);
 
 	public int getId() {

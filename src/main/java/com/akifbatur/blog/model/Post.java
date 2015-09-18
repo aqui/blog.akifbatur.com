@@ -61,13 +61,13 @@ public class Post
 	private Date postEditDate;
 	
 	//Each post has an author
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
 	private Author authorId;
 	
 	//Each post has a category
 	//Choosen by the user
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@NotNull(message="can not be empty")
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
 	private Category categoryId;

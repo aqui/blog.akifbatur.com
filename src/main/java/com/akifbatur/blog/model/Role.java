@@ -34,7 +34,7 @@ public class Role
 	private String role = "ROLE_USER"; //New user role by default
 	
 	//Each role has an author
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
 	private Author authorId;
 

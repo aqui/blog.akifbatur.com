@@ -123,6 +123,7 @@ public class PostController
 		}
 		catch(Exception e)
 		{
+			System.out.println(e);
 			savePostModel.addAttribute("message",new String("there was an error"));
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
