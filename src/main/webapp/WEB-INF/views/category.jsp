@@ -19,7 +19,7 @@
 	</head>
 
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.username" var="userName"/>
+		<sec:authentication property="principal.username" var="securityUserName"/>
 	</sec:authorize>
 
 	<body>
@@ -40,7 +40,7 @@
 	
 					<%-- Navigation Bar Left Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home" /></a>
@@ -54,7 +54,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home" /></a>
@@ -64,10 +64,10 @@
 	
 					<%-- Navigation Bar Right Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="${pageContext.request.contextPath}/author">${userName}</a>
+								<a href="${pageContext.request.contextPath}/author"><span class="glyphicon glyphicon-user"></span> ${securityUserName}</a>
 							</li>
 							<li>
 								<c:url var="logoutUrl" value="/logout"/>
@@ -78,7 +78,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="${pageContext.request.contextPath}/signup"><spring:message code="signup" /></a>

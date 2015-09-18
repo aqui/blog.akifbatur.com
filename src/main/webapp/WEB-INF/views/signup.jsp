@@ -19,10 +19,10 @@
 	</head>
 
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.username" var="userName"/>
+		<sec:authentication property="principal.username" var="securityUserName"/>
 	</sec:authorize>
 
-	<body onload='document.signupForm.userName.focus();'>
+	<body onload='document.signupForm.name.focus();'>
 
 		<%-- Navigation Bar Start --%>
 		<nav class="navbar navbar-inverse">
@@ -40,7 +40,7 @@
 				
 					<%-- Navigation Bar Left Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
@@ -54,7 +54,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
@@ -64,10 +64,10 @@
 					
 					<%-- Navigation Bar Right Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="${pageContext.request.contextPath}/author">${userName}</a>
+								<a href="${pageContext.request.contextPath}/author"><span class="glyphicon glyphicon-user"></span> ${securityUserName}</a>
 							</li>
 							<li>
 								<form action="${pageContext.request.contextPath}/logout" method="post" name="logoutForm">
@@ -78,7 +78,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="${pageContext.request.contextPath}/signup"><spring:message code="signup"/></a>
@@ -94,12 +94,12 @@
 		<%-- Navigation Bar End --%>
 
 		<div align="center">
-			<c:if test="${not empty userName}">
+			<c:if test="${not empty securityUserName}">
 				<div align="center">
-					<h4>hello ${userName}?</h4>
+					<h4>hello ${securityUserName}?</h4>
 				</div>
 			</c:if>
-			<c:if test="${empty userName}">
+			<c:if test="${empty securityUserName}">
 				<c:if test="${not empty saveAuthorModel.message}">
 					<div class="alert alert-danger fade in">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -151,7 +151,7 @@
 								</div>
 							</div>
 							<div class="modal-footer ">
-								<button class="btn btn-success btn-block" type="submit"
+								<button class="btn btn-primary btn-block" type="submit"
 									name="submit" onclick='document.signupForm.submit();'>
 									<spring:message code="signup" />
 								</button>

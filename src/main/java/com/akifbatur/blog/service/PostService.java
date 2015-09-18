@@ -10,5 +10,7 @@ public interface PostService
 	
 	public List<Post> fetchAllPost();
 
-	public Post getPostByTitle(String postTitle);
+	public List<Post> getPostByTitle(String postTitle);
+
+	public List<Post> getPostByUserName(String userName);
 }

@@ -20,7 +20,7 @@
 	</head>
 	
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.username" var="userName"/>
+		<sec:authentication property="principal.username" var="securityUserName"/>
 	</sec:authorize>
 	
 	<body>
@@ -41,7 +41,7 @@
 				
 					<%-- Navigation Bar Left Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
@@ -55,7 +55,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
@@ -65,10 +65,10 @@
 					
 					<%-- Navigation Bar Right Side --%>
 					<%-- If user is logged-in --%>
-					<c:if test="${not empty userName}">
+					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="${pageContext.request.contextPath}/author"><span class="glyphicon glyphicon-user"></span> ${userName}</a>
+								<a href="${pageContext.request.contextPath}/author"><span class="glyphicon glyphicon-user"></span> ${securityUserName}</a>
 							</li>
 							<li>
 								<form action="${pageContext.request.contextPath}/logout" method="post" name="logoutForm">
@@ -79,7 +79,7 @@
 						</ul>
 					</c:if>
 					<%-- If user is not logged-in --%>
-					<c:if test="${empty userName}">
+					<c:if test="${empty securityUserName}">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="${pageContext.request.contextPath}/signup"><spring:message code="signup"/></a>
@@ -98,33 +98,43 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
+				<c:forEach items="${posts}" var="posts">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title">${post.categoryId.categoryTitle}: ${post.postTitle}</h3>
+							<h3 class="panel-title">
+								${posts.categoryId.categoryTitle}: 
+								<a href="${pageContext.request.contextPath}/post/title/${posts.postTitle}">${posts.postTitle}</a>
+							</h3>
 						</div>
 						<div class="panel-body">
-							${post.postBody}
+							${posts.postBody}
 						</div>
 						<div class="panel-footer panel-info">										
 							<div class="row">
 								<div class="col-md-4" align="left">
-									<span class="glyphicon glyphicon-user"></span> ${post.authorId.userName}
+									<a href="${pageContext.request.contextPath}/post/author/${posts.authorId.userName}">
+										<span class="glyphicon glyphicon-user"></span> ${posts.authorId.userName}
+									</a>
+									<c:if test="${posts.authorId.userName == securityUserName}">
+										delete - edit
+									</c:if>
 								</div>
 								<div class="col-md-4" align="center">
 									<spring:message code="Tags"/>:
-									<c:forEach items="${post.tagId}" var="tags">
+									<c:forEach items="${posts.tagId}" var="tags">
 										${tags.tagText}
 									</c:forEach>
 								</div>
 								<div class="col-md-4" align="right">
-									<fmt:formatDate value="${post.postDate}" pattern="dd:MM:YYYY/hh:mm"/>
-									<c:if test="${post.postDate != post.postEditDate}">
-										 - (<fmt:formatDate value="${post.postEditDate}" pattern="dd:MM:YYYY/hh:mm"/>)
+									<fmt:formatDate value="${posts.postDate}" pattern="dd:MM:YYYY/hh:mm"/>
+									<c:if test="${posts.postDate != post.postEditDate}">
+										 - (<fmt:formatDate value="${posts.postEditDate}" pattern="dd:MM:YYYY/hh:mm"/>)
 									</c:if>											
 								</div>
 							</div>			
 						</div>
 					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

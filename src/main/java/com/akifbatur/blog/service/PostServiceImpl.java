@@ -31,8 +31,15 @@ public class PostServiceImpl implements PostService
 
 	@Override
 	@Transactional
-	public Post getPostByTitle(String postTitle) 
+	public List<Post> getPostByTitle(String postTitle) 
 	{
 		return this.postDAO.getPostByTitle(postTitle);
+	}
+
+	@Override
+	@Transactional
+	public List<Post> getPostByUserName(String userName) 
+	{
+		return this.postDAO.getPostByUserName(userName);
 	}	
 }

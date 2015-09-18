@@ -45,12 +45,26 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
-	public Post getPostByTitle(String postTitle) 
+	public List<Post> getPostByTitle(String postTitle) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Post where POST_TITLE = :postTitle");
 		query.setString("postTitle", postTitle);
-		Post post = (Post) query.list().get(0);
-		return post;
+		List<Post> posts = query.list();
+		return posts;
+	}
+
+	@Override
+	public List<Post> getPostByUserName(String userName) 
+	{
+		Query query = null;
+		Session session = this.sessionFactory.getCurrentSession();
+		query = session.createQuery("select id from Author where USERNAME = :userName");
+		query.setString("userName", userName);
+		int authorId = (int) query.list().get(0);
+		query = session.createQuery("from Post where AUTHOR_ID = :authorId");
+		query.setInteger("authorId", authorId);
+		List<Post> posts = query.list();
+		return posts;
 	}
 }

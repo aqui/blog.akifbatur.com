@@ -130,19 +130,43 @@ public class PostController
 		return new ModelAndView("index", "savePostModel", savePostModel);
 	}
 	
-	@RequestMapping(value="/post/{postTitle}", method = RequestMethod.GET)
-	public ModelAndView showPost(Model showPostModel, @PathVariable String postTitle)
+	//Get the post by postTitle
+	@RequestMapping(value="/post/title/{postTitle}", method = RequestMethod.GET)
+	public ModelAndView showPostByTitle(Model showPostByTitle, @PathVariable String postTitle)
 	{	
-		Post post = null;
+		List<Post> posts = null;
 		try 
 		{
-			post = this.postService.getPostByTitle(postTitle);
-			showPostModel.addAttribute("post", post);
+			posts = this.postService.getPostByTitle(postTitle);
+			if(posts.size()==0)
+				return new ModelAndView("redirect:/");
+			showPostByTitle.addAttribute("posts", posts);
 		}
 		catch (Exception e)
 		{
+			System.out.println(e);
 			return new ModelAndView("redirect:/");
 		}
-		return new ModelAndView("showPost", "showPostModel", showPostModel);
+		return new ModelAndView("showPost", "showPostByTitle", showPostByTitle);
+	}
+	
+	//Get the posts by userName
+	@RequestMapping(value="/post/author/{userName}", method = RequestMethod.GET)
+	public ModelAndView showPostByUserName(Model showPostByUserName, @PathVariable String userName)
+	{	
+		List<Post> posts = null;
+		try 
+		{
+			posts = this.postService.getPostByUserName(userName);
+			if(posts.size()==0)
+				return new ModelAndView("redirect:/");
+			showPostByUserName.addAttribute("posts", posts);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("showPost", "showPostByUserName", showPostByUserName);
 	}
 }
