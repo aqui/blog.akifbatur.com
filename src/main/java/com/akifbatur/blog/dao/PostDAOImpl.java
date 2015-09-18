@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.model.Post;
 
 /**
@@ -41,5 +42,15 @@ public class PostDAOImpl implements PostDAO
 		Query query = session.createQuery("from Post");
 		List<Post> posts = query.list();
 		return posts;
+	}
+
+	@Override
+	public Post getPostByTitle(String postTitle) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Post where POST_TITLE = :postTitle");
+		query.setString("postTitle", postTitle);
+		Post post = (Post) query.list().get(0);
+		return post;
 	}
 }

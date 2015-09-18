@@ -27,5 +27,12 @@ public class PostServiceImpl implements PostService
 	public List<Post> fetchAllPost() 
 	{
 		return this.postDAO.fetchAllPost();
+	}
+
+	@Override
+	@Transactional
+	public Post getPostByTitle(String postTitle) 
+	{
+		return this.postDAO.getPostByTitle(postTitle);
 	}	
 }

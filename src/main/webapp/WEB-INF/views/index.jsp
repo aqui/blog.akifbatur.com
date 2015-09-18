@@ -101,7 +101,10 @@
 						<c:forEach items="${posts}" var="posts">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h3 class="panel-title">${posts.categoryId.categoryTitle}: ${posts.postTitle}</h3>
+									<h3 class="panel-title">
+										${posts.categoryId.categoryTitle}:
+										<a href="${pageContext.request.contextPath}/post/${posts.postTitle}">${posts.postTitle}</a>
+									</h3>
 								</div>
 								<div class="panel-body">
 									${posts.postBody}

@@ -9,4 +9,6 @@ public interface PostService
 	public void savePost(Post post);
 	
 	public List<Post> fetchAllPost();
+
+	public Post getPostByTitle(String postTitle);
 }

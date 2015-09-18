@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,6 @@ import com.akifbatur.blog.service.TagService;
  *
  */
 @Controller("postController")
-@RequestMapping("/post")
 public class PostController 
 {
 	@SuppressWarnings("unused")
@@ -56,7 +56,7 @@ public class PostController
 	@Autowired
 	TagService tagService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/post", method = RequestMethod.GET)
 	public ModelAndView post(Model postModel)
 	{		
 		postModel.addAttribute("post",new Post());
@@ -70,7 +70,7 @@ public class PostController
 		return categoryService.getCategories();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/post", method = RequestMethod.POST)
 	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
 			BindingResult result, @RequestParam("tags") String tags)
 	{
@@ -127,5 +127,21 @@ public class PostController
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
 		return new ModelAndView("index", "savePostModel", savePostModel);
+	}
+	
+	@RequestMapping(value="/post/{postTitle}", method = RequestMethod.GET)
+	public ModelAndView showPost(Model showPostModel, @PathVariable String postTitle)
+	{	
+		Post post = null;
+		try 
+		{
+			post = this.postService.getPostByTitle(postTitle);
+			showPostModel.addAttribute("post", post);
+		}
+		catch (Exception e)
+		{
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("showPost", "showPostModel", showPostModel);
 	}
 }
