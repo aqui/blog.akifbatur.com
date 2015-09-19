@@ -15,7 +15,9 @@ public interface PostDAO
 	
 	public List<Post> fetchAllPost();
 
-	public List<Post> getPostByTitle(String postTitle);
+	public List<Post> getPostsByTitle(String postTitle);
 
-	public List<Post> getPostByUserName(String userName);
+	public List<Post> getPostsByUserName(String userName);
+
+	public List<Post> getPostsByTag(String tagText);
 }

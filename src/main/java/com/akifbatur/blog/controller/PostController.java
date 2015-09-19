@@ -137,7 +137,7 @@ public class PostController
 		List<Post> posts = null;
 		try 
 		{
-			posts = this.postService.getPostByTitle(postTitle);
+			posts = this.postService.getPostsByTitle(postTitle);
 			if(posts.size()==0)
 				return new ModelAndView("redirect:/");
 			showPostByTitle.addAttribute("posts", posts);
@@ -157,7 +157,7 @@ public class PostController
 		List<Post> posts = null;
 		try 
 		{
-			posts = this.postService.getPostByUserName(userName);
+			posts = this.postService.getPostsByUserName(userName);
 			if(posts.size()==0)
 				return new ModelAndView("redirect:/");
 			showPostByUserName.addAttribute("posts", posts);
@@ -168,5 +168,25 @@ public class PostController
 			return new ModelAndView("redirect:/");
 		}
 		return new ModelAndView("showPost", "showPostByUserName", showPostByUserName);
+	}
+	
+	//Get the posts by userName
+	@RequestMapping(value="/post/tag/{tagText}", method = RequestMethod.GET)
+	public ModelAndView showPostByTag(Model showPostByTag, @PathVariable String tagText)
+	{	
+		List<Post> posts = null;
+		try 
+		{
+			posts = this.postService.getPostsByTag(tagText);
+			if(posts.size()==0)
+				return new ModelAndView("redirect:/");
+			showPostByTag.addAttribute("posts", posts);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("showPost", "showPostByTag", showPostByTag);
 	}
 }

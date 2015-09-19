@@ -1,7 +1,10 @@
 package com.akifbatur.blog.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.model.Post;
+import com.akifbatur.blog.model.Tag;
 
 /**
  * 
@@ -45,7 +49,7 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
-	public List<Post> getPostByTitle(String postTitle) 
+	public List<Post> getPostsByTitle(String postTitle) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Post where POST_TITLE = :postTitle");
@@ -55,16 +59,28 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
-	public List<Post> getPostByUserName(String userName) 
+	public List<Post> getPostsByUserName(String userName) 
 	{
 		Query query = null;
 		Session session = this.sessionFactory.getCurrentSession();
-		query = session.createQuery("select id from Author where USERNAME = :userName");
+		query = session.createQuery("from Author where USERNAME = :userName");
 		query.setString("userName", userName);
-		int authorId = (int) query.list().get(0);
-		query = session.createQuery("from Post where AUTHOR_ID = :authorId");
-		query.setInteger("authorId", authorId);
-		List<Post> posts = query.list();
+		Author author = (Author) query.list().get(0);
+		List<Post> posts = new ArrayList<Post>();
+		posts.addAll(author.getPost());
+		return posts;
+	}
+
+	@Override
+	public List<Post> getPostsByTag(String tagText) 
+	{
+		Query query = null;
+		Session session = this.sessionFactory.getCurrentSession();
+		query = session.createQuery("from Tag where TAG_TEXT = :tagText");
+		query.setString("tagText", tagText);
+		Tag tag = (Tag) query.list().get(0);
+		List<Post> posts = new ArrayList<Post>();
+		posts.addAll(tag.getPostId());
 		return posts;
 	}
 }

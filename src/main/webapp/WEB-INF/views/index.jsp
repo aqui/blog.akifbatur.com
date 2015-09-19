@@ -126,7 +126,7 @@
 											<c:if test="${not empty posts.tagId}">
 												<spring:message code="Tags"/>:
 												<c:forEach items="${posts.tagId}" var="tags">
-													${tags.tagText}
+													<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}">${tags.tagText}</a>
 												</c:forEach>
 											</c:if>
 										</div>
