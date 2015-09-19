@@ -55,5 +55,12 @@ public class PostServiceImpl implements PostService
 	public List<Post> getPostsByCategory(String categoryTitle) 
 	{
 		return this.postDAO.getPostsByCategory(categoryTitle);
+	}
+
+	@Override
+	@Transactional
+	public void deletePost(int id) 
+	{
+		this.postDAO.deletePost(id);
 	}	
 }

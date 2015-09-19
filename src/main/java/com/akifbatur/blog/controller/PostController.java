@@ -209,4 +209,20 @@ public class PostController
 		}
 		return new ModelAndView("showPost", "showPostByCategory", showPostByCategory);
 	}
+	
+	//Delete post by id
+	@RequestMapping(value="/post/delete/{id}", method = RequestMethod.GET)
+	public ModelAndView deletePost(Model deletePost, @PathVariable int id)
+	{	
+		try 
+		{
+			this.postService.deletePost(id);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("index", "deletePost", deletePost);
+	}
 }

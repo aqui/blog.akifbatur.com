@@ -22,4 +22,6 @@ public interface PostDAO
 	public List<Post> getPostsByTag(String tagText);
 
 	public List<Post> getPostsByCategory(String categoryTitle);
+
+	public void deletePost(int id);
 }

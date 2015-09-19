@@ -117,7 +117,13 @@
 										<span class="glyphicon glyphicon-user"></span> ${posts.authorId.userName}
 									</a>
 									<c:if test="${posts.authorId.userName == securityUserName}">
-										delete - edit
+										<a href="${pageContext.request.contextPath}/post/delete/${posts.id}">
+											delete 
+										</a>
+										- 
+										<a href="${pageContext.request.contextPath}/post/edit/${posts.id}">
+											edit 
+										</a>
 									</c:if>
 								</div>
 								<div class="col-md-4" align="center">

@@ -97,4 +97,15 @@ public class PostDAOImpl implements PostDAO
 		posts.addAll(category.getPost());
 		return posts;
 	}
+
+	@Override
+	public void deletePost(int id) 
+	{
+		Query query = null;
+		Session session = this.sessionFactory.getCurrentSession();
+		query = session.createQuery("from Post where ID = :id");
+		query.setInteger("id", id);
+		Post post = (Post) query.list().get(0);
+		session.delete(post);
+	}
 }
