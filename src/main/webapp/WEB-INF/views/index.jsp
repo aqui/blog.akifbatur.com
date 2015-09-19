@@ -102,7 +102,8 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										${posts.categoryId.categoryTitle}:
+										<a href="${pageContext.request.contextPath}/post/category/${posts.categoryId.categoryTitle}">${posts.categoryId.categoryTitle}</a>
+										:
 										<a href="${pageContext.request.contextPath}/post/title/${posts.postTitle}">${posts.postTitle}</a>
 									</h3>
 								</div>

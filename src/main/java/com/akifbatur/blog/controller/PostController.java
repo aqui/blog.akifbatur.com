@@ -170,7 +170,7 @@ public class PostController
 		return new ModelAndView("showPost", "showPostByUserName", showPostByUserName);
 	}
 	
-	//Get the posts by userName
+	//Get the posts by tag
 	@RequestMapping(value="/post/tag/{tagText}", method = RequestMethod.GET)
 	public ModelAndView showPostByTag(Model showPostByTag, @PathVariable String tagText)
 	{	
@@ -188,5 +188,25 @@ public class PostController
 			return new ModelAndView("redirect:/");
 		}
 		return new ModelAndView("showPost", "showPostByTag", showPostByTag);
+	}
+	
+	//Get the posts by category
+	@RequestMapping(value="/post/category/{categoryTitle}", method = RequestMethod.GET)
+	public ModelAndView showPostByCategory(Model showPostByCategory, @PathVariable String categoryTitle)
+	{	
+		List<Post> posts = null;
+		try 
+		{
+			posts = this.postService.getPostsByCategory(categoryTitle);
+			if(posts.size()==0)
+				return new ModelAndView("redirect:/");
+			showPostByCategory.addAttribute("posts", posts);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("showPost", "showPostByCategory", showPostByCategory);
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.akifbatur.blog.model.Author;
+import com.akifbatur.blog.model.Category;
 import com.akifbatur.blog.model.Post;
 import com.akifbatur.blog.model.Tag;
 
@@ -81,6 +82,19 @@ public class PostDAOImpl implements PostDAO
 		Tag tag = (Tag) query.list().get(0);
 		List<Post> posts = new ArrayList<Post>();
 		posts.addAll(tag.getPostId());
+		return posts;
+	}
+
+	@Override
+	public List<Post> getPostsByCategory(String categoryTitle) 
+	{
+		Query query = null;
+		Session session = this.sessionFactory.getCurrentSession();
+		query = session.createQuery("from Category where CATEGORY_TITLE = :categoryTitle");
+		query.setString("categoryTitle", categoryTitle);
+		Category category = (Category) query.list().get(0);
+		List<Post> posts = new ArrayList<Post>();
+		posts.addAll(category.getPost());
 		return posts;
 	}
 }

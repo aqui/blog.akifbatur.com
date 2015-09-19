@@ -48,5 +48,12 @@ public class PostServiceImpl implements PostService
 	public List<Post> getPostsByTag(String tagText) 
 	{
 		return this.postDAO.getPostsByTag(tagText);
+	}
+
+	@Override
+	@Transactional
+	public List<Post> getPostsByCategory(String categoryTitle) 
+	{
+		return this.postDAO.getPostsByCategory(categoryTitle);
 	}	
 }

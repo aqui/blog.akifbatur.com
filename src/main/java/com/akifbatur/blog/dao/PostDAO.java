@@ -20,4 +20,6 @@ public interface PostDAO
 	public List<Post> getPostsByUserName(String userName);
 
 	public List<Post> getPostsByTag(String tagText);
+
+	public List<Post> getPostsByCategory(String categoryTitle);
 }
