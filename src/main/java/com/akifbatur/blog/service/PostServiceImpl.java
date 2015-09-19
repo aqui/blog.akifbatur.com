@@ -62,5 +62,19 @@ public class PostServiceImpl implements PostService
 	public void deletePost(int id) 
 	{
 		this.postDAO.deletePost(id);
+	}
+
+	@Override
+	@Transactional
+	public Post getPostById(int id) 
+	{
+		return this.postDAO.getPostById(id);
+	}
+
+	@Override
+	@Transactional
+	public void updatePost(Post post) 
+	{
+		this.postDAO.updatePost(post);
 	}	
 }

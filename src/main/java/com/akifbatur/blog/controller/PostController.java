@@ -1,5 +1,6 @@
 package com.akifbatur.blog.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -214,7 +215,7 @@ public class PostController
 	@RequestMapping(value="/post/delete/{id}", method = RequestMethod.GET)
 	public ModelAndView deletePost(Model deletePost, @PathVariable int id)
 	{	
-		try 
+		try
 		{
 			this.postService.deletePost(id);
 		}
@@ -224,5 +225,49 @@ public class PostController
 			return new ModelAndView("redirect:/");
 		}
 		return new ModelAndView("index", "deletePost", deletePost);
+	}
+	
+	//Edit post by id
+	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView editPost(Model editPost, @PathVariable int id)
+	{	
+		Post post = this.postService.getPostById(id);
+		//TODO: add tags to the initial form
+		Set<Tag> tagSet = post.getTagId();
+		StringBuilder tagString = new StringBuilder();
+		tagSet.forEach(value->tagString.append(value.getTagText()).append(","));
+		tagString.deleteCharAt(tagString.length()-1);
+		editPost.addAttribute("tagString", tagString);
+		editPost.addAttribute("post", post);
+		return new ModelAndView("editPost", "editPost", editPost);
+	}
+	
+	//Edit post by id
+	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.POST)
+	public ModelAndView editPostSave(Model editPostSave, @PathVariable int id, @ModelAttribute("post") @Valid Post post
+			,BindingResult result, @RequestParam("tags") String tags)
+	{	
+		//TODO: If post author and editor is different or editor is not an admin then go to index
+		if(result.hasErrors()) //If Post attributes are not validated
+		{
+			editPostSave.addAttribute("tagString", tags);
+			return new ModelAndView("editPost", "editPostSave", editPostSave);
+		}
+		//Get real post
+		Post realPost = this.postService.getPostById(id);
+		//Get tags of the real post
+//		Set<Tag> tagSet = realPost.getTagId();
+//		List<Tag> hede = new ArrayList<Tag>();
+//		hede.addAll(tagSet);
+//		hede.remove(0);
+//		tagSet.clear();
+//		tagSet.addAll(hede);
+//		realPost.setTagId(tagSet);
+		realPost.setCategoryId(post.getCategoryId());
+		realPost.setPostEditDate(new Date());
+		realPost.setPostTitle(post.getPostTitle());
+		realPost.setPostBody(post.getPostBody());
+		this.postService.updatePost(realPost);
+		return new ModelAndView("editPost", "editPostSave", editPostSave);
 	}
 }

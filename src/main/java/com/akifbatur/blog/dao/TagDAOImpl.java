@@ -1,5 +1,7 @@
 package com.akifbatur.blog.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,5 +48,13 @@ public class TagDAOImpl implements TagDAO
 		{
 			return null;
 		}
+	}
+
+	@Override
+	public List<Tag> fetchAllTags() 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Tag");
+		return query.list();
 	}
 }

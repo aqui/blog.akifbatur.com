@@ -1,5 +1,7 @@
 package com.akifbatur.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +27,12 @@ public class TagServiceImpl implements TagService
 	public Tag checkTag(String tagText) 
 	{
 		return this.tagDAO.checkTag(tagText);	
+	}
+
+	@Override
+	@Transactional
+	public List<Tag> fetchAllTags() 
+	{
+		return this.tagDAO.fetchAllTags();
 	}	
 }

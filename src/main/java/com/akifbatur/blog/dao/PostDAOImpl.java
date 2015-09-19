@@ -108,4 +108,23 @@ public class PostDAOImpl implements PostDAO
 		Post post = (Post) query.list().get(0);
 		session.delete(post);
 	}
+
+	@Override
+	public Post getPostById(int id) 
+	{
+		Query query = null;
+		Session session = this.sessionFactory.getCurrentSession();
+		query = session.createQuery("from Post where ID = :id");
+		query.setInteger("id", id);
+		Post post = (Post) query.list().get(0);
+		return post;
+	}
+
+	@Override
+	public void updatePost(Post post) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(post);
+		System.out.println("###UPDATED");
+	}
 }
