@@ -234,10 +234,13 @@ public class PostController
 		Post post = this.postService.getPostById(id);
 		//TODO: add tags to the initial form
 		Set<Tag> tagSet = post.getTagId();
-		StringBuilder tagString = new StringBuilder();
-		tagSet.forEach(value->tagString.append(value.getTagText()).append(","));
-		tagString.deleteCharAt(tagString.length()-1);
-		editPost.addAttribute("tagString", tagString);
+		if(!tagSet.isEmpty())
+		{
+			StringBuilder tagString = new StringBuilder();
+			tagSet.forEach(value->tagString.append(value.getTagText()).append(","));
+			tagString.deleteCharAt(tagString.length()-1);
+			editPost.addAttribute("tagString", tagString);
+		}
 		editPost.addAttribute("post", post);
 		return new ModelAndView("editPost", "editPost", editPost);
 	}
@@ -263,11 +266,15 @@ public class PostController
 //		tagSet.clear();
 //		tagSet.addAll(hede);
 //		realPost.setTagId(tagSet);
+		if(tags.equals(""))
+		{
+			realPost.getTagId().clear();
+		}
 		realPost.setCategoryId(post.getCategoryId());
 		realPost.setPostEditDate(new Date());
 		realPost.setPostTitle(post.getPostTitle());
 		realPost.setPostBody(post.getPostBody());
 		this.postService.updatePost(realPost);
-		return new ModelAndView("editPost", "editPostSave", editPostSave);
+		return new ModelAndView("redirect:/post/title/"+realPost.getPostTitle());
 	}
 }
