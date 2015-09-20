@@ -44,13 +44,13 @@
 					<c:if test="${not empty securityUserName}">
 						<ul class="nav navbar-nav">
 							<li>
-								<a href="${pageContext.request.contextPath}/"><spring:message code="home"/></a>
+								<a href="${pageContext.request.contextPath}/"><span class="glyphicon glyphicon-home"></span> <spring:message code="home"/></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/post"><spring:message code="post"/></a>
+								<a href="${pageContext.request.contextPath}/post"><span class="glyphicon glyphicon-pencil"></span> <spring:message code="post"/></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/category"><spring:message code="category" /></a>
+								<a href="${pageContext.request.contextPath}/category"><span class="glyphicon glyphicon-list"></span> <spring:message code="category" /></a>
 							</li>
 						</ul>
 					</c:if>
@@ -74,7 +74,7 @@
 								<form action="${pageContext.request.contextPath}/logout" method="post" name="logoutForm">
 									<sec:csrfInput />
 								</form> 
-								<a href="#" onclick='document.logoutForm.submit();'><spring:message code="logout"/></a>
+								<a href="#" onclick='document.logoutForm.submit();'><span class="glyphicon glyphicon-off"></span> <spring:message code="logout"/></a>
 							</li>
 						</ul>
 					</c:if>
@@ -121,19 +121,19 @@
 <%-- 											</sec:authorize> --%>
 											<c:if test="${posts.authorId.userName == securityUserName}">
 												<a href="${pageContext.request.contextPath}/post/delete/${posts.id}">
-													delete 
+													<span class="glyphicon glyphicon-trash"></span> delete 
 												</a>
 												- 
 												<a href="${pageContext.request.contextPath}/post/edit/${posts.id}">
-													edit 
+													<span class="glyphicon glyphicon-edit"></span> edit 
 												</a>
 											</c:if>
 										</div>
 										<div class="col-md-4" align="center">
 											<c:if test="${not empty posts.tagId}">
-												<spring:message code="Tags"/>:
 												<c:forEach items="${posts.tagId}" var="tags">
-													<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}">${tags.tagText}</a>
+													
+													<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}"><span class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
 												</c:forEach>
 											</c:if>
 										</div>

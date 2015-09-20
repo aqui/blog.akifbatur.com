@@ -115,7 +115,7 @@
 								<div class="col-md-4" align="left">
 									<a href="${pageContext.request.contextPath}/post/author/${posts.authorId.userName}">
 										<span class="glyphicon glyphicon-user"></span> ${posts.authorId.userName}
-									</a>
+									</a> / 
 									<c:if test="${posts.authorId.userName == securityUserName}">
 										<a href="${pageContext.request.contextPath}/post/delete/${posts.id}">
 											delete 
