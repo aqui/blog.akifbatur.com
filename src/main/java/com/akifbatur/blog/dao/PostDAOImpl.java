@@ -107,7 +107,6 @@ public class PostDAOImpl implements PostDAO
 		query.setInteger("id", id);
 		Post post = (Post) query.list().get(0);
 		session.delete(post);
-		//TODO: if post tag is not used by another post then delete it
 	}
 
 	@Override
@@ -126,6 +125,6 @@ public class PostDAOImpl implements PostDAO
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(post);
-		System.out.println("###UPDATED");
+		System.out.println("Post is updated");
 	}
 }

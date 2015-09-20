@@ -146,8 +146,7 @@
 				</div>
 			</div>
 		</div>
-		<%-- Body End --%>
-		
+		<%-- Body End --%>	
 		
 	</body>
 </html>

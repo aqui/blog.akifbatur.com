@@ -131,7 +131,7 @@ public class PostController
 			savePostModel.addAttribute("message",new String("there was an error"));
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
-		return new ModelAndView("index", "savePostModel", savePostModel);
+		return new ModelAndView("redirect:/post/title/"+post.getPostTitle());
 	}
 	
 	//Get the post by postTitle
@@ -227,7 +227,7 @@ public class PostController
 			System.out.println(e);
 			return new ModelAndView("redirect:/");
 		}
-		return new ModelAndView("index", "deletePost", deletePost);
+		return new ModelAndView("redirect:/", "deletePost", deletePost);
 	}
 	
 	//Edit post by id

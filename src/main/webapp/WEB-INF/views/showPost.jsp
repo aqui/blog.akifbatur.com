@@ -134,7 +134,7 @@
 								</div>
 								<div class="col-md-4" align="right">
 									<fmt:formatDate value="${posts.postDate}" pattern="dd:MM:YYYY/hh:mm"/>
-									<c:if test="${posts.postDate != post.postEditDate}">
+									<c:if test="${posts.postDate != posts.postEditDate}">
 										 - (<fmt:formatDate value="${posts.postEditDate}" pattern="dd:MM:YYYY/hh:mm"/>)
 									</c:if>											
 								</div>
