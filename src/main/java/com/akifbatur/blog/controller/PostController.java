@@ -77,6 +77,7 @@ public class PostController
 	{
 		if(result.hasErrors()) //If Post attributes are not validated
 		{
+			savePostModel.addAttribute("tags", tags);
 			return new ModelAndView("post", "savePostModel", savePostModel);
 		}
 		try 
@@ -89,6 +90,8 @@ public class PostController
 				//For every given tag:
 				for(String tagSetElement : tagSet)
 				{
+					if(tagSetElement.equals("")||tagSetElement.equals(" "))
+						continue;
 					//Check if tag in the database
 					Tag tag = this.tagService.checkTag(tagSetElement);
 					if(tag!=null)
@@ -232,7 +235,6 @@ public class PostController
 	public ModelAndView editPost(Model editPost, @PathVariable int id)
 	{	
 		Post post = this.postService.getPostById(id);
-		//TODO: add tags to the initial form
 		Set<Tag> tagSet = post.getTagId();
 		if(!tagSet.isEmpty())
 		{
@@ -245,7 +247,7 @@ public class PostController
 		return new ModelAndView("editPost", "editPost", editPost);
 	}
 	
-	//Edit post by id
+	//Save edited post by id
 	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editPostSave(Model editPostSave, @PathVariable int id, @ModelAttribute("post") @Valid Post post
 			,BindingResult result, @RequestParam("tags") String tags)
@@ -258,17 +260,36 @@ public class PostController
 		}
 		//Get real post
 		Post realPost = this.postService.getPostById(id);
-		//Get tags of the real post
-//		Set<Tag> tagSet = realPost.getTagId();
-//		List<Tag> hede = new ArrayList<Tag>();
-//		hede.addAll(tagSet);
-//		hede.remove(0);
-//		tagSet.clear();
-//		tagSet.addAll(hede);
-//		realPost.setTagId(tagSet);
+		//If no tags given then clean it all from the post
 		if(tags.equals(""))
 		{
 			realPost.getTagId().clear();
+		}
+		else
+		{			
+			Set<Tag> set2 = new HashSet<Tag>();
+			Set<String> tagSet = new HashSet<String>(Arrays.asList(tags.split(",")));
+			for(String tagSetElement : tagSet)
+			{
+				if(tagSetElement.equals("")||tagSetElement.equals(" "))
+					continue;
+				//Check if tag in the database
+				Tag tag = this.tagService.checkTag(tagSetElement);
+				if(tag!=null)
+				{
+					set2.add(tag);
+				}
+				else
+				{
+					//If tag is not exist then create a new tag
+					Tag tag2 = new Tag();
+					tag2.setTagText(tagSetElement);
+					this.tagService.saveTag(tag2);
+					set2.add(tag2);
+				}
+			}
+			realPost.getTagId().clear();
+			realPost.getTagId().addAll(set2);
 		}
 		realPost.setCategoryId(post.getCategoryId());
 		realPost.setPostEditDate(new Date());

@@ -127,7 +127,7 @@
 								<div class="form-group">
 									<label for="tags"><spring:message code="Tags"/> </label>
 									<br/>
-									<input type="text" name="tags" maxlength="20" title="Tags"/>
+									<input type="text" name="tags" maxlength="20" title="Tags" value="${savePostModel.tags}"/>
 									<br>(<spring:message code="useCommaToSeparateTags"/>)
 								</div>
 								<div class="form-group">
