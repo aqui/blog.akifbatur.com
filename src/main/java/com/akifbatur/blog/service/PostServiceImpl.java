@@ -59,9 +59,9 @@ public class PostServiceImpl implements PostService
 
 	@Override
 	@Transactional
-	public void deletePost(int id) 
+	public void deletePost(Post post) 
 	{
-		this.postDAO.deletePost(id);
+		this.postDAO.deletePost(post);
 	}
 
 	@Override

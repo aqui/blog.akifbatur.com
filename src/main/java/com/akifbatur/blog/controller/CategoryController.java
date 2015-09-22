@@ -30,11 +30,10 @@ import com.akifbatur.blog.service.CategoryService;
  *
  */
 @Controller("categoryController")
-@RequestMapping("/category")
-public class CategoryController {
+public class CategoryController 
+{
 	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerFactory
-			.getLogger(CategoryController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
 	CategoryService categoryService;
@@ -42,19 +41,21 @@ public class CategoryController {
 	@Autowired
 	AuthorService authorService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView category(Model categoryModel) {
+	@RequestMapping(value="/category", method = RequestMethod.GET)
+	public ModelAndView createForm(Model categoryModel)
+	{
 		categoryModel.addAttribute("category", new Category());
 		return new ModelAndView("category", "categoryModel", categoryModel);
 	}
 
 	// Some data binding
 	@ModelAttribute("categories")
-	public List<Category> fetchAllCategories() {
+	public List<Category> fetchAllCategories() 
+	{
 		return categoryService.getCategories();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/category", method = RequestMethod.POST)
 	public ModelAndView saveCategory(Model saveCategoryModel, @ModelAttribute("category") @Valid Category category, BindingResult result) 
 	{
 		if (result.hasErrors()) 

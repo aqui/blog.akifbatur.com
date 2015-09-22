@@ -1,6 +1,7 @@
 package com.akifbatur.blog.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -43,7 +44,7 @@ public class Tag
 	
 	//Each tag has many posts
 	@ManyToMany(mappedBy="tagId", fetch = FetchType.EAGER)
-	private Set<Post> postId = new HashSet<Post>(0);
+	private Set<Post> postId = new LinkedHashSet<Post>(0);
 
 	public int getId() {
 		return id;

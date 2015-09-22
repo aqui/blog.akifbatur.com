@@ -44,7 +44,7 @@ public class PostDAOImpl implements PostDAO
 	public List<Post> fetchAllPost() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Post");
+		Query query = session.createQuery("from Post post order by post.postDate");
 		List<Post> posts = query.list();
 		return posts;
 	}
@@ -99,13 +99,10 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
-	public void deletePost(int id) 
+	public void deletePost(Post post) 
 	{
 		Query query = null;
 		Session session = this.sessionFactory.getCurrentSession();
-		query = session.createQuery("from Post where ID = :id");
-		query.setInteger("id", id);
-		Post post = (Post) query.list().get(0);
 		session.delete(post);
 	}
 

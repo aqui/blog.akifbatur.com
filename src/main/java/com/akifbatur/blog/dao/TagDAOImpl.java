@@ -54,7 +54,7 @@ public class TagDAOImpl implements TagDAO
 	public List<Tag> fetchAllTags() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Tag");
+		Query query = session.createQuery("from Tag tag order by tag.tagText asc");
 		return query.list();
 	}
 }

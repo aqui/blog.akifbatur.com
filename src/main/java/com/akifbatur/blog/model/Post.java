@@ -2,6 +2,7 @@ package com.akifbatur.blog.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -75,7 +76,7 @@ public class Post
 	//Each post has many tags
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="TAG_POST", joinColumns=@JoinColumn(name="POST_ID"),inverseJoinColumns=@JoinColumn(name="TAG_ID"))
-	private Set<Tag> tagId = new HashSet<Tag>(0);
+	private Set<Tag> tagId = new LinkedHashSet<Tag>(0);
 
 	public int getId() {
 		return id;

@@ -18,7 +18,7 @@ public interface PostService
 
 	public List<Post> getPostsByCategory(String categoryTitle);
 
-	public void deletePost(int id);
+	public void deletePost(Post post);
 
 	public Post getPostById(int id);
 
