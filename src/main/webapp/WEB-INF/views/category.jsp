@@ -7,6 +7,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.username" var="securityUserName" />
 	</sec:authorize>
@@ -31,7 +32,7 @@
 									${saveCategoryModel.message}
 								</div>
 							</c:if>
-							<form:form action="${pageContext.request.contextPath}/category" role="form" method="POST" name="categoryForm" modelAttribute="category">
+							<form:form action="${pageContext.request.contextPath}/category/write" role="form" method="POST" name="categoryForm" modelAttribute="category">
 								<div class="form-group">
 									<label for="categoryTitle"><spring:message code="CategoryTitle"/> <form:errors path="categoryTitle"/></label>
 									<br>

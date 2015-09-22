@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,33 +30,28 @@ import com.akifbatur.blog.service.CategoryService;
  * @author Akif Batur
  *
  */
-@Controller("categoryController")
-public class CategoryController 
+@Controller("writeCategoryController")
+public class WriteCategoryController 
 {
 	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+	private static final Logger logger = LoggerFactory.getLogger(WriteCategoryController.class);
 
 	@Autowired
 	CategoryService categoryService;
 
 	@Autowired
 	AuthorService authorService;
-
-	@RequestMapping(value="/category", method = RequestMethod.GET)
+		
+	@RequestMapping(value="/category/write", method = RequestMethod.GET)
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	public ModelAndView createForm(Model categoryModel)
 	{
 		categoryModel.addAttribute("category", new Category());
 		return new ModelAndView("category", "categoryModel", categoryModel);
 	}
 
-	// Some data binding
-	@ModelAttribute("categories")
-	public List<Category> fetchAllCategories() 
-	{
-		return categoryService.getCategories();
-	}
-
-	@RequestMapping(value="/category", method = RequestMethod.POST)
+	@RequestMapping(value="/category/write", method = RequestMethod.POST)
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	public ModelAndView saveCategory(Model saveCategoryModel, @ModelAttribute("category") @Valid Category category, BindingResult result) 
 	{
 		if (result.hasErrors()) 

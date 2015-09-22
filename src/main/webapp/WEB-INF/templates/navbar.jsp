@@ -31,7 +31,7 @@
 					<li><a href="${pageContext.request.contextPath}/post/write"><span
 							class="glyphicon glyphicon-pencil"></span> <spring:message
 								code="post" /></a></li>
-					<li><a href="${pageContext.request.contextPath}/category"><span
+					<li><a href="${pageContext.request.contextPath}/category/write"><span
 							class="glyphicon glyphicon-list-alt"></span> <spring:message
 								code="category" /></a></li>
 				</ul>

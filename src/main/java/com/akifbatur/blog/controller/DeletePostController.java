@@ -3,6 +3,7 @@ package com.akifbatur.blog.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class DeletePostController
 	PostService postService;
 	
 	//Delete post by id
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/delete/{id}", method = RequestMethod.GET)
 	public String deletePost(@PathVariable int id)
 	{	

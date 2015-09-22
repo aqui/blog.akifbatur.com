@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,6 +57,7 @@ public class EditPostController
 	}
 		
 	//Edit post by id
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView createEmptyForm(Model editPost, @PathVariable int id)
 	{	
@@ -73,6 +75,7 @@ public class EditPostController
 	}
 	
 	//Save edited post by id
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView updatePost(
 				Model editPostSave, 

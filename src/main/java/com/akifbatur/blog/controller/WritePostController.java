@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,28 +58,30 @@ public class WritePostController
 	@Autowired
 	TagService tagService;
 	
-	@RequestMapping(value="/post/write", method = RequestMethod.GET)
-	public ModelAndView createForm(Model postModel)
-	{		
-		postModel.addAttribute("post",new Post());
-		return new ModelAndView("post", "postModel", postModel);
-	}
-	
 	//Some data binding
 	@ModelAttribute("categories")
 	public List<Category> getAllCategories()
 	{
 		return categoryService.getCategories();
 	}
+		
+	@RequestMapping(value="/post/write", method = RequestMethod.GET)
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	public ModelAndView createForm(Model postModel)
+	{		
+		postModel.addAttribute("post",new Post());
+		return new ModelAndView("writePost", "postModel", postModel);
+	}
 	
 	@RequestMapping(value="/post/write", method = RequestMethod.POST)
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
 			BindingResult result, @RequestParam("tags") String tags)
 	{
 		if(result.hasErrors()) //If Post attributes are not validated
 		{
 			savePostModel.addAttribute("tags", tags);
-			return new ModelAndView("post", "savePostModel", savePostModel);
+			return new ModelAndView("writePost", "savePostModel", savePostModel);
 		}
 		try 
 		{			
@@ -129,7 +132,7 @@ public class WritePostController
 		{
 			System.out.println(e);
 			savePostModel.addAttribute("message",new String("there was an error"));
-			return new ModelAndView("post", "savePostModel", savePostModel);
+			return new ModelAndView("writePost", "savePostModel", savePostModel);
 		}
 		return new ModelAndView("redirect:/post/title/"+post.getPostTitle());
 	}
