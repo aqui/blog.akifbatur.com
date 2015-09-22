@@ -44,7 +44,7 @@ public class PostDAOImpl implements PostDAO
 	public List<Post> fetchAllPost() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Post post order by post.postDate");
+		Query query = session.createQuery("from Post post order by post.postDate desc");
 		List<Post> posts = query.list();
 		return posts;
 	}

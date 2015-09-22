@@ -7,7 +7,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+	
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.username" var="securityUserName" />
+	</sec:authorize>
+	
 	<jsp:include page="/WEB-INF/templates/head.jsp"></jsp:include>
 
 	<body>

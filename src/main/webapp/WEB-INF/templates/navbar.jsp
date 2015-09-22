@@ -4,8 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal.username"
-		var="securityUserName" />
+	<sec:authentication property="principal.username" var="securityUserName" />
 </sec:authorize>
 
 <%-- Navigation Bar Start --%>
