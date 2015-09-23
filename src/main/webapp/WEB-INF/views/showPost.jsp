@@ -44,21 +44,22 @@
 									<c:if test="${posts.authorId.userName == securityUserName}">
 										/ 
 										<a href="${pageContext.request.contextPath}/post/delete/${posts.id}">
-											delete 
+											<span class="glyphicon glyphicon-trash"></span> delete 
 										</a>
 										- 
 										<a href="${pageContext.request.contextPath}/post/edit/${posts.id}">
-											edit 
+											<span class="glyphicon glyphicon-edit"></span> edit 
 										</a>
 									</c:if>
 								</div>
 								<div class="col-md-4" align="center">
-									<spring:message code="Tags"/>:
 									<c:forEach items="${posts.tags}" var="tags">
-										<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}">${tags.tagText}</a>
+										<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}">
+										<span class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
 									</c:forEach>
 								</div>
 								<div class="col-md-4" align="right">
+									<span class="glyphicon glyphicon-calendar"></span>
 									<fmt:formatDate value="${posts.postDate}" pattern="dd:MM:YYYY/hh:mm"/>
 									<c:if test="${posts.postDate != posts.postEditDate}">
 										 - (<fmt:formatDate value="${posts.postEditDate}" pattern="dd:MM:YYYY/hh:mm"/>)
