@@ -1,7 +1,9 @@
 package com.akifbatur.blog.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,6 +32,13 @@ public class Role implements Serializable
 		
 	}
 	
+	public Role(int id, String role, List<Author> authors) {
+		super();
+		this.id = id;
+		this.role = role;
+		this.authors = authors;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -42,21 +52,16 @@ public class Role implements Serializable
 	@Column(name="ROLE", nullable = false, length=45)
 	private String role = "ROLE_USER"; //New user role by default
 	
-	//Each role has an author
-	@ManyToOne
-	@JoinColumn(name="AUTHOR_ID", nullable = false)
-	private Author authorId;
+	//Each role has many authors
+	@ManyToMany(mappedBy="roles", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Author> authors;
 
 	public int getId() {
 		return id;
 	}
 
-	public String getRole() {
+	public String getRole()  {
 		return role;
-	}
-
-	public Author getAuthorId() {
-		return authorId;
 	}
 
 	public void setId(int id) {
@@ -67,7 +72,11 @@ public class Role implements Serializable
 		this.role = role;
 	}
 
-	public void setAuthorId(Author authorId) {
-		this.authorId = authorId;
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
 	}
 }

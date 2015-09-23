@@ -64,6 +64,7 @@ public class SignUpController
 		
 		try 
 		{
+			System.out.println(author);
 			//Try to save the author
 			this.authorService.saveAuthor(author);
 		}

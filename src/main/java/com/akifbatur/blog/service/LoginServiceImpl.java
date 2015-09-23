@@ -48,7 +48,7 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 			logger.error(e.toString());
 			return null;
 		}
-		List<GrantedAuthority> authorities = buildUserAuthority(author.getRole());
+		List<GrantedAuthority> authorities = buildUserAuthority(author.getRoles());
 		return buildUserForAuthentication(author, authorities);
 	}
 
@@ -57,14 +57,14 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 		return new User(author.getUserName(), author.getPassword(), author.isEnabled(), true, true, true, authorities);
 	}
 
-	private List<GrantedAuthority> buildUserAuthority(Set<Role> role) 
+	private List<GrantedAuthority> buildUserAuthority(List<Role> roles) 
 	{
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-		for (Role roles : role) 
+		for (Role role : roles) 
 		{
-			setAuths.add(new SimpleGrantedAuthority(roles.getRole()));
+			setAuths.add(new SimpleGrantedAuthority(role.getRole()));
 		}
-		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
-		return Result;
+		List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
+		return result;
 	}
 }

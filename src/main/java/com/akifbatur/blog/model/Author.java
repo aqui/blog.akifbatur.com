@@ -3,6 +3,7 @@ package com.akifbatur.blog.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -13,6 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -40,6 +44,23 @@ public class Author implements Serializable
 		
 	}
 	
+	public Author(int id, String userName, String password, String name,
+			String email, boolean enabled, Date joinDate, Date loginDate,
+			List<Role> roles, Set<Post> post, Set<Category> category) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.enabled = enabled;
+		this.joinDate = joinDate;
+		this.loginDate = loginDate;
+		this.roles = roles;
+		this.post = post;
+		this.category = category;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -85,8 +106,9 @@ public class Author implements Serializable
 	private Date loginDate;
 	
 	//Each author has many roles
-	@OneToMany(mappedBy="authorId", cascade=CascadeType.ALL)
-	private Set<Role> role = new HashSet<Role>(0);
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="AUTHOR_ROLE", joinColumns=@JoinColumn(name="AUTHOR_ID"), inverseJoinColumns=@JoinColumn(name="ROLE_ID"))
+	private List<Role> roles;
 	
 	//Each author has many posts
 	@OneToMany(mappedBy="authorId")
@@ -119,11 +141,7 @@ public class Author implements Serializable
 	public boolean isEnabled() {
 		return enabled;
 	}
-
-	public Set<Role> getRole() {
-		return role;
-	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -146,10 +164,6 @@ public class Author implements Serializable
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public void setRole(Set<Role> role) {
-		this.role = role;
 	}
 	
 	public Set<Post> getPost() {
@@ -186,6 +200,14 @@ public class Author implements Serializable
 
 	public void setLoginDate(Date loginDate) {
 		this.loginDate = loginDate;
+	}
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
