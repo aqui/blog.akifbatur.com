@@ -31,5 +31,19 @@
 	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<beans:property name="basename" value="i18n/messages"/>
 	</beans:bean>
+	
+	<!-- 	Thymeleaf -->
+<!-- 	<beans:bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"> -->
+<!-- 		<beans:property name="prefix" value="/WEB-INF/views/" /> -->
+<!-- 		<beans:property name="suffix" value=".html" /> -->
+<!-- 		<beans:property name="order" value="1" /> -->
+<!-- 		<beans:property name="templateMode" value="HTML5" /> -->
+<!-- 	</beans:bean> -->
+<!-- 	<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine"> -->
+<!-- 		<beans:property name="templateResolver" ref="templateResolver" /> -->
+<!-- 	</beans:bean> -->
+<!-- 	<beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver"> -->
+<!-- 		<beans:property name="templateEngine" ref="templateEngine" /> -->
+<!-- 	</beans:bean> -->
 
 </beans:beans>
