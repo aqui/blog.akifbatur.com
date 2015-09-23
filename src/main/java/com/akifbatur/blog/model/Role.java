@@ -24,18 +24,6 @@ import org.slf4j.LoggerFactory;
 @Table(name="ROLE", catalog="BLOG")
 public class Role implements Serializable
 {
-	public Role()
-	{
-		
-	}
-	
-	public Role(int id, String role, List<Author> authors) {
-		super();
-		this.id = id;
-		this.role = role;
-		this.authors = authors;
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -52,6 +40,18 @@ public class Role implements Serializable
 	//Each role has many authors
 	@ManyToMany(mappedBy="roles")
 	private List<Author> authors = new ArrayList<Author>();
+	
+	public Role()
+	{
+		
+	}
+	
+	public Role(int id, String role, List<Author> authors) {
+		super();
+		this.id = id;
+		this.role = role;
+		this.authors = authors;
+	}
 
 	public int getId() {
 		return id;

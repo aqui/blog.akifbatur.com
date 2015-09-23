@@ -29,11 +29,6 @@ import org.slf4j.LoggerFactory;
 @Table(name="CATEGORY", catalog="BLOG")
 public class Category implements Serializable
 {
-	public Category()
-	{
-		
-	}
-	
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -64,7 +59,23 @@ public class Category implements Serializable
 	//Each category has many posts
 	@OneToMany(mappedBy="categoryId")
 	private Set<Post> post = new HashSet<Post>(0);
-
+	
+	public Category()
+	{
+		
+	}
+	
+	public Category(int id, String categoryTitle, Date categoryDate,
+			Date categoryEditDate, Author authorId, Set<Post> post) {
+		super();
+		this.id = id;
+		this.categoryTitle = categoryTitle;
+		this.categoryDate = categoryDate;
+		this.categoryEditDate = categoryEditDate;
+		this.authorId = authorId;
+		this.post = post;
+	}
+	
 	public int getId() {
 		return id;
 	}

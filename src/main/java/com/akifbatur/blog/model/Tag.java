@@ -30,11 +30,6 @@ import org.slf4j.LoggerFactory;
 @Table(name="TAG", catalog="BLOG")
 public class Tag implements Serializable
 {
-	public Tag()
-	{
-		
-	}
-	
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -51,6 +46,18 @@ public class Tag implements Serializable
 	//Each tag has many posts
 	@ManyToMany(mappedBy="tagId", fetch = FetchType.EAGER)
 	private Set<Post> postId = new LinkedHashSet<Post>(0);
+	
+	public Tag()
+	{
+		
+	}
+	
+	public Tag(int id, String tagText, Set<Post> postId) {
+		super();
+		this.id = id;
+		this.tagText = tagText;
+		this.postId = postId;
+	}
 
 	public int getId() {
 		return id;

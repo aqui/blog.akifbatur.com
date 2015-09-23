@@ -38,32 +38,10 @@ import org.slf4j.LoggerFactory;
 @Table(name="AUTHOR", catalog="BLOG")
 public class Author implements Serializable
 {
-	public Author()
-	{
-		
-	}
-	
-	public Author(int id, String userName, String password, String name,
-			String email, boolean enabled, Date joinDate, Date loginDate,
-			List<Role> roles, Set<Post> post, Set<Category> category) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
-		this.name = name;
-		this.email = email;
-		this.enabled = enabled;
-		this.joinDate = joinDate;
-		this.loginDate = loginDate;
-		this.roles = roles;
-		this.post = post;
-		this.category = category;
-	}
-
-	private static final long serialVersionUID = 1L;
-
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Author.class);
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name="ID")
@@ -116,6 +94,28 @@ public class Author implements Serializable
 	//Each author has many categories
 	@OneToMany(mappedBy="authorId")
 	private Set<Category> category = new HashSet<Category>(0);
+	
+	public Author()
+	{
+		
+	}
+	
+	public Author(int id, String userName, String password, String name,
+			String email, boolean enabled, Date joinDate, Date loginDate,
+			List<Role> roles, Set<Post> post, Set<Category> category) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.enabled = enabled;
+		this.joinDate = joinDate;
+		this.loginDate = loginDate;
+		this.roles = roles;
+		this.post = post;
+		this.category = category;
+	}
 	
 	public int getId() {
 		return id;
@@ -207,12 +207,5 @@ public class Author implements Serializable
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
-
-	@Override
-	public String toString()
-	{
-		return String.format("ID = %s, NAME = %s, USERNAME = %s, EMAIL = %s, ENABLED = %s, "
-				+ "JOIN_DATE = %s, LOGIN_DATE = %s", id, name, userName, email, enabled, joinDate, loginDate);
 	}
 }

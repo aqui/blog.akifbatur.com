@@ -32,11 +32,6 @@ import org.slf4j.LoggerFactory;
 @Table(name="POST", catalog="BLOG")
 public class Post implements Serializable
 {
-	public Post()
-	{
-		
-	}
-	
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -82,6 +77,25 @@ public class Post implements Serializable
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="TAG_POST", joinColumns=@JoinColumn(name="POST_ID"),inverseJoinColumns=@JoinColumn(name="TAG_ID"))
 	private Set<Tag> tagId = new LinkedHashSet<Tag>(0);
+	
+	public Post()
+	{
+		
+	}
+	
+	public Post(int id, String postTitle, String postBody, Date postDate,
+			Date postEditDate, Author authorId, Category categoryId,
+			Set<Tag> tagId) {
+		super();
+		this.id = id;
+		this.postTitle = postTitle;
+		this.postBody = postBody;
+		this.postDate = postDate;
+		this.postEditDate = postEditDate;
+		this.authorId = authorId;
+		this.categoryId = categoryId;
+		this.tagId = tagId;
+	}
 
 	public int getId() {
 		return id;
