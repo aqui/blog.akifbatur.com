@@ -1,6 +1,7 @@
 package com.akifbatur.blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,12 +50,12 @@ public class Role implements Serializable
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="ROLE", nullable = false, length=45)
-	private String role = "ROLE_USER"; //New user role by default
+	@Column(name="ROLE", insertable=false, columnDefinition = "default 'ROLE_USER'")
+	private String role; //New user role by default
 	
 	//Each role has many authors
-	@ManyToMany(mappedBy="roles", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<Author> authors;
+	@ManyToMany(mappedBy="roles")
+	private List<Author> authors = new ArrayList<Author>();
 
 	public int getId() {
 		return id;

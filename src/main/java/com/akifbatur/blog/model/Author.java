@@ -1,6 +1,7 @@
 package com.akifbatur.blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -106,9 +107,9 @@ public class Author implements Serializable
 	private Date loginDate;
 	
 	//Each author has many roles
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name="AUTHOR_ROLE", joinColumns=@JoinColumn(name="AUTHOR_ID"), inverseJoinColumns=@JoinColumn(name="ROLE_ID"))
-	private List<Role> roles;
+	private List<Role> roles = new ArrayList<Role>();
 	
 	//Each author has many posts
 	@OneToMany(mappedBy="authorId")

@@ -39,13 +39,18 @@ public class AuthorDAOImpl implements AuthorDAO
 	@Override
 	public void saveAuthor(Author author) 
 	{
-		System.out.println("DAO"+author);
 		Session session = this.sessionFactory.getCurrentSession();
 		//BCrypt password
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
 		author.setPassword(encoder.encode(author.getPassword()));
+		/*
+		 * To persist a new author there should be predefined roles in the ROLE table.
+		 * New authors will have ROLE_USER by default.
+		 * */
+		Query query = session.createQuery("from Role where ROLE = :role");
 		//Set author role as ROLE_USER by default
-		Role role = new Role();
+		query.setString("role", "ROLE_USER");
+		Role role = (Role) query.list().get(0);
 		role.getAuthors().add(author);
 		author.getRoles().add(role);
 		author.setJoinDate(new Date());
