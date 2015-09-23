@@ -25,75 +25,72 @@
 	<%-- Body Start --%>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-12">
-				<c:if test="${empty posts}">
-					<div class="alert alert-info fade in" align="center">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						there is no post at this moment <br>
+			<c:if test="${empty posts}">
+				<div class="alert alert-info fade in" align="center">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					there is no post at this moment <br>
+				</div>
+			</c:if>
+			<c:forEach items="${posts}" var="posts">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a
+								href="${pageContext.request.contextPath}/post/category/${posts.categoryId.categoryTitle}">${posts.categoryId.categoryTitle}</a>
+							: <a
+								href="${pageContext.request.contextPath}/post/title/${posts.postTitle}">${posts.postTitle}</a>
+						</h3>
 					</div>
-				</c:if>
-				<c:forEach items="${posts}" var="posts">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
+					<div class="panel-body">${posts.postBody}</div>
+					<div class="panel-footer panel-info">
+						<div class="row">
+							<div class="col-md-4" align="left">
 								<a
-									href="${pageContext.request.contextPath}/post/category/${posts.categoryId.categoryTitle}">${posts.categoryId.categoryTitle}</a>
-								: <a
-									href="${pageContext.request.contextPath}/post/title/${posts.postTitle}">${posts.postTitle}</a>
-							</h3>
-						</div>
-						<div class="panel-body">${posts.postBody}</div>
-						<div class="panel-footer panel-info">
-							<div class="row">
-								<div class="col-md-4" align="left">
-									<a
-										href="${pageContext.request.contextPath}/post/author/${posts.authorId.userName}">
-										<span class="glyphicon glyphicon-user"></span>
-										${posts.authorId.userName}
-									</a>
-									<%-- 											<sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
-									<%-- 												<a href="${pageContext.request.contextPath}/admin">admin</a> --%>
-									<%-- 											</sec:authorize> --%>
-									<c:if test="${posts.authorId.userName == securityUserName}">
+									href="${pageContext.request.contextPath}/post/author/${posts.authorId.userName}">
+									<span class="glyphicon glyphicon-user"></span>
+									${posts.authorId.userName}
+								</a>
+								<%-- <sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
+								<%-- <a href="${pageContext.request.contextPath}/admin">admin</a> --%>
+								<%-- </sec:authorize> --%>
+								<c:if test="${posts.authorId.userName == securityUserName}">
 											 / 
 												<a
-											href="${pageContext.request.contextPath}/post/delete/${posts.id}">
-											<span class="glyphicon glyphicon-trash"></span> delete
-										</a>
+										href="${pageContext.request.contextPath}/post/delete/${posts.id}">
+										<span class="glyphicon glyphicon-trash"></span> delete
+									</a>
 												- 
 												<a
-											href="${pageContext.request.contextPath}/post/edit/${posts.id}">
-											<span class="glyphicon glyphicon-edit"></span> edit
-										</a>
-									</c:if>
-								</div>
-								<div class="col-md-4" align="center">
-									<c:if test="${not empty posts.tags}">
-										<c:forEach items="${posts.tags}" var="tags">
+										href="${pageContext.request.contextPath}/post/edit/${posts.id}">
+										<span class="glyphicon glyphicon-edit"></span> edit
+									</a>
+								</c:if>
+							</div>
+							<div class="col-md-4" align="center">
+								<c:if test="${not empty posts.tags}">
+									<c:forEach items="${posts.tags}" var="tags">
 
-											<a
-												href="${pageContext.request.contextPath}/post/tag/${tags.tagText}"><span
-												class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
-										</c:forEach>
-									</c:if>
-								</div>
-								<div class="col-md-4" align="right">
-									<span class="glyphicon glyphicon-calendar"></span>
-									<fmt:formatDate value="${posts.postDate}"
-										pattern="dd:MM:YYYY/hh:mm" />
-									<c:if test="${posts.postDate != posts.postEditDate}">
+										<a
+											href="${pageContext.request.contextPath}/post/tag/${tags.tagText}"><span
+											class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
+									</c:forEach>
+								</c:if>
+							</div>
+							<div class="col-md-4" align="right">
+								<span class="glyphicon glyphicon-calendar"></span>
+								<fmt:formatDate value="${posts.postDate}"
+									pattern="dd:MM:YYYY/hh:mm" />
+								<c:if test="${posts.postDate != posts.postEditDate}">
 												 - (<fmt:formatDate value="${posts.postEditDate}"
-											pattern="dd:MM:YYYY/hh:mm" />)
+										pattern="dd:MM:YYYY/hh:mm" />)
 											</c:if>
-								</div>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<%-- Body End --%>
-
 </body>
 </html>
