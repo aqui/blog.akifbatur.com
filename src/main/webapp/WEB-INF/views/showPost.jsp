@@ -54,7 +54,7 @@
 								</div>
 								<div class="col-md-4" align="center">
 									<spring:message code="Tags"/>:
-									<c:forEach items="${posts.tagId}" var="tags">
+									<c:forEach items="${posts.tags}" var="tags">
 										<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}">${tags.tagText}</a>
 									</c:forEach>
 								</div>

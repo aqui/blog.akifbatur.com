@@ -31,6 +31,7 @@ public class PostDAOImpl implements PostDAO
 	@Override
 	public void savePost(Post post) 
 	{
+		System.out.println(post.getPostBody());
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(post);
 		logger.info("Posted");
@@ -77,7 +78,7 @@ public class PostDAOImpl implements PostDAO
 		query.setString("tagText", tagText);
 		Tag tag = (Tag) query.list().get(0);
 		List<Post> posts = new ArrayList<Post>();
-		posts.addAll(tag.getPostId());
+		posts.addAll(tag.getPosts());
 		return posts;
 	}
 

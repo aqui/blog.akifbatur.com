@@ -56,8 +56,8 @@
 											</c:if>
 										</div>
 										<div class="col-md-4" align="center">
-											<c:if test="${not empty posts.tagId}">
-												<c:forEach items="${posts.tagId}" var="tags">
+											<c:if test="${not empty posts.tags}">
+												<c:forEach items="${posts.tags}" var="tags">
 													
 													<a href="${pageContext.request.contextPath}/post/tag/${tags.tagText}"><span class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
 												</c:forEach>

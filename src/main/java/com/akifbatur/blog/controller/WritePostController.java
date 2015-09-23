@@ -1,5 +1,6 @@
 package com.akifbatur.blog.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -63,52 +64,52 @@ public class WritePostController
 		return categoryService.getCategories();
 	}
 		
-	@RequestMapping(value="/post/write", method = RequestMethod.GET)
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value="/post/write", method = RequestMethod.GET)
 	public ModelAndView createForm(Model postModel)
 	{		
 		postModel.addAttribute("post",new Post());
 		return new ModelAndView("writePost", "postModel", postModel);
 	}
 	
-	@RequestMapping(value="/post/write", method = RequestMethod.POST)
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value="/post/write", method = RequestMethod.POST)
 	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
-			BindingResult result, @RequestParam("tags") String tags)
+			BindingResult result, @RequestParam("tagField") String tagField)
 	{
 		if(result.hasErrors()) //If Post attributes are not validated
 		{
-			savePostModel.addAttribute("tags", tags);
+			savePostModel.addAttribute("tagField", tagField);
 			return new ModelAndView("writePost", "savePostModel", savePostModel);
 		}
 		try 
 		{			
 			//If tags are given
-			if(!tags.equals(""))
+			if(!tagField.equals(""))
 			{
 				//Split tags
-				Set<String> tagSet = new HashSet<String>(Arrays.asList(tags.split(",")));
+				List<String> tagList = new ArrayList<String>(Arrays.asList(tagField.split(",")));
 				//For every given tag:
-				for(String tagSetElement : tagSet)
+				for(String tagListElement : tagList)
 				{
-					if(tagSetElement.equals("")||tagSetElement.equals(" "))
+					if(tagListElement.equals("")||tagListElement.equals(" "))
 						continue;
 					//Check if tag in the database
-					Tag tag = this.tagService.checkTag(tagSetElement);
+					Tag tag = this.tagService.checkTag(tagListElement);
 					if(tag!=null)
 					{
 						//If the tag is exist then use it
-						post.getTagId().add(tag);
-						tag.getPostId().add(post);
+						post.getTags().add(tag);
+						tag.getPosts().add(post);
 					}
 					else
 					{
 						//If tag is not exist then create a new tag
 						Tag tag2 = new Tag();
-						tag2.setTagText(tagSetElement);
+						tag2.setTagText(tagListElement);
 						this.tagService.saveTag(tag2);
-						post.getTagId().add(tag2);
-						tag2.getPostId().add(post);
+						post.getTags().add(tag2);
+						tag2.getPosts().add(post);
 					}
 				}
 			}

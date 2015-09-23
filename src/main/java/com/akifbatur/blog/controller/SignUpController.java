@@ -77,6 +77,6 @@ public class SignUpController
 		}
 		
 		//If there is no error return to login page
-		return new ModelAndView("login", "saveAuthorModel", saveAuthorModel);
+		return new ModelAndView("redirect:/login", "saveAuthorModel", saveAuthorModel);
 	}
 }

@@ -1,5 +1,6 @@
 package com.akifbatur.blog.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -62,11 +63,11 @@ public class EditPostController
 	public ModelAndView createEmptyForm(Model editPost, @PathVariable int id)
 	{	
 		Post post = this.postService.getPostById(id);
-		Set<Tag> tagSet = post.getTagId();
-		if(!tagSet.isEmpty())
+		List<Tag> tagList = post.getTags();
+		if(!tagList.isEmpty())
 		{
 			StringBuilder tagString = new StringBuilder();
-			tagSet.forEach(value->tagString.append(value.getTagText()).append(","));
+			tagList.forEach(value->tagString.append(value.getTagText()).append(","));
 			tagString.deleteCharAt(tagString.length()-1);
 			editPost.addAttribute("tagString", tagString);
 		}
@@ -81,31 +82,31 @@ public class EditPostController
 				Model editPostSave, 
 				@PathVariable int id, 
 				@ModelAttribute("post") @Valid Post post,
-				BindingResult result, @RequestParam("tags") String tags)
+				BindingResult result, @RequestParam("tagField") String tagField)
 	{	
 		//TODO: If post author and editor is different or editor is not an admin then go to index
 		if(result.hasErrors()) //If Post attributes are not validated
 		{
-			editPostSave.addAttribute("tagString", tags);
+			editPostSave.addAttribute("tagString", tagField);
 			return new ModelAndView("editPost", "editPostSave", editPostSave);
 		}
 		//Get real post
 		Post realPost = this.postService.getPostById(id);
 		//If no tags given then clean it all from the post
-		if(tags.equals(""))
+		if(tagField.equals(""))
 		{
-			realPost.getTagId().clear();
+			realPost.getTags().clear();
 		}
 		else
 		{			
-			Set<Tag> set2 = new HashSet<Tag>();
-			Set<String> tagSet = new HashSet<String>(Arrays.asList(tags.split(",")));
-			for(String tagSetElement : tagSet)
+			List<Tag> set2 = new ArrayList<Tag>();
+			List<String> tagList = new ArrayList<String>(Arrays.asList(tagField.split(",")));
+			for(String tagListElement : tagList)
 			{
-				if(tagSetElement.equals("")||tagSetElement.equals(" "))
+				if(tagListElement.equals("")||tagListElement.equals(" "))
 					continue;
 				//Check if tag in the database
-				Tag tag = this.tagService.checkTag(tagSetElement);
+				Tag tag = this.tagService.checkTag(tagListElement);
 				if(tag!=null)
 				{
 					set2.add(tag);
@@ -114,13 +115,13 @@ public class EditPostController
 				{
 					//If tag is not exist then create a new tag
 					Tag tag2 = new Tag();
-					tag2.setTagText(tagSetElement);
+					tag2.setTagText(tagListElement);
 					this.tagService.saveTag(tag2);
 					set2.add(tag2);
 				}
 			}
-			realPost.getTagId().clear();
-			realPost.getTagId().addAll(set2);
+			realPost.getTags().clear();
+			realPost.getTags().addAll(set2);
 		}
 		realPost.setCategoryId(post.getCategoryId());
 		realPost.setPostEditDate(new Date());

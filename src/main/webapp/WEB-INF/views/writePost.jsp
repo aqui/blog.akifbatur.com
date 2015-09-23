@@ -50,9 +50,9 @@
 									<form:input type="text" path="postTitle" maxlength="20" title="Title"/>
 								</div>
 								<div class="form-group">
-									<label for="tags"><spring:message code="Tags"/> </label>
+									<label for="tagField"><spring:message code="Tags"/> </label>
 									<br/>
-									<input type="text" name="tags" maxlength="20" title="Tags" value="${savePostModel.tags}"/>
+									<input type="text" name="tagField" maxlength="20" title="Tags" value="${savePostModel.tagField}"/>
 									<br>(<spring:message code="useCommaToSeparateTags"/>)
 								</div>
 								<div class="form-group">

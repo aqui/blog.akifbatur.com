@@ -1,8 +1,10 @@
 package com.akifbatur.blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -76,7 +78,7 @@ public class Post implements Serializable
 	//Each post has many tags
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="TAG_POST", joinColumns=@JoinColumn(name="POST_ID"),inverseJoinColumns=@JoinColumn(name="TAG_ID"))
-	private Set<Tag> tagId = new LinkedHashSet<Tag>(0);
+	private List<Tag> tags = new ArrayList<Tag>();
 	
 	public Post()
 	{
@@ -85,7 +87,7 @@ public class Post implements Serializable
 	
 	public Post(int id, String postTitle, String postBody, Date postDate,
 			Date postEditDate, Author authorId, Category categoryId,
-			Set<Tag> tagId) {
+			List<Tag> tags) {
 		super();
 		this.id = id;
 		this.postTitle = postTitle;
@@ -94,7 +96,7 @@ public class Post implements Serializable
 		this.postEditDate = postEditDate;
 		this.authorId = authorId;
 		this.categoryId = categoryId;
-		this.tagId = tagId;
+		this.tags = tags;
 	}
 
 	public int getId() {
@@ -109,8 +111,8 @@ public class Post implements Serializable
 		return categoryId;
 	}
 
-	public Set<Tag> getTagId() {
-		return tagId;
+	public List<Tag> getTags() {
+		return tags;
 	}
 
 	public void setId(int id) {
@@ -125,8 +127,8 @@ public class Post implements Serializable
 		this.categoryId = categoryId;
 	}
 
-	public void setTagId(Set<Tag> tagId) {
-		this.tagId = tagId;
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 
 	public String getPostTitle() {

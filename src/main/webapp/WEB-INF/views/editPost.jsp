@@ -50,13 +50,13 @@
 									<form:input type="text" path="postTitle" maxlength="20" title="Title"/>
 								</div>
 								<div class="form-group">
-									<label for="tags"><spring:message code="Tags"/> </label>
+									<label for="tagField"><spring:message code="Tags"/> </label>
 									<br/>
 <%-- 									<c:forEach items="${post.tagId}" var="tags"> --%>
 <%-- 										${tags.tagText} --%>
 <%-- 									</c:forEach> --%>
 <%-- 									<form:input type="text" path="tagId" maxlength="1000" title="Tags"/> --%>
-										<input type="text" name="tags" maxlength="20" title="Tags" value="${editPost.tagString}${editPostSave.tagString}"/>
+										<input type="text" name="tagField" maxlength="20" title="Tags" value="${editPost.tagString}${editPostSave.tagString}"/>
 									<br>(<spring:message code="useCommaToSeparateTags"/>)
 								</div>
 								<div class="form-group">

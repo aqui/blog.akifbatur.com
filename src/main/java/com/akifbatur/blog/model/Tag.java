@@ -1,7 +1,9 @@
 package com.akifbatur.blog.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -44,35 +46,35 @@ public class Tag implements Serializable
 	private String tagText;
 	
 	//Each tag has many posts
-	@ManyToMany(mappedBy="tagId", fetch = FetchType.EAGER)
-	private Set<Post> postId = new LinkedHashSet<Post>(0);
+	@ManyToMany(mappedBy="tags", fetch = FetchType.EAGER)
+	private List<Post> posts = new ArrayList<Post>();
 	
 	public Tag()
 	{
 		
 	}
 	
-	public Tag(int id, String tagText, Set<Post> postId) {
+	public Tag(int id, String tagText, List<Post> posts) {
 		super();
 		this.id = id;
 		this.tagText = tagText;
-		this.postId = postId;
+		this.posts = posts;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public Set<Post> getPostId() {
-		return postId;
+	public List<Post> getPosts() {
+		return posts;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setPostId(Set<Post> postId) {
-		this.postId = postId;
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	public String getTagText() {

@@ -40,16 +40,16 @@ public class WriteCategoryController
 	@Autowired
 	AuthorService authorService;
 		
-	@RequestMapping(value="/category/write", method = RequestMethod.GET)
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value="/category/write", method = RequestMethod.GET)
 	public ModelAndView createForm(Model categoryModel)
 	{
 		categoryModel.addAttribute("category", new Category());
 		return new ModelAndView("category", "categoryModel", categoryModel);
 	}
 
-	@RequestMapping(value="/category/write", method = RequestMethod.POST)
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value="/category/write", method = RequestMethod.POST)
 	public ModelAndView saveCategory(Model saveCategoryModel, @ModelAttribute("category") @Valid Category category, BindingResult result) 
 	{
 		if (result.hasErrors()) 
