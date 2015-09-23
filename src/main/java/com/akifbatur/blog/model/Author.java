@@ -1,5 +1,6 @@
 package com.akifbatur.blog.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +33,15 @@ import org.slf4j.LoggerFactory;
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="AUTHOR", catalog="BLOG")
-public class Author 
+public class Author implements Serializable
 {
+	public Author()
+	{
+		
+	}
+	
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Author.class);
 	

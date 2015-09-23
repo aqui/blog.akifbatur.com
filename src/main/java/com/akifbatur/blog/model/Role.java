@@ -1,5 +1,7 @@
 package com.akifbatur.blog.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,8 +22,15 @@ import org.slf4j.LoggerFactory;
  */
 @Entity
 @Table(name="ROLE", catalog="BLOG")
-public class Role 
+public class Role implements Serializable
 {
+	public Role()
+	{
+		
+	}
+	
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(Author.class);
 	
