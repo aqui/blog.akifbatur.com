@@ -1,11 +1,7 @@
 package com.akifbatur.blog.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -101,7 +97,6 @@ public class PostDAOImpl implements PostDAO
 	@Override
 	public void deletePost(Post post) 
 	{
-		Query query = null;
 		Session session = this.sessionFactory.getCurrentSession();
 		session.delete(post);
 	}

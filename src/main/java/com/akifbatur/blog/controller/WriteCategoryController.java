@@ -1,8 +1,6 @@
 package com.akifbatur.blog.controller;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;

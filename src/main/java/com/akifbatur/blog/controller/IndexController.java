@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.akifbatur.blog.model.Post;
-import com.akifbatur.blog.service.AuthorService;
-import com.akifbatur.blog.service.CategoryService;
 import com.akifbatur.blog.service.PostService;
 
 /**
