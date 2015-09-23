@@ -73,6 +73,6 @@ public class WriteCategoryController
 			saveCategoryModel.addAttribute("message", new String("this category is exist"));
 			return new ModelAndView("category", "saveCategoryModel", saveCategoryModel);
 		}
-		return new ModelAndView("index", "saveCategoryModel", saveCategoryModel);
+		return new ModelAndView("redirect:/", "saveCategoryModel", saveCategoryModel);
 	}
 }
