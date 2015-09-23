@@ -50,7 +50,7 @@ public class Role implements Serializable
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="ROLE", insertable=false, columnDefinition = "default 'ROLE_USER'")
+	@Column(name="ROLE")
 	private String role; //New user role by default
 	
 	//Each role has many authors

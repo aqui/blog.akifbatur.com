@@ -44,7 +44,6 @@ public class AuthorServiceImpl implements AuthorService
 	{
 		try 
 		{
-			System.out.println("SERVICE"+author);
 			this.authorDAO.saveAuthor(author);
 		} 
 		catch (Exception e) 

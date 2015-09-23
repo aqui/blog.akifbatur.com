@@ -41,7 +41,7 @@
 										<form:options path="categoryId.id" items="${categories}" itemLabel="categoryTitle" itemValue="id"/>
 									</form:select>
 									<c:if test="${empty categories}">
-										<a href="${pageContext.request.contextPath}/category"><spring:message code="AddCategory"/></a>
+										<a href="${pageContext.request.contextPath}/category/write"><spring:message code="AddCategory"/></a>
 									</c:if>
 								</div>
 								<div class="form-group">
