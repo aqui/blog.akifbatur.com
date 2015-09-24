@@ -45,7 +45,7 @@ public class WriteCategoryController
 	public ModelAndView createForm(Model categoryModel)
 	{
 		categoryModel.addAttribute("category", new Category());
-		return new ModelAndView("category", "categoryModel", categoryModel);
+		return new ModelAndView("writeCategory", "categoryModel", categoryModel);
 	}
 
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
@@ -54,7 +54,7 @@ public class WriteCategoryController
 	{
 		if (result.hasErrors()) 
 		{
-			return new ModelAndView("category", "saveCategoryModel", saveCategoryModel);
+			return new ModelAndView("writeCategory", "saveCategoryModel", saveCategoryModel);
 		}
 		try
 		{
@@ -67,11 +67,11 @@ public class WriteCategoryController
 			category.setCategoryDate(new Date());
 			category.setCategoryEditDate(new Date());
 			this.categoryService.saveCategory(category);
-		} 
+		}
 		catch (Exception e)
 		{
 			saveCategoryModel.addAttribute("message", new String("this category is exist"));
-			return new ModelAndView("category", "saveCategoryModel", saveCategoryModel);
+			return new ModelAndView("writeCategory", "saveCategoryModel", saveCategoryModel);
 		}
 		return new ModelAndView("redirect:/", "saveCategoryModel", saveCategoryModel);
 	}

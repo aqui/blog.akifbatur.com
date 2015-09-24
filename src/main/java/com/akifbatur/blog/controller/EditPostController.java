@@ -96,7 +96,8 @@ public class EditPostController
 			realPost.getTags().clear();
 		}
 		else
-		{			
+		{	
+			//TODO: eger verilen tag'ler ve eldeki tag'ler aynıysa aşağıdaki işlemlere gerek yok.
 			List<Tag> set2 = new ArrayList<Tag>();
 			List<String> tagList = new ArrayList<String>(Arrays.asList(tagField.split(",")));
 			for(String tagListElement : tagList)

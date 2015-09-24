@@ -13,8 +13,8 @@
 	</head>
 
 	<body>
-		<section th:each="post : ${posts}">
-			<h1 th:text="${post.postTitle}"></h1>
+		<section th:each="post : ${thymeModel.posts}">
+			<h1 th:text="${post.id}"></h1>
 		</section>
 	</body>
 

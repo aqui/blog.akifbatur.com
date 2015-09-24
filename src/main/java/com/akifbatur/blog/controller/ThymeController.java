@@ -20,7 +20,7 @@ public class ThymeController
 	PostService postService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView test(Model thymeModel, Post post)
+	public ModelAndView test(Model thymeModel)
 	{
 		List<Post> posts = this.postService.fetchAllPost();
 		thymeModel.addAttribute("posts", posts);

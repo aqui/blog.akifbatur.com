@@ -26,7 +26,9 @@ public class DeletePostController
 	
 	@Autowired
 	PostService postService;
-	
+	/**
+	 * @param id: Post ID
+	 * */
 	//Delete post by id
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/delete/{id}", method = RequestMethod.GET)
