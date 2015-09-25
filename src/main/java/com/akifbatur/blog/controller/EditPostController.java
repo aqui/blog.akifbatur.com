@@ -29,8 +29,9 @@ import com.akifbatur.blog.service.PostService;
 import com.akifbatur.blog.service.TagService;
 
 /**
- * 
- * @author Akif Batur 
+ * Update a post with given ID as a request parameter.
+ *  
+ * @author Akif Batur
  *
  */
 @Controller("editPostController")
@@ -55,7 +56,12 @@ public class EditPostController
 		return categoryService.getCategories();
 	}
 		
-	//Edit post by id
+	/**
+	 * Populate the form with post values and send them to
+	 * update the post in the updatePost method.
+	 * @param editPost Model variable
+	 * @param id Post ID
+	 * */
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView createEmptyForm(Model editPost, @PathVariable int id)
@@ -73,7 +79,14 @@ public class EditPostController
 		return new ModelAndView("editPost", "editPost", editPost);
 	}
 	
-	//Save edited post by id
+	/**
+	 * Get the edited post values from the from and update the post.
+	 * @param editPostSave Model variable
+	 * @param id Post ID
+	 * @param post Post model object
+	 * @param result BindingResult object to catch form errors
+	 * @param tagField Form variable for tags
+	 * */
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value="/post/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView updatePost(
@@ -102,7 +115,8 @@ public class EditPostController
 			List<String> tagList = new ArrayList<String>(Arrays.asList(tagField.split(",")));
 			for(String tagListElement : tagList)
 			{
-				if(tagListElement.equals("")||tagListElement.equals(" "))
+				//If given tag is empty then go for the next one
+				if(tagListElement.equals("")||tagListElement.equals(" ")) 
 					continue;
 				//Check if tag in the database
 				Tag tag = this.tagService.checkTag(tagListElement);
