@@ -1,22 +1,117 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:c="http://java.sun.com/jsp/jstl/core"
-	  xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-	<f:view contentType="text/html">
-		<h:head>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<title>akif batur</title>
-			<link href="resources/css/bootstrap.css" rel="stylesheet"></link>
-			<link rel="shortcut icon" href="resources/images/favicon.ico" />
-		</h:head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<head>
+		<meta charset="utf-8"></meta>
+		<title>akif batur - blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+		<link href="resources/css/bootstrap.min.css" rel="stylesheet"></link>
+		<link href="resources/images/terminal.ico" rel="icon"></link>
+		<script src="resources/js/bootstrap.min.js"></script>
+		<script src="resources/js/jquery-1.11.3.js"></script>
+	</head>
 	
-		<h:body>
-			#{helloController.showHello()}
-		</h:body>
-	</f:view>
+	<h:body>
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal.username" var="securityUserName" />
+		</sec:authorize>
+		
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+					</button>
+					<a href="${request.contextPath}/" class="navbar-brand">aqui@aqui~$</a>
+				</div>
+				<div class="collapse navbar-collapse" id="mainNavBar">
+	
+					<c:if test="${not empty securityUserName}">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="${request.contextPath}/">
+									<span class="glyphicon glyphicon-home"></span> 
+									Home
+								</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/post/write">
+									<span class="glyphicon glyphicon-pencil"></span> 
+									Post
+								</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/category/write">
+									<span class="glyphicon glyphicon-list-alt"></span> 
+									Category
+								</a>
+							</li>
+						</ul>
+					</c:if>
+	
+					<c:if test="${empty securityUserName}">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="${request.contextPath}/">
+									<span class="glyphicon glyphicon-home"></span> 
+									Home
+								</a>
+							</li>
+						</ul>
+					</c:if>
+	
+					<c:if test="${not empty securityUserName}">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="${request.contextPath}/author">
+									<span class="glyphicon glyphicon-user"></span> ${securityUserName}
+								</a>
+							</li>
+							<li>
+								<form action="${request.contextPath}/logout" method="post" name="logoutForm">
+									<sec:csrfInput />
+								</form> 
+								<a href="#" onclick='document.logoutForm.submit();'>
+									<span class="glyphicon glyphicon-log-out"></span>
+									Logout
+								</a>
+							</li>
+						</ul>
+					</c:if>
+	
+					<c:if test="${empty securityUserName}">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="${request.contextPath}/signup">
+									<span class="glyphicon glyphicon-user"></span> 
+									Signup
+								</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/login">
+									<span class="glyphicon glyphicon-log-in"></span> 
+									Login
+								</a>
+							</li>
+						</ul>
+					</c:if>
+				</div>
+			</div>
+		</nav>
+		<div class="alert alert-info fade in" align="center">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+			there is no post at this moment
+		</div>
+		#{helloController.showHello()}
+	</h:body>
 </html>
