@@ -7,5 +7,5 @@ package com.akifbatur.blog.aspects;
  */
 public class LoggingAspect
 {
-
+	
 }

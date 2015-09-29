@@ -33,12 +33,6 @@ public class LoginDAOImpl implements LoginDAO
 		Query query = session.createQuery("from Author where USERNAME = :userName");
 		query.setString("userName", userName);
 		Author author = (Author) query.list().get(0);
-		/*
-		 * TODO: 
-		 * if username is exist but password is not matching,
-		 * login date should not be updated
-		 * */ 
-		author.setLoginDate(new Date());
 		return author;
 	}
 }

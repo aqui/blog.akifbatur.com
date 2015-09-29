@@ -30,7 +30,7 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
-				<beans:prop key="hibernate.format_sql">true</beans:prop>
+				<beans:prop key="hibernate.format_sql">false</beans:prop>
 				<beans:prop key="hibernate.cache.use_second_level_cache">true</beans:prop>
 				<beans:prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</beans:prop>
 				<beans:prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</beans:prop>

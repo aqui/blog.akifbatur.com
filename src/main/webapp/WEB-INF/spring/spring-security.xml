@@ -21,13 +21,13 @@
 		<!-- <intercept-url pattern="/**" access="authenticated" /> -->
 		
 		<!-- access denied page -->
-		<access-denied-handler error-page="/403" />
+<!-- 		<access-denied-handler error-page="/403" /> -->
 		
 		<form-login
-		    login-page="/login"
+		    login-page="/login.xhtml"
 		    login-processing-url="/login"
-		    default-target-url="/"
-			authentication-failure-url="/login?error=incorrect" 
+		    default-target-url="/index.xhtml"
+			authentication-failure-url="/login.xhtml?error=incorrect" 
 			username-parameter="userName"
 			password-parameter="password"/>
 		

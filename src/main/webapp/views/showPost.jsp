@@ -16,11 +16,11 @@
 		var="securityUserName" />
 </sec:authorize>
 
-<jsp:include page="/WEB-INF/templates/head.jsp"></jsp:include>
+<jsp:include page="/templates/head.jsp"></jsp:include>
 
 <body>
 
-	<jsp:include page="/WEB-INF/templates/navbar.jsp"></jsp:include>
+	<jsp:include page="/templates/navbar.jsp"></jsp:include>
 
 	<%-- Body Start --%>
 	<div class="container-fluid">

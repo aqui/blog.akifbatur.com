@@ -18,9 +18,13 @@
 	</h:head>
 	
 	<h:body>
-		<form action="${request.contextPath}/logout" method="post" name="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<a href="#" onclick='document.logoutForm.submit();'>logout</a>
+		<form action="${request.contextPath}/login" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>                  
+		    <input id="userName" name="userName"/>
+		    <br/>
+			<input id="password" name="password" type="password"/>
+			<br/>
+			<input type="submit" value="submit"/>
 		</form>
 	</h:body>
 </html>
