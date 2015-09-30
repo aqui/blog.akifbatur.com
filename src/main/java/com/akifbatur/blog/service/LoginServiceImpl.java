@@ -41,13 +41,12 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 		try
 		{
 			Author author = loginDAO.findByUserName(userName);
-			logger.info("Author is logged-in: "+author);
 			List<GrantedAuthority> authorities = buildUserAuthority(author.getRoles());
 			return buildUserForAuthentication(author, authorities);
 		}
-		catch (Exception e) 
+		catch (Exception e)
 		{
-			logger.error(e.toString());
+			logger.error("Author is loggin failed: "+userName);
 			return null;
 		}
 	}
