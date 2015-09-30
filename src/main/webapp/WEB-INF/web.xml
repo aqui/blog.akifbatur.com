@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
+	<!-- Welcome Files -->
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
@@ -28,25 +29,27 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- Spring Security Filter Chain -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- Spring Security Taglib -->
 	<context-param>
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
 		<param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
 	</context-param>
+	
 	<!-- Character Encoding -->
 	<filter>
 		<filter-name>charEncodingFilter</filter-name>
@@ -59,8 +62,7 @@
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
         </init-param>
-	</filter>
-	
+	</filter>	
     <filter-mapping>
         <filter-name>charEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
