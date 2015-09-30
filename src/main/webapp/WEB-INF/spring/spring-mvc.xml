@@ -22,6 +22,13 @@
 		<beans:property name="basename" value="i18n/messages"/>
 	</beans:bean>
 	
+	<!-- JsfView -->
+<!-- 	<beans:bean id="faceletsViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> -->
+<!-- 		<beans:property name="viewClass" value="org.springframework.faces.mvc.JsfView"/> -->
+<!-- 		<beans:property name="prefix" value="/WEB-INF/" /> -->
+<!-- 		<beans:property name="suffix" value=".xhtml" /> -->
+<!-- 	</beans:bean> -->
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 <!-- 	<beans:bean -->
 <!-- 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->

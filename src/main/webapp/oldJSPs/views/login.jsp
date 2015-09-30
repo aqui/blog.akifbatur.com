@@ -12,11 +12,11 @@
 		<sec:authentication property="principal.username" var="securityUserName" />
 	</sec:authorize>
 	
-	<jsp:include page="/templates/head.jsp"></jsp:include>
+	<jsp:include page="../templates/head.jsp"></jsp:include>
 	
 	<body onload='document.loginForm.userName.focus();'>
 		
-		<jsp:include page="/templates/navbar.jsp"></jsp:include>
+		<jsp:include page="../templates/navbar.jsp"></jsp:include>
 		
 		<c:if test="${not empty securityUserName}">
 			<div align="center">
