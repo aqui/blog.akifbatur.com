@@ -51,6 +51,7 @@ public class TagDAOImpl implements TagDAO
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Tag> fetchAllTags() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();

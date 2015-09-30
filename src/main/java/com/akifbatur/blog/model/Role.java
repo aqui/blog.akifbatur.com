@@ -76,4 +76,9 @@ public class Role implements Serializable
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + role + "]";
+	}
 }

@@ -82,4 +82,9 @@ public class Tag implements Serializable
 	public void setTagText(String tagText) {
 		this.tagText = tagText;
 	}
+
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", tagText=" + tagText + "]";
+	}
 }

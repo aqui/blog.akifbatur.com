@@ -1,7 +1,6 @@
 package com.akifbatur.blog.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,19 +38,18 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException 
 	{
-		Author author = null;
 		try
 		{
-			author = loginDAO.findByUserName(userName);
+			Author author = loginDAO.findByUserName(userName);
+			logger.info("Author is logged-in: "+author);
+			List<GrantedAuthority> authorities = buildUserAuthority(author.getRoles());
+			return buildUserForAuthentication(author, authorities);
 		}
 		catch (Exception e) 
 		{
 			logger.error(e.toString());
 			return null;
 		}
-//		author.setLoginDate(new Date());
-		List<GrantedAuthority> authorities = buildUserAuthority(author.getRoles());
-		return buildUserForAuthentication(author, authorities);
 	}
 
 	private UserDetails buildUserForAuthentication(Author author, List<GrantedAuthority> authorities) 

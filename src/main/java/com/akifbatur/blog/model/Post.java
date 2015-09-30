@@ -160,4 +160,9 @@ public class Post implements Serializable
 	public void setPostEditDate(Date postEditDate) {
 		this.postEditDate = postEditDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", postTitle=" + postTitle + "]";
+	}
 }

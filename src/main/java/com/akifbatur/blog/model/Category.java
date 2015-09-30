@@ -123,4 +123,9 @@ public class Category implements Serializable
 	public void setCategoryEditDate(Date categoryEditDate) {
 		this.categoryEditDate = categoryEditDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", categoryTitle=" + categoryTitle + "]";
+	}
 }

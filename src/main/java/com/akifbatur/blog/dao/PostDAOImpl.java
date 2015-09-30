@@ -38,6 +38,7 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Post> fetchAllPost() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -47,6 +48,7 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Post> getPostsByTitle(String postTitle) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
