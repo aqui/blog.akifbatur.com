@@ -19,17 +19,67 @@
 	</h:head>
 	
 	<h:body>
-<sec:authorize ifAllGranted="ROLE_USER">
-1
-</sec:authorize>
-<br/>
-<sec:authorize ifNotGranted="ROLE_USER">
-2
-</sec:authorize>
-<br/>
-<sec:authorize ifAnyGranted="ROLE_USER">
-3
-</sec:authorize>
+	request = #{request}
+	<br/>
+	username = #{request.getUserPrincipal().getName()}
+	<br/>
+	all= #{request.getUserPrincipal()}
+	<br/>
+	username = #{request.userPrincipal.name}
+	<br/>
+	principal = #{request.userPrincipal.principal}
+	<br/>
+	credentials = #{request.userPrincipal.credentials}
+	<br/>
+	details = #{request.userPrincipal.details}
+	<br/>
+	user enabled = #{request.userPrincipal.principal.enabled}
+	<br/>
+	username = #{request.userPrincipal.principal.username}
+	<br/>
+	password = #{request.userPrincipal.principal.password}
+	<br/>
+	authorities = #{request.userPrincipal.principal.authorities}
+	<br/>
+	authorities size = #{request.userPrincipal.principal.authorities.size()}
+	<br/>
+	accountNonExpired = #{request.userPrincipal.principal.accountNonExpired}
+	<br/>
+	accountNonLocked = #{request.userPrincipal.principal.accountNonLocked}
+	<br/>
+	credentialsNonExpired = #{request.userPrincipal.principal.credentialsNonExpired}
+	<br/>
+	<sec:authorize access="isAuthenticated()">
+		Authenticated
+	</sec:authorize>
+	<br/>
+	<sec:authorize access="hasAnyRole('ROLE_USER,ROLE_ADMIN')">
+		0
+	</sec:authorize>
+	<br/>
+	<sec:authorize ifAllGranted="ROLE_USER, ROLE_ADMIN">
+		1
+	</sec:authorize>
+	<br/>
+	<sec:authorize ifNotGranted="ROLE_USER">
+		2
+	</sec:authorize>
+	<br/>
+	<sec:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
+		3
+	</sec:authorize>
+	<!-- Rendered only if user has all of the listed roles -->
+	<h:outputText value="Lorem ipsum dolor sit amet" rendered="#{sec:areAllGranted('ROLE_FOO, ROLE_BAR')}"/>
+	<br/>
+	<!-- Rendered only if user does not have any of the listed roles -->
+	<h:outputText value="Lorem ipsum dolor sit amet" rendered="#{sec:areNotGranted('ROLE_FOO, ROLE_BAR')}"/>
+	<br/>
+	<!-- Rendered only if user has any of the listed roles -->
+	<h:outputText value="Lorem ipsum dolor sit amet" rendered="#{sec:areAnyGranted('ROLE_FOO, ROLE_BAR')}"/>
+	<br/>
+	<!-- Rendered only if user has access to given HTTP method/URL as defined in Spring Security configuration -->
+	<h:outputText value="Lorem ipsum dolor sit amet" rendered="#{sec:isAllowed('/admin', 'GET')}"/>
+	<br/>
 		<form action="${request.contextPath}/logout" method="post" name="logoutForm">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<a href="#" onclick='document.logoutForm.submit();'>logout</a>
