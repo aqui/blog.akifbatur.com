@@ -35,7 +35,7 @@ public class AuthorDAOImpl implements AuthorDAO
 		logger.info("Author loaded successfully. Author details: " + author);
 		return author;
 	}
-
+	
 	@Override
 	public void saveAuthor(Author author) 
 	{
