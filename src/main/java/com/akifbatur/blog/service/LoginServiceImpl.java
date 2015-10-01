@@ -38,16 +38,16 @@ public class LoginServiceImpl implements LoginService, UserDetailsService
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException 
 	{
-		try
+		Author author = loginDAO.findByUserName(userName);
+		if(author==null)
 		{
-			Author author = loginDAO.findByUserName(userName);
+			logger.error("Author login failed: "+userName);
+			throw new UsernameNotFoundException("user not found");
+		}
+		else
+		{
 			List<GrantedAuthority> authorities = buildUserAuthority(author.getRoles());
 			return buildUserForAuthentication(author, authorities);
-		}
-		catch (Exception e)
-		{
-			logger.error("Author is loggin failed: "+userName);
-			return null;
 		}
 	}
 

@@ -30,7 +30,14 @@ public class LoginDAOImpl implements LoginDAO
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Author where USERNAME = :userName");
 		query.setString("userName", userName);
-		Author author = (Author) query.list().get(0);
-		return author;
+		if(query.list().size()>0)
+		{
+			Author author = (Author) query.list().get(0);
+			return author;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

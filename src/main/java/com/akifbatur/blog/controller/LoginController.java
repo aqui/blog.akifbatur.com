@@ -2,6 +2,7 @@ package com.akifbatur.blog.controller;
 
 import java.io.IOException;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -24,6 +25,17 @@ public class LoginController {
     	dispatcher.forward((ServletRequest)externalContext.getRequest(), (ServletResponse)externalContext.getResponse());
     	facesContext.responseComplete();
     	return null;
+    }
+    
+    public void loginError(String error)
+    {
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	if(error.equals("incorrect"))
+    	{    		
+    		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong username or password.", null);
+    		context.addMessage(null, facesMessage);
+    	}
+    		
     }
     
 	public String getUserName() {
