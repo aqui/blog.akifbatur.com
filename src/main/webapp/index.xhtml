@@ -27,6 +27,71 @@
     </h:head>
 	
 	<h:body>
-		#{request.userPrincipal.principal.username}
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<a href="${request.contextPath}/" class="navbar-brand">aqui@aqui~$</a>
+				</div>
+				<div class="collapse navbar-collapse" id="mainNavBar">
+					<sec:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="${request.contextPath}/"><i class="fa fa-home"/> Home</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/writePost.xhtml"><i class="fa fa-pencil-square-o"/> Post</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/addCategory.xhtml"><i class="fa fa-list-alt"/> Category</a>
+							</li>
+						</ul>
+					</sec:authorize>
+					<sec:authorize ifNotGranted="ROLE_USER">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="${request.contextPath}/"><i class="fa fa-home"/> Home</a>
+							</li>
+						</ul>
+					</sec:authorize>
+		
+					<sec:authorize ifAnyGranted="ROLE_USER">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="${request.contextPath}/author.xhtml">
+									<i class="fa fa-user"/> #{request.userPrincipal.principal.username}
+								</a>
+							</li>
+							<sec:authorize ifAnyGranted="ROLE_ADMIN">
+								<li>
+									<a href="${request.contextPath}/admin.xhtml">
+										<i class="fa fa-tachometer"/> Admin
+									</a>
+								</li>
+							</sec:authorize>
+							<li>
+								<form action="${request.contextPath}/logout" method="post" name="logoutForm">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								</form> 
+								<a href="#" onclick='document.logoutForm.submit();'><i class="glyphicon glyphicon-log-out"/> Logout</a>
+							</li>
+						</ul>
+					</sec:authorize>
+					<sec:authorize ifNotGranted="ROLE_USER">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="${request.contextPath}/signup.xhtml"><i class="fa fa-user"/> Signup</a>
+							</li>
+							<li>
+								<a href="${request.contextPath}/login.xhtml"><i class="glyphicon glyphicon-log-in"/> Login</a>
+							</li>
+						</ul>
+					</sec:authorize>
+				</div>
+			</div>
+		</nav>
+		asdasd
 	</h:body>
 </html>

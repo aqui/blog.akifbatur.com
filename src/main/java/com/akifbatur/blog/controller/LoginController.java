@@ -10,7 +10,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
- 
+
+/**
+ * 
+ * @author Akif Batur
+ *
+ */
 @ManagedBean(name="loginController")
 public class LoginController {
      
