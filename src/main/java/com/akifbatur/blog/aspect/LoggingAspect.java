@@ -1,4 +1,4 @@
-package com.akifbatur.blog.aspects;
+package com.akifbatur.blog.aspect;
 
 /**
  * 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.akifbatur.blog.model.Category;
+import com.akifbatur.blog.model.Tag;
 
 /**
  * 
@@ -48,5 +49,21 @@ public class CategoryDAOImpl implements CategoryDAO
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(category);
 		logger.info("Category saved");
+	}
+
+	@Override
+	public Category getCategoryByTitle(String categoryTitle) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Category where CATEGORY_TITLE = :categoryTitle");
+		query.setString("categoryTitle", categoryTitle);
+		if(!query.list().isEmpty())
+		{
+			Category category = (Category) query.list().get(0);
+			return category;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

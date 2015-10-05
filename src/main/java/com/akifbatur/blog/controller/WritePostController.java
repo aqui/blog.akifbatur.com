@@ -1,30 +1,24 @@
 package com.akifbatur.blog.controller;
 
+import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.Valid;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.akifbatur.blog.model.Author;
-import com.akifbatur.blog.model.Category;
 import com.akifbatur.blog.model.Post;
 import com.akifbatur.blog.model.Tag;
 import com.akifbatur.blog.service.AuthorService;
@@ -37,100 +31,157 @@ import com.akifbatur.blog.service.TagService;
  * @author Akif Batur 
  *
  */
-@Controller("writePostController")
-public class WritePostController 
+@ManagedBean(name="writePostController")
+public class WritePostController implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(WritePostController.class);
 	
-	@Autowired
-	CategoryService categoryService;
+	@ManagedProperty("#{categoryService}")
+	private CategoryService categoryService;
 	
-	@Autowired
-	PostService postService;
+	@ManagedProperty("#{postService}")
+	private PostService postService;
 	
-	@Autowired
-	AuthorService authorService;
+	@ManagedProperty("#{authorService}")
+	private AuthorService authorService;
 	
-	@Autowired
-	TagService tagService;
+	@ManagedProperty("#{tagService}")
+	private TagService tagService;
+
+	private String postTitle;
+	private String postBody;
+	private String tagField;
+	private List<String> categories = new ArrayList<String>();
+	private String category;
+	private List<String> tagFieldList = new ArrayList<String>();
 	
-	//Some data binding
-	@ModelAttribute("categories")
-	public List<Category> getAllCategories()
-	{
-		return categoryService.getCategories();
+	@PostConstruct
+	public void init() {
+		categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
 	}
-		
-	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value="/post/write", method = RequestMethod.GET)
-	public ModelAndView createForm(Model postModel)
-	{		
-		postModel.addAttribute("post",new Post());
-		return new ModelAndView("writePost", "postModel", postModel);
-	}
-	
-	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value="/post/write", method = RequestMethod.POST)
-	public ModelAndView savePost(Model savePostModel, @ModelAttribute("post") @Valid Post post, 
-			BindingResult result, @RequestParam("tagField") String tagField)
+	 
+	public String savePost()
 	{
-		if(result.hasErrors()) //If Post attributes are not validated
-		{
-			savePostModel.addAttribute("tagField", tagField);
-			return new ModelAndView("writePost", "savePostModel", savePostModel);
-		}
+		Post post = new Post();
+
 		try 
-		{			
-			//If tags are given
+		{
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    String userName = auth.getName();
+			Author author = authorService.getAuthorByUserName(userName);
+			
 			if(!tagField.equals(""))
 			{
-				//Split tags
-				List<String> tagList = new ArrayList<String>(Arrays.asList(tagField.split(",")));
-				//For every given tag:
-				for(String tagListElement : tagList)
+				tagFieldList.addAll(Arrays.asList(tagField.split(",")));
+				tagFieldList.forEach(tagFieldListElement ->
 				{
-					if(tagListElement.equals("")||tagListElement.equals(" "))
-						continue;
-					//Check if tag in the database
-					Tag tag = this.tagService.checkTag(tagListElement);
+					Tag tag = tagService.getTagByText(tagFieldListElement);
 					if(tag!=null)
 					{
-						//If the tag is exist then use it
 						post.getTags().add(tag);
 						tag.getPosts().add(post);
 					}
-					else
+					else if(!tagFieldListElement.equals("") && !tagFieldListElement.equals(" "))
 					{
-						//If tag is not exist then create a new tag
-						Tag tag2 = new Tag();
-						tag2.setTagText(tagListElement);
-						this.tagService.saveTag(tag2);
-						post.getTags().add(tag2);
-						tag2.getPosts().add(post);
+						tag = new Tag();
+						tag.setTagText(tagFieldListElement);
+						tagService.saveTag(tag);
+						post.getTags().add(tag);
+						tag.getPosts().add(post);
 					}
-				}
+				});
 			}
-			//Trim post title
-			post.setPostTitle(post.getPostTitle().trim());
-			//Get userName
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-			String userName = userDetails.getUsername();
-			//Get author by userName
-			Author author = authorService.getAuthorByUserName(userName);
-			//Save post
-			post.setAuthorId(author);
+			post.setCategoryId(categoryService.getCategoryByTitle(category));
+			post.setPostTitle(postTitle);
+			post.setPostBody(postBody);
 			post.setPostDate(new Date());
 			post.setPostEditDate(new Date());
+			post.setAuthorId(author);
 			this.postService.savePost(post);
-		}
-		catch(Exception e)
+			return "index.xhtml?faces-redirect=true";
+		} 
+		catch (Exception e) 
 		{
-			System.out.println(e);
-			savePostModel.addAttribute("message",new String("there was an error"));
-			return new ModelAndView("writePost", "savePostModel", savePostModel);
+			FacesContext context = FacesContext.getCurrentInstance(); 
+	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not posted yet. There is something wrong...", null);
+	    	context.addMessage(null, facesMessage);
+	    	System.out.println(e.getCause());
+			return "";
 		}
-		return new ModelAndView("redirect:/post/title/"+post.getPostTitle());
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public String getPostBody() {
+		return postBody;
+	}
+
+	public String getTagField() {
+		return tagField;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+
+	public void setPostBody(String postBody) {
+		this.postBody = postBody;
+	}
+
+	public void setTagField(String tagField) {
+		this.tagField = tagField;
+	}
+
+	public CategoryService getCategoryService() {
+		return categoryService;
+	}
+
+	public PostService getPostService() {
+		return postService;
+	}
+
+	public AuthorService getAuthorService() {
+		return authorService;
+	}
+
+	public TagService getTagService() {
+		return tagService;
+	}
+
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+
+	public void setPostService(PostService postService) {
+		this.postService = postService;
+	}
+
+	public void setAuthorService(AuthorService authorService) {
+		this.authorService = authorService;
+	}
+
+	public void setTagService(TagService tagService) {
+		this.tagService = tagService;
 	}
 }

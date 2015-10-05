@@ -16,4 +16,6 @@ public interface CategoryDAO
 	public List<Category> getCategories();
 
 	public void saveCategory(Category category);
+
+	public Category getCategoryByTitle(String categoryTitle);
 }

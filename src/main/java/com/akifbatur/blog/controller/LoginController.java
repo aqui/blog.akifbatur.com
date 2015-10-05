@@ -39,8 +39,7 @@ public class LoginController {
     	{    		
     		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong username or password.", null);
     		context.addMessage(null, facesMessage);
-    	}
-    		
+    	}    		
     }
     
 	public String getUserName() {

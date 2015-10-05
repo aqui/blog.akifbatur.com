@@ -8,7 +8,7 @@ public interface TagService
 {
 	public void saveTag(Tag tag);
 	
-	public Tag checkTag(String tagText);
+	public Tag getTagByText(String tagText);
 
-	public List<Tag> fetchAllTags();
+	public List<Tag> getTags();
 }

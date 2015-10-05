@@ -24,15 +24,15 @@ public class TagServiceImpl implements TagService
 
 	@Override
 	@Transactional
-	public Tag checkTag(String tagText) 
+	public Tag getTagByText(String tagText) 
 	{
-		return this.tagDAO.checkTag(tagText);	
+		return this.tagDAO.getTagByText(tagText);	
 	}
 
 	@Override
 	@Transactional
-	public List<Tag> fetchAllTags() 
+	public List<Tag> getTags() 
 	{
-		return this.tagDAO.fetchAllTags();
+		return this.tagDAO.getTags();
 	}	
 }

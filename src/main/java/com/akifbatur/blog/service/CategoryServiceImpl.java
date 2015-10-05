@@ -2,12 +2,15 @@ package com.akifbatur.blog.service;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.akifbatur.blog.dao.CategoryDAO;
 import com.akifbatur.blog.model.Category;
+import com.akifbatur.blog.model.Tag;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService
@@ -34,5 +37,11 @@ public class CategoryServiceImpl implements CategoryService
 	public void saveCategory(Category category) 
 	{
 		this.categoryDAO.saveCategory(category);
+	}
+
+	@Override
+	@Transactional
+	public Category getCategoryByTitle(String categoryTitle) {
+		return this.categoryDAO.getCategoryByTitle(categoryTitle);
 	}	
 }

@@ -7,19 +7,20 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:sec="http://www.springframework.org/security/tags">
-
+	
 	<h:head>
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" /> 
             <title>akif batur - blog</title>
+            <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/terminal.ico']}"></link>
         </f:facet> 
         <f:facet name="middle">
             <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
             <h:outputScript name="/js/jquery-1.11.3.js" />
             <h:outputScript name="bootstrap/js/bootstrap.js" />
-        </f:facet>        
+        </f:facet>       
         <f:facet name="last">
  			<h:outputStylesheet name="css/font-awesome.css" />
         </f:facet> 
@@ -35,6 +36,8 @@
 					<a href="${request.contextPath}/" class="navbar-brand">aqui@aqui~$</a>
 				</div>
 				<div class="collapse navbar-collapse" id="mainNavBar">
+				
+					<!-- Left -->
 					<sec:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
 						<ul class="nav navbar-nav">
 							<li>
@@ -55,7 +58,8 @@
 							</li>
 						</ul>
 					</sec:authorize>
-		
+					
+					<!-- Right -->
 					<sec:authorize ifAnyGranted="ROLE_USER">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
@@ -109,29 +113,48 @@
 				</div>
 			</div>
 		</nav>
-		
-		<sec:authorize ifNotGranted="ROLE_USER">
-			<c:if test="${not empty param.error}">
-				#{loginController.loginError(param['error'])}
-			</c:if>
-			<div align="center">
-				<p:panel id="pnl" header="Login">
-				 	<h:form prependId="false" id="loginForm">
-						<p:growl id="growl" life="3000"/>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					    <h:outputLabel for="userName" value="Username:" style="font-weight:bold"/>
-					    <p:spacer width="10" height="10" />
-					    <p:inputText id="userName" value="#{loginController.userName}" required="true" label="Username"/>
-					 	<br/><br/>
-					    <h:outputLabel for="password" value="Password:" style="font-weight:bold"/>
-					    <p:spacer width="10" height="10" />
-					    <p:keyboard id="password" value="#{loginController.password}" required="true" label="Password" password="true"/>
-					 	<br/><br/>
-					    <p:commandButton update="growl" action="#{loginController.doLogin}" ajax="false" value="Login" validateClient="true"/>
-				    </h:form>
-				</p:panel>
-			</div>
-		</sec:authorize>
-		
+			
+		<p:panel header="Post Facility">
+			<h:form>
+				<p:growl id="growl" life="3000"/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+				    	<div class="ui-grid-col-4">
+				    		<p:selectOneMenu id="category" value="#{writePostController.category}" style="width:100%" required="true" label="Category">
+					            <f:selectItem itemLabel="---Category---" itemValue="" />
+					            <f:selectItems value="#{writePostController.categories}"/>
+					        </p:selectOneMenu>
+				    	</div>
+				    </div>
+				    <br/>
+				    <div class="ui-grid-row">
+				    	<div class="ui-grid-col-4">
+				    		<p:inputText id="postTitle" value="#{writePostController.postTitle}" required="true" label="Post Title" placeholder="Post Title" style="width:100%"/>
+				    	</div>
+				    </div>
+				    <br/>
+				    <div class="ui-grid-row">
+				    	<div class="ui-grid-col-4">
+				    		<p:inputText id="tagField" value="#{writePostController.tagField}" required="false" label="Tags" placeholder="Tags" style="width:100%"/>
+				    		(use comma to seperate tags)
+				    	</div>
+				    </div>
+				    <br/>
+				    <div class="ui-grid-row">
+				        <div class="ui-grid-col-12">
+				        	<p:editor id="postBody" widgetVar="postBody" value="#{writePostController.postBody}" required="true" label="Post"/>
+				        </div>
+				    </div>
+				    <br/>
+				    <div class="ui-grid-row">
+				        <div class="ui-grid-col-12">
+				        	<p:commandButton update="growl" action="#{writePostController.savePost}" value="Post" ajax="false" icon="ui-icon-pencil" validateClient="true" style="margin-right:10px"/>
+				        </div>
+				    </div>
+				</div>
+			</h:form>
+		</p:panel>
+
 	</h:body>
 </html>

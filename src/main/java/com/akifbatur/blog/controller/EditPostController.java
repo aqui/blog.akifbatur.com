@@ -119,7 +119,7 @@ public class EditPostController
 				if(tagListElement.equals("")||tagListElement.equals(" ")) 
 					continue;
 				//Check if tag in the database
-				Tag tag = this.tagService.checkTag(tagListElement);
+				Tag tag = this.tagService.getTagByText(tagListElement);
 				if(tag!=null)
 				{
 					set2.add(tag);

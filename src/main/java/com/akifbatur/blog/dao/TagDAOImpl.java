@@ -34,7 +34,7 @@ public class TagDAOImpl implements TagDAO
 	}
 
 	@Override
-	public Tag checkTag(String tagText) 
+	public Tag getTagByText(String tagText) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Tag where TAG_TEXT = :tagText");
@@ -52,7 +52,7 @@ public class TagDAOImpl implements TagDAO
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Tag> fetchAllTags() 
+	public List<Tag> getTags() 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Tag tag order by tag.tagText asc");
