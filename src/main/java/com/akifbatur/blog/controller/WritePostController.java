@@ -94,7 +94,7 @@ public class WritePostController implements Serializable
 					}
 				});
 			}
-			post.setCategoryId(categoryService.getCategoryByTitle(category));
+			post.setCategory(categoryService.getCategoryByTitle(category));
 			post.setPostTitle(postTitle);
 			post.setPostBody(postBody);
 			post.setPostDate(new Date());

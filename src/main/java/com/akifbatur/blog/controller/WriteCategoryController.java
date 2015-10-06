@@ -63,7 +63,7 @@ public class WriteCategoryController
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 			String userName = userDetails.getUsername();
 			Author author = authorService.getAuthorByUserName(userName);
-			category.setAuthorId(author);
+			category.setAuthor(author);
 			category.setCategoryDate(new Date());
 			category.setCategoryEditDate(new Date());
 			this.categoryService.saveCategory(category);

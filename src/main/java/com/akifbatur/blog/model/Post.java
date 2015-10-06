@@ -64,14 +64,14 @@ public class Post implements Serializable
 	//Each post has an author
 	@ManyToOne
 	@JoinColumn(name="AUTHOR_ID", nullable = false)
-	private Author authorId;
+	private Author author;
 	
 	//Each post has a category
 	//Choosen by the user
 	@ManyToOne
 	@NotNull(message="can not be empty")
 	@JoinColumn(name="CATEGORY_ID", nullable = false)
-	private Category categoryId;
+	private Category category;
 	
 	//Each post has many tags
 	@ManyToMany(fetch=FetchType.EAGER)
@@ -84,7 +84,7 @@ public class Post implements Serializable
 	}
 	
 	public Post(int id, String postTitle, String postBody, Date postDate,
-			Date postEditDate, Author authorId, Category categoryId,
+			Date postEditDate, Author author, Category category,
 			List<Tag> tags) {
 		super();
 		this.id = id;
@@ -92,8 +92,8 @@ public class Post implements Serializable
 		this.postBody = postBody;
 		this.postDate = postDate;
 		this.postEditDate = postEditDate;
-		this.authorId = authorId;
-		this.categoryId = categoryId;
+		this.author = author;
+		this.category = category;
 		this.tags = tags;
 	}
 
@@ -101,12 +101,12 @@ public class Post implements Serializable
 		return id;
 	}
 
-	public Author getAuthorId() {
-		return authorId;
+	public Author getAuthor() {
+		return author;
 	}
 
-	public Category getCategoryId() {
-		return categoryId;
+	public Category getCategory() {
+		return category;
 	}
 
 	public List<Tag> getTags() {
@@ -117,12 +117,12 @@ public class Post implements Serializable
 		this.id = id;
 	}
 
-	public void setAuthorId(Author authorId) {
-		this.authorId = authorId;
+	public void setAuthorId(Author author) {
+		this.author = author;
 	}
 
-	public void setCategoryId(Category categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public void setTags(List<Tag> tags) {

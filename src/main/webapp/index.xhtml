@@ -123,7 +123,7 @@
 							<div class="panel panel-info">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										<a href="${request.contextPath}/post/category/${posts.categoryId.categoryTitle}">#{post.categoryId.categoryTitle}</a>
+										<a href="${request.contextPath}/post/category/${posts.category.categoryTitle}">#{post.category.categoryTitle}</a>
 										: 
 										<a href="${request.contextPath}/post/title/${posts.postTitle}">#{post.postTitle}</a>
 									</h3>
@@ -135,7 +135,7 @@
 									<div class="row">
 										<div class="col-md-4" align="left">
 											<button type="button" class="btn btn-info btn-xs" value="delete">
-												<i class="fa fa-user"/> #{post.authorId.userName}
+												<i class="fa fa-user"/> #{post.author.userName}
 											</button>
 											<sec:authorize ifAnyGranted="ROLE_ADMIN">
 												<button type="button" class="btn btn-info btn-xs" value="delete" onclick="confirmation.show();return false;">

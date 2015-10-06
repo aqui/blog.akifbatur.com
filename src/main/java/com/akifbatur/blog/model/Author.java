@@ -88,11 +88,11 @@ public class Author implements Serializable
 	private List<Role> roles = new ArrayList<Role>();
 	
 	//Each author has many posts
-	@OneToMany(mappedBy="authorId")
+	@OneToMany(mappedBy="author")
 	private Set<Post> post = new HashSet<Post>(0);
 	
 	//Each author has many categories
-	@OneToMany(mappedBy="authorId")
+	@OneToMany(mappedBy="author")
 	private Set<Category> category = new HashSet<Category>(0);
 	
 	public Author()
