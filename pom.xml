@@ -328,13 +328,27 @@
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
 				<version>7.0</version>
-				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>2.2.8</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>2.2.8</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.portlet</groupId>
 				<artifactId>portlet-api</artifactId>
 				<version>2.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>el-impl</artifactId>
+				<version>2.2</version>
+			</dependency>			
 			<!-- JSTL -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -352,13 +366,18 @@
 				<artifactId>primefaces-extensions</artifactId>
 				<version>3.2.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.primefaces.themes</groupId>
+				<artifactId>afternoon</artifactId>
+				<version>1.0.10</version>
+			</dependency>
 		<!-- Java EE End -->
 	</dependencies>
 
 	<profiles>
-		<!-- for localhost deployments -->
+		<!-- for wildfly deployments -->
 		<profile>
-			<id>localhost</id>
+			<id>wildfly</id>
 			<build>
 				<finalName>blog</finalName>
 				<plugins>
@@ -367,6 +386,24 @@
 						<artifactId>wildfly-maven-plugin</artifactId>
 						<version>1.0.2.Final</version>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- for tomcat deployments -->
+		<profile>
+			<id>tomcat</id>
+			<build>
+				<finalName>blog</finalName>
+				<plugins>
+					<plugin>  
+						<groupId>org.apache.tomcat.maven</groupId>  
+						<artifactId>tomcat7-maven-plugin</artifactId>  
+						<version>2.2</version>  
+						<configuration>
+							<username>aqui</username>  
+							<password>aqui</password>  
+						</configuration>
+					</plugin> 
 				</plugins>
 			</build>
 		</profile>

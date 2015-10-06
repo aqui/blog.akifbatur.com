@@ -46,9 +46,6 @@
 							<li>
 								<a href="${request.contextPath}/writePost.xhtml"><i class="fa fa-pencil-square-o"/> Post</a>
 							</li>
-							<li>
-								<a href="${request.contextPath}/addCategory.xhtml"><i class="fa fa-list-alt"/> Category</a>
-							</li>
 						</ul>
 					</sec:authorize>
 					<sec:authorize ifNotGranted="ROLE_USER">
@@ -120,11 +117,15 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
 				<div class="ui-grid ui-grid-responsive">
 					<div class="ui-grid-row">
-				    	<div class="ui-grid-col-4">
+				    	<div class="ui-grid-col-4" style="display:inline-block">
 				    		<p:selectOneMenu id="category" value="#{writePostController.category}" style="width:100%" required="true" label="Category">
 					            <f:selectItem itemLabel="---Category---" itemValue="" />
 					            <f:selectItems value="#{writePostController.categories}"/>
 					        </p:selectOneMenu>
+				    	</div>
+				    	<p:spacer width="5"/>
+				    	<div class="ui-grid-col-4" style="display:inline-block">
+				    		<p:commandButton value="Add Category" icon="ui-icon-plus" actionListener="#{dfView.viewCars}" />
 				    	</div>
 				    </div>
 				    <br/>
@@ -142,7 +143,7 @@
 				    </div>
 				    <br/>
 				    <div class="ui-grid-row">
-				        <div class="ui-grid-col-12">
+				        <div class="ui-grid-col-8">
 				        	<p:editor id="postBody" widgetVar="postBody" value="#{writePostController.postBody}" required="true" label="Post"/>
 				        </div>
 				    </div>

@@ -18,7 +18,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+ 	</listener>
+ 	 
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
@@ -137,4 +140,9 @@
         <extension>ico</extension>
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
+    
+    <context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>afternoon</param-value>
+	</context-param>
 </web-app>

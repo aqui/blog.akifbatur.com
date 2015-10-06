@@ -1,14 +1,17 @@
 package com.akifbatur.blog.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.akifbatur.blog.model.Post;
 import com.akifbatur.blog.service.PostService;
@@ -20,20 +23,32 @@ import com.akifbatur.blog.service.PostService;
  * @author Akif Batur 
  *
  */
-@Controller("indexController")
-public class IndexController 
+@ManagedBean(name="indexController")
+@ViewScoped
+public class IndexController implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
-	@Autowired
-	PostService postService;
+	@ManagedProperty("#{postService}")
+	private PostService postService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getAuthor(Model indexModel)
+	private List<Post> posts;
+
+	@PostConstruct
+	public void init()
 	{
-		List<Post> posts = this.postService.fetchAllPost();
-		indexModel.addAttribute("posts", posts);
-		return "index";
+		posts = new ArrayList<Post>();
+		posts.addAll(postService.fetchAllPost());
+	}
+	
+	public void setPostService(PostService postService) {
+		this.postService = postService;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
 	}
 }

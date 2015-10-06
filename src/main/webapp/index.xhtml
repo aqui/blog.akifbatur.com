@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -10,6 +10,7 @@
 	
 	<h:head>
         <f:facet name="first">
+        	<meta charset="UTF-8"/>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
             <meta name="viewport" content="width=device-width, initial-scale=1" /> 
@@ -45,9 +46,6 @@
 							</li>
 							<li>
 								<a href="${request.contextPath}/writePost.xhtml"><i class="fa fa-pencil-square-o"/> Post</a>
-							</li>
-							<li>
-								<a href="${request.contextPath}/addCategory.xhtml"><i class="fa fa-list-alt"/> Category</a>
 							</li>
 						</ul>
 					</sec:authorize>
@@ -107,145 +105,71 @@
 							</li>
 							<li>
 								<a href="${request.contextPath}/login.xhtml"><i class="glyphicon glyphicon-log-in"/> Login</a>
-							</li>
+								</li>
 						</ul>
 					</sec:authorize>
 				</div>
 			</div>
 		</nav>
 
-		<div class="container-fluid">
-			<div class="row">
-				<!-- 			<c:forEach items="${posts}" var="posts"> -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<a
-								href="${request.contextPath}/post/category/${posts.categoryId.categoryTitle}">Category</a>
-							: <a href="${request.contextPath}/post/title/${posts.postTitle}">Title</a>
-						</h3>
-					</div>
-					<div class="panel-body">
-						Post BodyPost BodyPost BodyPost BodyPost Body <br /> Post BodyPost
-						BodyPost BodyPost BodyPost Body <br /> Post BodyPost BodyPost
-						BodyPost BodyPost Body <br /> Post BodyPost BodyPost BodyPost
-						BodyPost Body <br /> Post BodyPost BodyPost BodyPost BodyPost Body
-						<br /> Post BodyPost BodyPost BodyPost BodyPost Body <br /> Post
-						BodyPost BodyPost BodyPost BodyPost Body <br /> Post BodyPost
-						BodyPost BodyPost BodyPost Body <br />
-					</div>
-					<div class="panel-footer panel-info">
+		<h:form id="form"> 
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		    <p:dataScroller value="#{indexController.posts}" var="post" chunkSize="5">
+		    	<f:facet name="loader">
+		            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+		        </f:facet>
+					<div class="container-fluid">
 						<div class="row">
-							<div class="col-md-4" align="left">
-								<a
-									href="${request.contextPath}/post/author/${posts.authorId.userName}"
-									style="color: gray;"> <span class="glyphicon glyphicon-user"></span>
-									userName
-								</a>
-								<!-- 								<sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-								<!-- 								<a href="${request.contextPath}/admin" style="color:gray;">admin</a> -->
-								<!-- 								</sec:authorize> -->
-								<c:if test="${posts.authorId.userName == securityUserName}">
-												 /<a href="${request.contextPath}/post/delete/${posts.id}"
-										style="color: gray;"><span class="glyphicon glyphicon-trash"></span>delete</a>
-													- 
-													<a href="${request.contextPath}/post/edit/${posts.id}"
-										style="color: gray;"> <span
-										class="glyphicon glyphicon-edit"></span> edit
-									</a>
-								</c:if>
-							</div>
-							<div class="col-md-4" align="center">
-								<c:if test="${not empty posts.tags}">
-									<c:forEach items="${posts.tags}" var="tags">
-	
-										<a href="${request.contextPath}/post/tag/${tags.tagText}"><span
-											class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
-									</c:forEach>
-								</c:if>
-							</div>
-	
-							<div class="col-md-4" align="right">
-								<span class="glyphicon glyphicon-calendar"></span>
-								<!-- 								<fmt:formatDate value="${posts.postDate}" -->
-								<!-- 									pattern="dd:MM:YYYY/hh:mm" /> -->
-								<!-- 								<c:if test="${posts.postDate != posts.postEditDate}"> -->
-								<!-- 												 - (<fmt:formatDate value="${posts.postEditDate}" -->
-								<!-- 										pattern="dd:MM:YYYY/hh:mm" />) -->
-								<!-- 											</c:if> -->
-	
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<a href="${request.contextPath}/post/category/${posts.categoryId.categoryTitle}">#{post.categoryId.categoryTitle}</a>
+										: 
+										<a href="${request.contextPath}/post/title/${posts.postTitle}">#{post.postTitle}</a>
+									</h3>
+								</div>
+								<div class="panel-body">
+									<h:outputText escape="false" value="#{post.postBody}"></h:outputText>
+								</div>
+								<div class="panel-footer panel-info">
+									<div class="row">
+										<div class="col-md-4" align="left">
+											<button type="button" class="btn btn-info btn-xs" value="delete">
+												<i class="fa fa-user"/> #{post.authorId.userName}
+											</button>
+											<sec:authorize ifAnyGranted="ROLE_ADMIN">
+												<button type="button" class="btn btn-info btn-xs" value="delete" onclick="confirmation.show();return false;">
+													<i class="fa fa-trash"/> delete
+												</button>
+												<button type="button" class="btn btn-info btn-xs" value="edit">
+													<i class="fa fa-pencil"/> edit
+												</button>
+											</sec:authorize>
+										</div>
+										<div class="col-md-4" align="center">
+											<ui:repeat var="tags" value="#{post.tags}">
+												<a href="${request.contextPath}/post/tag/${tags.tagText}" style="color:gray;text-decoration:none">
+													<span class="label label-default">${tags.tagText}</span>
+												</a>
+											</ui:repeat>
+										</div>	
+										<div class="col-md-4" align="right">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<h:outputText value="#{post.postDate}" >
+												<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+											</h:outputText>
+											<c:if test="${post.postDate != post.postEditDate}">
+												<h:outputText value="#{post.postEditDate}" >
+													<f:convertDateTime pattern=" - dd.MM.yyyy HH:mm" />
+												</h:outputText>
+											</c:if>
+										</div>
+									</div>	
+								</div>
 							</div>
 						</div>
-	
 					</div>
-				</div>
-				<!-- 			</c:forEach> -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<a
-								href="${request.contextPath}/post/category/${posts.categoryId.categoryTitle}">Category</a>
-							: <a href="${request.contextPath}/post/title/${posts.postTitle}">Title</a>
-						</h3>
-					</div>
-					<div class="panel-body">
-						Post BodyPost BodyPost BodyPost BodyPost Body <br /> Post BodyPost
-						BodyPost BodyPost BodyPost Body <br /> Post BodyPost BodyPost
-						BodyPost BodyPost Body <br /> Post BodyPost BodyPost BodyPost
-						BodyPost Body <br /> Post BodyPost BodyPost BodyPost BodyPost Body
-						<br /> Post BodyPost BodyPost BodyPost BodyPost Body <br /> Post
-						BodyPost BodyPost BodyPost BodyPost Body <br /> Post BodyPost
-						BodyPost BodyPost BodyPost Body <br />
-					</div>
-					<div class="panel-footer panel-info">
-						<div class="row">
-							<div class="col-md-4" align="left">
-								<a
-									href="${request.contextPath}/post/author/${posts.authorId.userName}"
-									style="color: gray;"> <span class="glyphicon glyphicon-user"></span>
-									userName
-								</a>
-								<!-- 								<sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-								<!-- 								<a href="${request.contextPath}/admin" style="color:gray;">admin</a> -->
-								<!-- 								</sec:authorize> -->
-								<c:if test="${posts.authorId.userName == securityUserName}">
-												 / 
-													<a href="${request.contextPath}/post/delete/${posts.id}"
-										style="color: gray;"> <span
-										class="glyphicon glyphicon-trash"></span> delete
-									</a>
-													- 
-													<a href="${request.contextPath}/post/edit/${posts.id}"
-										style="color: gray;"> <span
-										class="glyphicon glyphicon-edit"></span> edit
-									</a>
-								</c:if>
-							</div>
-							<div class="col-md-4" align="center">
-								<c:if test="${not empty posts.tags}">
-									<c:forEach items="${posts.tags}" var="tags">
-	
-										<a href="${request.contextPath}/post/tag/${tags.tagText}"><span
-											class="glyphicon glyphicon-tag"></span> ${tags.tagText}</a>
-									</c:forEach>
-								</c:if>
-							</div>
-	
-							<div class="col-md-4" align="right">
-								<span class="glyphicon glyphicon-calendar"></span>
-								<!-- 								<fmt:formatDate value="${posts.postDate}" -->
-								<!-- 									pattern="dd:MM:YYYY/hh:mm" /> -->
-								<!-- 								<c:if test="${posts.postDate != posts.postEditDate}"> -->
-								<!-- 												 - (<fmt:formatDate value="${posts.postEditDate}" -->
-								<!-- 										pattern="dd:MM:YYYY/hh:mm" />) -->
-								<!-- 											</c:if> -->
-	
-							</div>
-						</div>
-	
-					</div>
-				</div>
-			</div>
-		</div>
+			</p:dataScroller>
+		</h:form>
 	</h:body>
 </html>
