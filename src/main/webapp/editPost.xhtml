@@ -110,17 +110,17 @@
 				</div>
 			</div>
 		</nav>
-			
-		<p:panel header="Post Facility">
+			#{editPostController.initPost(param['id'])}
+		<p:panel header="Post Edit Facility">
 			<h:form prependId="false">
 				<p:growl id="growl" life="3000"/>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
 				<div class="ui-grid ui-grid-responsive">
 					<div class="ui-grid-row">
 				    	<div class="ui-grid-col-4" style="display:inline-block">
-				    		<p:selectOneMenu id="category" value="#{writePostController.category}" style="width:100%" required="true" label="Category">
+				    		<p:selectOneMenu id="category" value="#{editPostController.category}" style="width:100%" required="true" label="Category">
 					            <f:selectItem itemLabel="---Category---" itemValue="" />
-					            <f:selectItems value="#{writePostController.categories}"/>
+					            <f:selectItems value="#{editPostController.categories}"/>
 					        </p:selectOneMenu>
 				    	</div>
 				    	<p:spacer width="5"/>
@@ -131,26 +131,26 @@
 				    <br/>
 				    <div class="ui-grid-row">
 				    	<div class="ui-grid-col-4">
-				    		<p:inputText id="postTitle" value="#{writePostController.postTitle}" required="true" label="Post Title" placeholder="Post Title" style="width:100%"/>
+				    		<p:inputText id="postTitle" value="#{editPostController.postTitle}" required="true" label="Post Title" placeholder="Post Title" style="width:100%"/>
 				    	</div>
 				    </div>
 				    <br/>
 				    <div class="ui-grid-row">
 				    	<div class="ui-grid-col-4">
-				    		<p:inputText id="tagField" value="#{writePostController.tagField}" required="false" label="Tags" placeholder="Tags" style="width:100%"/>
+				    		<p:inputText id="tagField" value="#{editPostController.tagField}" required="false" label="Tags" placeholder="Tags" style="width:100%"/>
 				    		(use comma to seperate tags)
 				    	</div>
 				    </div>
 				    <br/>
 				    <div class="ui-grid-row">
 				        <div class="ui-grid-col-8">
-				        	<p:editor id="postBody" widgetVar="postBody" value="#{writePostController.postBody}" required="true" label="Post"/>
+				        	<p:editor id="postBody" widgetVar="postBody" value="#{editPostController.postBody}" required="true" label="Post"/>
 				        </div>
 				    </div>
 				    <br/>
 				    <div class="ui-grid-row">
 				        <div class="ui-grid-col-12">
-				        	<p:commandButton update="growl" action="#{writePostController.savePost}" value="Post" ajax="false" icon="ui-icon-pencil" validateClient="true" style="margin-right:10px"/>
+				        	<p:commandButton update="growl" action="#{editPostController.editPost}" value="Edit" ajax="false" icon="ui-icon-pencil" validateClient="true" style="margin-right:10px"/>
 				        </div>
 				    </div>
 				</div>

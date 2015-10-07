@@ -112,12 +112,13 @@
 			</div>
 		</nav>
 
-		<h:form id="form"> 
+		<h:form id="form" prependId="false">
+			<p:growl id="message" />
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		    <p:dataScroller value="#{indexController.posts}" var="post" chunkSize="5">
+		    <p:dataScroller id="dataScroller" value="#{indexController.posts}" var="post" chunkSize="1">
 		    	<f:facet name="loader">
-		            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
-		        </f:facet>
+			    	<p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+			    </f:facet>
 					<div class="container-fluid">
 						<div class="row">
 							<div class="panel panel-info">
@@ -134,17 +135,23 @@
 								<div class="panel-footer panel-info">
 									<div class="row">
 										<div class="col-md-4" align="left">
-											<button type="button" class="btn btn-info btn-xs" value="delete">
-												<i class="fa fa-user"/> #{post.author.userName}
-											</button>
-											<sec:authorize ifAnyGranted="ROLE_ADMIN">
-												<button type="button" class="btn btn-info btn-xs" value="delete" onclick="confirmation.show();return false;">
-													<i class="fa fa-trash"/> delete
-												</button>
-												<button type="button" class="btn btn-info btn-xs" value="edit">
-													<i class="fa fa-pencil"/> edit
-												</button>
-											</sec:authorize>
+											<p:commandLink id="userName" class="btn btn-xs">
+											        <i class="fa fa-user"/> #{post.author.userName}
+											</p:commandLink>
+											<h:panelGroup rendered="#{sec:areAnyGranted('ROLE_ADMIN') or post.author.userName == request.userPrincipal.principal.username}">
+												<p:commandLink update=":form:dataScroller,message" id="delete" class="btn btn-xs" actionListener="#{indexController.deletePost(post.id)}">
+											        <i class="fa fa-trash"/> delete
+											        <p:confirm header="Delete post" message="Are you sure?" icon="ui-icon-alert" />
+											    </p:commandLink>
+											    <p:confirmDialog widgetVar="deleteDialog" global="true" >
+											        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+											    </p:confirmDialog>
+											    <p:link outcome="editPost?faces-redirect=true&amp;includeViewParams=true" class="btn btn-xs">
+											    	<i class="fa fa-pencil"/> edit
+												    <f:param name="id" value="#{post.id}" />
+												</p:link>												
+											</h:panelGroup>
 										</div>
 										<div class="col-md-4" align="center">
 											<ui:repeat var="tags" value="#{post.tags}">
@@ -156,11 +163,11 @@
 										<div class="col-md-4" align="right">
 											<span class="glyphicon glyphicon-calendar"></span>
 											<h:outputText value="#{post.postDate}" >
-												<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+												<f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Istanbul" dateStyle="full" locale="tr_TR" type="both" />
 											</h:outputText>
-											<c:if test="${post.postDate != post.postEditDate}">
+											<c:if test="${post.postDate == post.postEditDate}">
 												<h:outputText value="#{post.postEditDate}" >
-													<f:convertDateTime pattern=" - dd.MM.yyyy HH:mm" />
+													<f:convertDateTime pattern=" ~ dd.MM.yyyy HH:mm" timeZone="Europe/Istanbul" dateStyle="full" locale="tr_TR" type="both" />
 												</h:outputText>
 											</c:if>
 										</div>

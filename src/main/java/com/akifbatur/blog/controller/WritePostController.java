@@ -1,16 +1,17 @@
 package com.akifbatur.blog.controller;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import com.akifbatur.blog.service.TagService;
  *
  */
 @ManagedBean(name="writePostController")
+@RequestScoped
 public class WritePostController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -53,9 +55,10 @@ public class WritePostController implements Serializable
 
 	private String postTitle;
 	private String postBody;
-	private String tagField;
+	private String tagField = "";
 	private List<String> categories = new ArrayList<String>();
 	private String category;
+	private Set<String> tagFieldSet = new HashSet<String>();
 	private List<String> tagFieldList = new ArrayList<String>();
 	
 	@PostConstruct
@@ -72,25 +75,28 @@ public class WritePostController implements Serializable
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		    String userName = auth.getName();
 			Author author = authorService.getAuthorByUserName(userName);
-			
 			if(!tagField.equals(""))
-			{
-				tagFieldList.addAll(Arrays.asList(tagField.split(",")));
-				tagFieldList.forEach(tagFieldListElement ->
+			{				
+				for (String string : tagField.split(",")) {
+					String str = string.replaceAll("\\s+", " ").trim();
+					if(str.equals("") || str.equals(" "))
+						continue;
+					tagFieldList.add(str);
+				}
+				tagFieldSet.addAll(tagFieldList);
+				tagFieldSet.forEach(tagFieldSetElement ->
 				{
-					Tag tag = tagService.getTagByText(tagFieldListElement);
+					Tag tag = tagService.getTagByText(tagFieldSetElement);
 					if(tag!=null)
 					{
 						post.getTags().add(tag);
-						tag.getPosts().add(post);
 					}
-					else if(!tagFieldListElement.equals("") && !tagFieldListElement.equals(" "))
+					else
 					{
 						tag = new Tag();
-						tag.setTagText(tagFieldListElement);
+						tag.setTagText(tagFieldSetElement);
 						tagService.saveTag(tag);
 						post.getTags().add(tag);
-						tag.getPosts().add(post);
 					}
 				});
 			}
@@ -106,9 +112,9 @@ public class WritePostController implements Serializable
 		catch (Exception e) 
 		{
 			FacesContext context = FacesContext.getCurrentInstance(); 
-	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not posted yet. There is something wrong...", null);
+	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "This title is exist.", null);
 	    	context.addMessage(null, facesMessage);
-	    	System.out.println(e.getCause());
+	    	System.out.println(e.getMessage());
 			return "";
 		}
 	}
@@ -183,5 +189,21 @@ public class WritePostController implements Serializable
 
 	public void setTagService(TagService tagService) {
 		this.tagService = tagService;
+	}
+
+	public Set<String> getTagFieldSet() {
+		return tagFieldSet;
+	}
+
+	public List<String> getTagFieldList() {
+		return tagFieldList;
+	}
+
+	public void setTagFieldSet(Set<String> tagFieldSet) {
+		this.tagFieldSet = tagFieldSet;
+	}
+
+	public void setTagFieldList(List<String> tagFieldList) {
+		this.tagFieldList = tagFieldList;
 	}
 }
