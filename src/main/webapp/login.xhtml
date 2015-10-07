@@ -1,134 +1,37 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:sec="http://www.springframework.org/security/tags">
-
-	<h:head>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>akif batur - blog</title>
-        </f:facet> 
-        <f:facet name="middle">
-            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
-            <h:outputScript name="/js/jquery-1.11.3.js" />
-            <h:outputScript name="bootstrap/js/bootstrap.js" />
-        </f:facet>        
-        <f:facet name="last">
- 			<h:outputStylesheet name="css/font-awesome.css" />
-        </f:facet> 
-    </h:head>
-	
 	<h:body>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-					</button>
-					<a href="${request.contextPath}/" class="navbar-brand">aqui@aqui~$</a>
-				</div>
-				<div class="collapse navbar-collapse" id="mainNavBar">
-					<sec:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
-						<ul class="nav navbar-nav">
-							<li>
-								<a href="${request.contextPath}/"><i class="fa fa-home"/> Home</a>
-							</li>
-							<li>
-								<a href="${request.contextPath}/writePost.xhtml"><i class="fa fa-pencil-square-o"/> Post</a>
-							</li>
-						</ul>
-					</sec:authorize>
-					<sec:authorize ifNotGranted="ROLE_USER">
-						<ul class="nav navbar-nav">
-							<li>
-								<a href="${request.contextPath}/"><i class="fa fa-home"/> Home</a>
-							</li>
-						</ul>
-					</sec:authorize>
-		
-					<sec:authorize ifAnyGranted="ROLE_USER">
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<form class="navbar-form navbar-left" role="search">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-									<div class="form-group">
-									<input type="text" class="form-control" disabled="disabled" placeholder="Not yet..."/>
-									</div>
-									<button type="submit" class="btn btn-default fa fa-search" disabled="disabled">Search</button>
-								</form>
-							</li>
-							<li>
-								<a href="${request.contextPath}/author.xhtml">
-									<i class="fa fa-user"/> #{request.userPrincipal.principal.username}
-								</a>
-							</li>
-							<sec:authorize ifAnyGranted="ROLE_ADMIN">
-								<li>
-									<a href="${request.contextPath}/admin.xhtml">
-										<i class="fa fa-tachometer"/> Admin
-									</a>
-								</li>
-							</sec:authorize>
-							<li>
-								<form action="${request.contextPath}/logout" method="post" name="logoutForm">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								</form> 
-								<a href="#" onclick='document.logoutForm.submit();'><i class="glyphicon glyphicon-log-out"/> Logout</a>
-							</li>
-						</ul>
-					</sec:authorize>
-					<sec:authorize ifNotGranted="ROLE_USER">
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<form class="navbar-form navbar-left" role="search">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-									<div class="form-group">
-									<input type="text" class="form-control" disabled="disabled" placeholder="Not yet..."/>
-									</div>
-									<button type="submit" class="btn btn-default fa fa-search" disabled="disabled">Search</button>
-								</form>
-							</li>
-							<li>
-								<a href="${request.contextPath}/signup.xhtml"><i class="fa fa-user"/> Signup</a>
-							</li>
-							<li>
-								<a href="${request.contextPath}/login.xhtml"><i class="glyphicon glyphicon-log-in"/> Login</a>
-							</li>
-						</ul>
-					</sec:authorize>
-				</div>
-			</div>
-		</nav>
-		
-		<sec:authorize ifNotGranted="ROLE_USER">
-			<c:if test="${not empty param.error}">
-				#{loginController.loginError(param['error'])}
-			</c:if>
-			<div align="center">
-				<p:panel id="pnl" header="Login">
-				 	<h:form prependId="false" id="loginForm">
-						<p:growl id="growl" life="3000"/>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					    <h:outputLabel for="userName" value="Username:" style="font-weight:bold"/>
-					    <p:spacer width="10" height="10" />
-					    <p:inputText id="userName" value="#{loginController.userName}" required="true" label="Username"/>
-					 	<br/><br/>
-					    <h:outputLabel for="password" value="Password:" style="font-weight:bold"/>
-					    <p:spacer width="10" height="10" />
-					    <p:keyboard id="password" value="#{loginController.password}" required="true" label="Password" password="true"/>
-					 	<br/><br/>
-					    <p:commandButton update="growl" action="#{loginController.doLogin}" ajax="false" value="Login" validateClient="true"/>
-				    </h:form>
-				</p:panel>
-			</div>
-		</sec:authorize>
-		
+		<ui:composition template="templates/main.xhtml">
+			<ui:define name="content">
+				<sec:authorize ifNotGranted="ROLE_USER">
+					<c:if test="${not empty param.error}">
+						#{loginController.loginError(param['error'])}
+					</c:if>
+					<div align="center">
+						<p:panel id="pnl" header="Login">
+				 			<h:form prependId="false" id="loginForm">
+								<p:growl id="growl" life="3000"/>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					    		<h:outputLabel for="userName" value="Username:" style="font-weight:bold"/>
+					    		<p:spacer width="10" height="10" />
+					    		<p:inputText id="userName" value="#{loginController.userName}" required="true" label="Username"/>
+					 			<br/><br/>
+					    		<h:outputLabel for="password" value="Password:" style="font-weight:bold"/>
+					    		<p:spacer width="10" height="10" />
+					    		<p:keyboard id="password" value="#{loginController.password}" required="true" label="Password" password="true"/>
+					 			<br/><br/>
+					    		<p:commandButton update="growl" action="#{loginController.doLogin}" ajax="false" value="Login" validateClient="true"/>
+				    		</h:form>
+						</p:panel>
+					</div>
+				</sec:authorize>		
+			</ui:define>
+		</ui:composition>		
 	</h:body>
 </html>
