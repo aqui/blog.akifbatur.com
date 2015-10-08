@@ -62,7 +62,7 @@
 												<h:outputText value="#{post.postDate}" >
 													<f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Istanbul" dateStyle="full" locale="tr_TR" type="both" />
 												</h:outputText>
-												<c:if test="${post.postDate == post.postEditDate}">
+												<c:if test="${post.postDate != post.postEditDate}">
 													<h:outputText value="#{post.postEditDate}" >
 														<f:convertDateTime pattern=" ~ dd.MM.yyyy HH:mm" timeZone="Europe/Istanbul" dateStyle="full" locale="tr_TR" type="both" />
 													</h:outputText>
