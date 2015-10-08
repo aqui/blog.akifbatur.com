@@ -15,6 +15,7 @@
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/author**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/writePost**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/editPost**" access="hasRole('ROLE_USER')" />
 		<!-- <intercept-url pattern="/**" access="authenticated" /> -->
 		
 		<!-- access denied page -->

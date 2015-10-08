@@ -31,7 +31,7 @@
 									</div>
 									<div class="panel-footer panel-info">
 										<div class="row">
-											<div class="col-md-4" align="left">
+											<div class="col-md-4 text-left">
 												<p:commandLink id="userName" class="btn btn-xs">
 											        <i class="fa fa-user"/> #{post.author.userName}
 												</p:commandLink>
@@ -50,14 +50,14 @@
 													</p:link>												
 												</h:panelGroup>
 											</div>
-											<div class="col-md-4" align="center">
+											<div class="col-md-4 text-center">
 												<ui:repeat var="tags" value="#{post.tags}">
 													<a href="${request.contextPath}/post/tag/${tags.tagText}" style="color:gray;text-decoration:none">
 														<span class="label label-default">${tags.tagText}</span>
 													</a>
 												</ui:repeat>
 											</div>	
-											<div class="col-md-4" align="right">
+											<div class="col-md-4 text-right">
 												<span class="glyphicon glyphicon-calendar"></span>
 												<h:outputText value="#{post.postDate}" >
 													<f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Istanbul" dateStyle="full" locale="tr_TR" type="both" />
