@@ -57,7 +57,7 @@ public class EditPostController implements Serializable
 	private Post post = null;
 	
 	private List<String> categories = new ArrayList<String>();
-	
+
 	public void initPost(int id) throws IOException
 	{
 		try
@@ -165,6 +165,7 @@ public class EditPostController implements Serializable
 	}
 
 	public List<String> getCategories() {
+		categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
 		return categories;
 	}
 
