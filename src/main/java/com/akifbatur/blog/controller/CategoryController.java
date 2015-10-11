@@ -2,16 +2,12 @@ package com.akifbatur.blog.controller;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -22,7 +18,6 @@ import com.akifbatur.blog.model.Author;
 import com.akifbatur.blog.model.Category;
 import com.akifbatur.blog.service.AuthorService;
 import com.akifbatur.blog.service.CategoryService;
-import com.akifbatur.blog.service.PostService;
 
 @ManagedBean(name="categoryController")
 public class CategoryController implements Serializable
@@ -39,6 +34,30 @@ public class CategoryController implements Serializable
 	private AuthorService authorService;
 	
 	private String categoryTitle;
+
+	public CategoryService getCategoryService() {
+		return categoryService;
+	}
+
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+
+	public AuthorService getAuthorService() {
+		return authorService;
+	}
+
+	public void setAuthorService(AuthorService authorService) {
+		this.authorService = authorService;
+	}
+
+	public String getCategoryTitle() {
+		return categoryTitle;
+	}
+
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
+	}
 	
 	public void addCategory() 
 	{
@@ -64,29 +83,5 @@ public class CategoryController implements Serializable
 			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Category not added.", null);
 	    	context.addMessage(null, facesMessage);
 		}
-	}
-
-	public CategoryService getCategoryService() {
-		return categoryService;
-	}
-
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
-
-	public AuthorService getAuthorService() {
-		return authorService;
-	}
-
-	public void setAuthorService(AuthorService authorService) {
-		this.authorService = authorService;
-	}
-
-	public String getCategoryTitle() {
-		return categoryTitle;
-	}
-
-	public void setCategoryTitle(String categoryTitle) {
-		this.categoryTitle = categoryTitle;
 	}
 }

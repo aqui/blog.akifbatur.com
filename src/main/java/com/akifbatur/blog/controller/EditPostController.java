@@ -8,10 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -31,8 +29,8 @@ import com.akifbatur.blog.service.TagService;
  * @author Akif Batur 
  *
  */
-@ManagedBean(name="editPostController")
 @ViewScoped
+@ManagedBean(name="editPostController")
 public class EditPostController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -55,82 +53,7 @@ public class EditPostController implements Serializable
 	private String tagField = "";
 	private int postId;
 	private Post post = null;
-	
 	private List<String> categories = new ArrayList<String>();
-
-	public void initPost(int id) throws IOException
-	{
-		try
-		{
-			post = this.postService.getPostById(id);
-			categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
-			category = post.getCategory().getCategoryTitle();
-			postId = post.getId();
-			postTitle = post.getPostTitle();
-			postBody = post.getPostBody();
-			post.getTags().forEach(tag -> {
-				if(tag!=null)
-					tagField+=tag.getTagText()+",";
-			});
-			if(!tagField.equals(""))
-				tagField = tagField.substring(0, tagField.length() - 1);
-		} 
-		catch (Exception e) 
-		{
-			FacesContext fc = FacesContext.getCurrentInstance();
-			ExternalContext ec = fc.getExternalContext();
-			ec.redirect("index.xhtml");
-		}
-	}
-	
-	public String editPost()
-	{
-		//If category changed
-		if(!post.getCategory().getCategoryTitle().equals(category))
-		{
-			Category cat = this.categoryService.getCategoryByTitle(category);
-			post.setCategory(cat);
-		}
-		
-		//Tag processes
-		if(tagField.equals(""))
-		{
-			post.getTags().clear();
-		}
-		else
-		{
-			Set<String> stringSet = new HashSet<String>();
-			Set<Tag> tagSet = new HashSet<Tag>();
-			for (String string : tagField.split(",")) 
-			{
-				String str = string.replaceAll("\\s+", " ").trim();
-				if(str.equals(""))
-					continue;
-				stringSet.add(str);
-			}
-			stringSet.forEach(stringSetElement->{
-				Tag existTag = tagService.getTagByText(stringSetElement);
-				if(existTag!=null)
-				{
-					tagSet.add(existTag);
-				}
-				else
-				{
-					Tag newTag = new Tag();
-					newTag.setTagText(stringSetElement);
-					this.tagService.saveTag(newTag);
-					tagSet.add(newTag);
-				}
-			});
-			post.getTags().clear();
-			post.getTags().addAll(tagSet);
-		}
-		post.setPostEditDate(new Date());
-		post.setPostBody(postBody);
-		post.setPostTitle(postTitle);
-		this.postService.updatePost(post);
-		return "index.xhtml?faces-redirect=true";
-	}
 	
 	public String getPostTitle() {
 		return postTitle;
@@ -211,5 +134,78 @@ public class EditPostController implements Serializable
 
 	public void setPostId(int postId) {
 		this.postId = postId;
+	}
+	
+	public void initPost(int id) throws IOException
+	{
+		try
+		{
+			post = this.postService.getPostById(id);
+			category = post.getCategory().getCategoryTitle();
+			postId = post.getId();
+			postTitle = post.getPostTitle();
+			postBody = post.getPostBody();
+			post.getTags().forEach(tag -> {
+				if(tag!=null)
+					tagField+=tag.getTagText()+",";
+			});
+			if(!tagField.equals(""))
+				tagField = tagField.substring(0, tagField.length() - 1);
+		} 
+		catch (Exception e) 
+		{
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ExternalContext ec = fc.getExternalContext();
+			ec.redirect("index.xhtml");
+		}
+	}
+	
+	public String editPost()
+	{
+		//If category changed
+		if(!post.getCategory().getCategoryTitle().equals(category))
+		{
+			Category cat = this.categoryService.getCategoryByTitle(category);
+			post.setCategory(cat);
+		}
+		
+		//Tag processes
+		if(tagField.equals(""))
+		{
+			post.getTags().clear();
+		}
+		else
+		{
+			Set<String> stringSet = new HashSet<String>();
+			Set<Tag> tagSet = new HashSet<Tag>();
+			for (String string : tagField.split(",")) 
+			{
+				String str = string.replaceAll("\\s+", " ").trim();
+				if(str.equals(""))
+					continue;
+				stringSet.add(str);
+			}
+			stringSet.forEach(stringSetElement->{
+				Tag existTag = tagService.getTagByText(stringSetElement);
+				if(existTag!=null)
+				{
+					tagSet.add(existTag);
+				}
+				else
+				{
+					Tag newTag = new Tag();
+					newTag.setTagText(stringSetElement);
+					this.tagService.saveTag(newTag);
+					tagSet.add(newTag);
+				}
+			});
+			post.getTags().clear();
+			post.getTags().addAll(tagSet);
+		}
+		post.setPostEditDate(new Date());
+		post.setPostBody(postBody);
+		post.setPostTitle(postTitle);
+		this.postService.updatePost(post);
+		return "index.xhtml?faces-redirect=true";
 	}
 }

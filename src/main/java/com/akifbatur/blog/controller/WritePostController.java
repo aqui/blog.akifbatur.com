@@ -32,8 +32,8 @@ import com.akifbatur.blog.service.TagService;
  * @author Akif Batur 
  *
  */
-@ManagedBean(name="writePostController")
 @RequestScoped
+@ManagedBean(name="writePostController")
 public class WritePostController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -60,63 +60,6 @@ public class WritePostController implements Serializable
 	private String category;
 	private Set<String> tagFieldSet = new HashSet<String>();
 	private List<String> tagFieldList = new ArrayList<String>();
-	
-	@PostConstruct
-	public void init() {
-		categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
-	}
-	 
-	public String savePost()
-	{
-		Post post = new Post();
-
-		try 
-		{
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		    String userName = auth.getName();
-			Author author = authorService.getAuthorByUserName(userName);
-			if(!tagField.equals(""))
-			{				
-				for (String string : tagField.split(",")) {
-					String str = string.replaceAll("\\s+", " ").trim();
-					if(str.equals("") || str.equals(" "))
-						continue;
-					tagFieldList.add(str);
-				}
-				tagFieldSet.addAll(tagFieldList);
-				tagFieldSet.forEach(tagFieldSetElement ->
-				{
-					Tag tag = tagService.getTagByText(tagFieldSetElement);
-					if(tag!=null)
-					{
-						post.getTags().add(tag);
-					}
-					else
-					{
-						tag = new Tag();
-						tag.setTagText(tagFieldSetElement);
-						tagService.saveTag(tag);
-						post.getTags().add(tag);
-					}
-				});
-			}
-			post.setCategory(categoryService.getCategoryByTitle(category));
-			post.setPostTitle(postTitle);
-			post.setPostBody(postBody);
-			post.setPostDate(new Date());
-			post.setPostEditDate(new Date());
-			post.setAuthorId(author);
-			this.postService.savePost(post);
-			return "index.xhtml?faces-redirect=true";
-		} 
-		catch (Exception e) 
-		{
-			FacesContext context = FacesContext.getCurrentInstance(); 
-	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "This title is exist.", null);
-	    	context.addMessage(null, facesMessage);
-			return "";
-		}
-	}
 	
 	public String getCategory() {
 		return category;
@@ -204,5 +147,62 @@ public class WritePostController implements Serializable
 
 	public void setTagFieldList(List<String> tagFieldList) {
 		this.tagFieldList = tagFieldList;
+	}
+	
+	@PostConstruct
+	public void init() {
+		categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
+	}
+	 
+	public String savePost()
+	{
+		Post post = new Post();
+
+		try 
+		{
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    String userName = auth.getName();
+			Author author = authorService.getAuthorByUserName(userName);
+			if(!tagField.equals(""))
+			{				
+				for (String string : tagField.split(",")) {
+					String str = string.replaceAll("\\s+", " ").trim();
+					if(str.equals("") || str.equals(" "))
+						continue;
+					tagFieldList.add(str);
+				}
+				tagFieldSet.addAll(tagFieldList);
+				tagFieldSet.forEach(tagFieldSetElement ->
+				{
+					Tag tag = tagService.getTagByText(tagFieldSetElement);
+					if(tag!=null)
+					{
+						post.getTags().add(tag);
+					}
+					else
+					{
+						tag = new Tag();
+						tag.setTagText(tagFieldSetElement);
+						tagService.saveTag(tag);
+						post.getTags().add(tag);
+					}
+				});
+			}
+			post.setCategory(categoryService.getCategoryByTitle(category));
+			post.setPostTitle(postTitle);
+			post.setPostBody(postBody);
+			post.setPostDate(new Date());
+			post.setPostEditDate(new Date());
+			post.setAuthorId(author);
+			this.postService.savePost(post);
+			return "index.xhtml?faces-redirect=true";
+		} 
+		catch (Exception e) 
+		{
+			FacesContext context = FacesContext.getCurrentInstance(); 
+	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "This title is exist.", null);
+	    	context.addMessage(null, facesMessage);
+			return "";
+		}
 	}
 }

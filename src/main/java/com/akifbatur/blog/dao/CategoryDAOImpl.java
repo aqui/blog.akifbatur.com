@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.akifbatur.blog.model.Category;
-import com.akifbatur.blog.model.Tag;
 
 /**
  * 
