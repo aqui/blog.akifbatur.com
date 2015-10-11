@@ -114,7 +114,6 @@ public class WritePostController implements Serializable
 			FacesContext context = FacesContext.getCurrentInstance(); 
 	    	FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "This title is exist.", null);
 	    	context.addMessage(null, facesMessage);
-	    	System.out.println(e.getMessage());
 			return "";
 		}
 	}

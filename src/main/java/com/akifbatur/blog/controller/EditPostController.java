@@ -8,8 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -51,17 +53,19 @@ public class EditPostController implements Serializable
 	private String postTitle = "";
 	private String postBody = "";
 	private String tagField = "";
+	private int postId;
 	private Post post = null;
 	
 	private List<String> categories = new ArrayList<String>();
 	
 	public void initPost(int id) throws IOException
 	{
-		try 
+		try
 		{
 			post = this.postService.getPostById(id);
 			categoryService.getCategories().forEach(category->categories.add(category.getCategoryTitle()));
 			category = post.getCategory().getCategoryTitle();
+			postId = post.getId();
 			postTitle = post.getPostTitle();
 			postBody = post.getPostBody();
 			post.getTags().forEach(tag -> {
@@ -198,5 +202,13 @@ public class EditPostController implements Serializable
 
 	public void setTagService(TagService tagService) {
 		this.tagService = tagService;
+	}
+
+	public int getPostId() {
+		return postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 }

@@ -11,7 +11,7 @@
 			<ui:define name="content">
 				#{editPostController.initPost(param['id'])}
 				<p:panel header="Post Edit Facility">
-					<h:form prependId="false">
+					<h:form prependId="false" id="form">
 						<p:growl id="growl" life="3000"/>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
 						<div class="ui-grid ui-grid-responsive">
@@ -24,7 +24,7 @@
 				    			</div>
 				    			<p:spacer width="5"/>
 				    			<div class="ui-grid-col-4" style="display:inline-block">
-				    				<p:commandButton value="Add Category" icon="ui-icon-plus" actionListener="#{dfView.viewCars}" />
+				    				<p:commandButton value="Add Category" icon="ui-icon-plus" type="button" onclick="PF('addCategory').show();"/>
 				    			</div>
 				    		</div>
 				    		<br/>
@@ -54,6 +54,16 @@
 				    		</div>
 						</div>
 					</h:form>
+					<p:dialog header="Add Category" widgetVar="addCategory" modal="true" draggable="false" resizable="false">
+						<p:panelGrid columns="2" layout="grid">
+							<h:form prependId="false">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
+								<p:inputText label="Category Title" required="true" style="width:100%" value="#{categoryController.categoryTitle}" placeholder="Category Title"></p:inputText>
+								<p:commandButton validateClient="true" value="Add" update="category,growl" onclick="PF('addCategory').hide();" actionListener="#{categoryController.addCategory}"></p:commandButton>
+								<p:commandButton immediate="true" onclick="PF('addCategory').hide();" value="Cancel"></p:commandButton>
+							</h:form>
+						</p:panelGrid>
+					</p:dialog>
 				</p:panel>
 			</ui:define>
 		</ui:composition>		

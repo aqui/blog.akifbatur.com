@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.akifbatur.blog.model.Post;
+import com.akifbatur.blog.model.Tag;
 import com.akifbatur.blog.service.PostService;
 
 /**
@@ -34,7 +37,7 @@ public class IndexController implements Serializable
 	@ManagedProperty("#{postService}")
 	private PostService postService;
 	
-	private List<Post> posts = new ArrayList<Post>();;
+	private List<Post> posts = new ArrayList<Post>();
 	
 	@PostConstruct
 	public void init()
