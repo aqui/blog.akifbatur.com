@@ -143,6 +143,6 @@
     
     <context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>afternoon</param-value>
+		<param-value>hot-sneaks</param-value>
 	</context-param>
 </web-app>

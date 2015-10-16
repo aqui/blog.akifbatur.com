@@ -380,7 +380,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.primefaces.themes</groupId>
-				<artifactId>afternoon</artifactId>
+				<artifactId>hot-sneaks</artifactId>
 				<version>1.0.10</version>
 			</dependency>
 		<!-- Java EE End -->

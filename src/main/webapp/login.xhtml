@@ -24,7 +24,7 @@
 					 			<br/><br/>
 					    		<h:outputLabel for="password" value="Password:" style="font-weight:bold"/>
 					    		<p:spacer width="10" height="10" />
-					    		<p:keyboard id="password" value="#{loginController.password}" required="true" label="Password" password="true"/>
+					    		<p:inputText id="password" value="#{loginController.password}" required="true" label="Password" type="password" />
 					 			<br/><br/>
 					    		<p:commandButton update="growl" action="#{loginController.doLogin}" ajax="false" value="Login" validateClient="true"/>
 				    		</h:form>

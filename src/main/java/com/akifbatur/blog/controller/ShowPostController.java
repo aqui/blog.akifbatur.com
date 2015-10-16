@@ -22,14 +22,14 @@ import com.akifbatur.blog.service.PostService;
  * @author Akif Batur 
  *
  */
-@ManagedBean(name="indexController")
+@ManagedBean(name="showPostController")
 @ViewScoped
-public class IndexController implements Serializable
+public class ShowPostController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShowPostController.class);
 	
 	@ManagedProperty("#{postService}")
 	private PostService postService;
@@ -37,9 +37,29 @@ public class IndexController implements Serializable
 	private List<Post> posts = new ArrayList<Post>();
 	
 	@PostConstruct
-	public void init()
+	public void init(String param, String paramValue)
 	{
-		posts = postService.fetchAllPost();
+		paramValue = paramValue.replace("+", " ");
+		switch (param)
+		{
+			case "category":
+			{
+				posts = postService.getPostsByCategory(paramValue);
+				break;
+			}
+			case "post":
+			{
+				posts = postService.getPostsByTitle(paramValue);
+				break;
+			}
+			case "author":
+			{
+				posts = postService.getPostsByUserName(paramValue);
+				break;
+			}
+			default:
+				break;
+		}
 	}
 	
 	public void setPostService(PostService postService) {
@@ -57,13 +77,5 @@ public class IndexController implements Serializable
 		posts = postService.fetchAllPost();
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Post deleted", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-
-	public PostService getPostService() {
-		return postService;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
 	}
 }

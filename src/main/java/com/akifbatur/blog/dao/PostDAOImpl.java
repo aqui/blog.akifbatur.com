@@ -53,13 +53,14 @@ public class PostDAOImpl implements PostDAO
 	public List<Post> getPostsByTitle(String postTitle) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from Post where POST_TITLE = :postTitle");
+		Query query = session.createQuery("from Post post where POST_TITLE = :postTitle order by post.postDate desc");
 		query.setString("postTitle", postTitle);
 		List<Post> posts = query.list();
 		return posts;
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Post> getPostsByUserName(String userName) 
 	{
 		Query query = null;
@@ -67,8 +68,9 @@ public class PostDAOImpl implements PostDAO
 		query = session.createQuery("from Author where USERNAME = :userName");
 		query.setString("userName", userName);
 		Author author = (Author) query.list().get(0);
-		List<Post> posts = new ArrayList<Post>();
-		posts.addAll(author.getPost());
+		query = session.createQuery("from Post post where AUTHOR_ID = :authorId order by post.postDate desc");
+		query.setInteger("authorId", author.getId());
+		List<Post> posts = query.list();
 		return posts;
 	}
 
@@ -86,6 +88,7 @@ public class PostDAOImpl implements PostDAO
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Post> getPostsByCategory(String categoryTitle) 
 	{
 		Query query = null;
@@ -93,8 +96,9 @@ public class PostDAOImpl implements PostDAO
 		query = session.createQuery("from Category where CATEGORY_TITLE = :categoryTitle");
 		query.setString("categoryTitle", categoryTitle);
 		Category category = (Category) query.list().get(0);
-		List<Post> posts = new ArrayList<Post>();
-		posts.addAll(category.getPost());
+		query = session.createQuery("from Post post where CATEGORY_ID = :categoryId order by post.postDate desc");
+		query.setInteger("categoryId", category.getId());
+		List<Post> posts = query.list();
 		return posts;
 	}
 

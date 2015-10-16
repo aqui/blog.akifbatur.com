@@ -10,11 +10,20 @@
 	<h:body>
 		<ui:composition template="templates/main.xhtml">
 			<ui:define name="content">
+				<c:if test="${not empty param.category}">
+					#{showPostController.init("category", param['category'])}
+				</c:if>
+				<c:if test="${not empty param.post}">
+					#{showPostController.init("post", param['post'])}
+				</c:if>
+				<c:if test="${not empty param.author}">
+					#{showPostController.init("author", param['author'])}
+				</c:if>
     			<h:form id="form" prependId="false">
 					<p:growl id="message"/>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				    <p:dataScroller id="dataScroller" value="#{indexController.posts}" var="post" chunkSize="5">
-				    	<c:if test="#{indexController.posts.size()>5}">
+				    <p:dataScroller id="dataScroller" value="#{showPostController.posts}" var="post" chunkSize="5">
+					    <c:if test="#{showPostController.posts.size()>5}">
 					    	<f:facet name="loader">
 						    	<p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
 						    </f:facet>
@@ -25,7 +34,7 @@
 									<div class="panel-heading">
 										<h3 class="panel-title">
 											<a href="${request.contextPath}/showPost.xhtml?category=#{fn:replace(post.category.categoryTitle, ' ', '+')}">#{post.category.categoryTitle}</a>
-											: 
+											:
 											<a href="${request.contextPath}/showPost.xhtml?post=#{fn:replace(post.postTitle, ' ', '+')}">#{post.postTitle}</a>
 										</h3>
 									</div>
@@ -36,10 +45,10 @@
 										<div class="row">
 											<div class="col-md-4 text-left">
 												<a href="${request.contextPath}/showPost.xhtml?author=#{fn:replace(post.author.userName, ' ', '+')}">
-											        <i class="fa fa-user"/> #{post.author.userName}
+													<i class="fa fa-user"/> #{post.author.userName}
 												</a>
 												<h:panelGroup rendered="#{sec:areAnyGranted('ROLE_ADMIN') or post.author.userName == request.userPrincipal.principal.username}">
-													<p:commandLink update=":form:dataScroller,message" id="delete" class="btn btn-xs" actionListener="#{indexController.deletePost(post.id)}">
+													<p:commandLink update=":form:dataScroller,message" id="delete" class="btn btn-xs" actionListener="#{showPostController.deletePost(post.id)}">
 												        <i class="fa fa-trash"/> delete
 												        <p:confirm header="Delete post" message="Are you sure?" icon="ui-icon-alert" />
 												    </p:commandLink>
@@ -54,9 +63,9 @@
 												</h:panelGroup>
 											</div>
 											<div class="col-md-4 text-center">
-												<ui:repeat var="tags" value="#{post.tags}">
-													<a href="${request.contextPath}/post/tag/${tags.tagText}" style="color:gray;text-decoration:none">
-														<span class="label label-default">${tags.tagText}</span>
+												<ui:repeat var="tag" value="#{post.tags}">
+													<a href="${request.contextPath}/showPost.xhtml?tag=${tag.tagText}" style="color:gray;text-decoration:none">
+														<span class="label label-default">${tag.tagText}</span>
 													</a>
 												</ui:repeat>
 											</div>	
